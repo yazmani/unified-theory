@@ -1,0 +1,32 @@
+{
+ "label": "inkling-e0166-c0165-r1",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091/v1",
+ "context": 131072,
+ "when": "2026-11-23 21:44:20",
+ "turns": 3,
+ "total_wall_s": 343.9,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 59.0,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 1948
+  },
+  {
+   "turn": 2,
+   "wall_s": 76.3,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 1390
+  },
+  {
+   "turn": 3,
+   "wall_s": 208.6,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 5410
+  }
+ ]
+}

@@ -60,7 +60,10 @@ the same characters written as text. Still open in 0.2.20.
 
 `strata update` → Control 0.1.66, Inkling engine 0.1.66. What changed for Inkling:
 
-- **#6627 closed:** the engine now has a prompt-end checkpoint, and `DONE` reports drafts and reused tokens.
+- **#6627 closed, but not for Macs:** the engine's prompt-end checkpoint (`save_prompt_checkpoint` /
+  `restore_prompt_checkpoint`) is implemented for **CUDA and CPU only**. The Metal backend (like HIP and SYCL) keeps
+  the default that returns `false`, so on Apple Silicon there is no checkpoint at all. `DONE` now reports drafts and
+  reused tokens.
 - **Thinking is always off.** The server appends `<|message_model|><|content_text|>` (no tools) or an empty thinking
   block `<|message_model|><|content_thinking|><|end_message|>` (with tools). No request option turns it back on.
 
@@ -82,7 +85,14 @@ re-reads everything (~1,000 tok/s, 10–20 s per request at 10–20K tokens).
 | stock 0.2.20, 2 runs | 330 / 341 s | 0 of 15–16 requests |
 | 0.2.20 + chat-template workaround from the #6627 thread | 719 s | 5 of 17; one request ran to 32,000 hidden tokens (517 s) |
 | checkpoint engine under the 0.2.20 server | 281 s | 0 of 14 (the mismatch is in the prompt text) |
+| 0.2.20 engine under the 0.2.19 server | 344 s | 5 of 17 (no Metal checkpoint; only exact-prefix hits) |
 | **checkpoint engine + 0.2.19 server** | **105 / 113 / 119 s** | 85–88% of prompt tokens |
+
+**Why plain chat still reuses on 0.2.20 (Mac):** with thinking off, the slot holds exactly the prompt plus the
+visible reply, so the next prompt extends it and the old exact-prefix path matches. No checkpoint is involved.
+With tools, the forced empty thinking block breaks that exact match too, and there is no checkpoint to fall back
+on. Two separate upstream gaps, both needed for agents on a Mac: Metal checkpoint support, and a prompt suffix
+that the next turn's history reproduces.
 
 The same happens with Claude Code, pi and OpenCode: 0 cached tokens on 0.2.20, 2.5–5.7× slower
 ([agent-harnesses.md](agent-harnesses.md)). Upstream fix needed: render the empty thinking block back for

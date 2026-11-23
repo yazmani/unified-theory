@@ -25,6 +25,8 @@ matching page under [findings/](findings/).
 - Harness comparison: Cline, Claude Code, pi, OpenCode on the same model and task.
   → [agent-harnesses](findings/agent-harnesses.md)
 - Repo restructured into findings / guides / configs, with a privacy check.
+- Mixed setup (0.2.20 engine under the 0.2.19 server): 344 s, no better. Cause: 0.2.20 has prompt checkpoints for
+  CUDA/CPU only, none on Metal. → [strata-prompt-cache §4](findings/strata-prompt-cache.md#4-strata-0220)
 
 ## Open threads
 
