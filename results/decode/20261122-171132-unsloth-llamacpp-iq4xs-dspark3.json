@@ -1,0 +1,76 @@
+{
+ "label": "unsloth-llamacpp-iq4xs-dspark3",
+ "url": "http://127.0.0.1:8092",
+ "model": null,
+ "max_tokens": 2048,
+ "notes": "unsloth llama.cpp b12588, dspark Q8_0 n-max 3, effort none",
+ "extra": {
+  "chat_template_kwargs": {
+   "reasoning_effort": "none"
+  }
+ },
+ "when": "2026-11-22 17:11:32",
+ "decode_tps_median": 36.131440071761595,
+ "decode_tps_by_prompt": {
+  "gen-python": 36.131440071761595,
+  "refactor-ts": 36.45901571477665,
+  "explain-rust": 34.756358226404465
+ },
+ "visible_tps_est_median": 15.897996266002659,
+ "wall_s_total": 100.5509703331627,
+ "completion_tokens_total": 3564,
+ "visible_chars_total": 6339,
+ "rows": [
+  {
+   "wall_s": 57.022906500147656,
+   "engine_decode_tps": 36.131440071761595,
+   "engine_prefill_tps": 133.8966099564426,
+   "visible_chars": 4588,
+   "visible_tps_est": 22.98825548034365,
+   "completion_tokens": 2048,
+   "prompt_tokens": 49,
+   "ttft_s": 20.90907816705294,
+   "decode_tps": 56.68212254814268,
+   "e2e_tps": 35.91539129971736,
+   "chunks": 1453,
+   "text": "\"\"\"Thread-safe LRU cache with TTL expiry and decorator interface.\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Hashable, Optional, TypeVar\n\nK = TypeVar(\"K\", bound=Hashable)\nV = TypeVar(\"V\")\n\n_MISS = object()\n\n\nclass LRUCacheTTL:\n    \"\"\"A thread-safe least-recently-used cache with per-entry TTL expiry.\n\n    Args:\n        maxsize: Maximum number of entries to retain. Must be positive.\n        ttl: Time-to-live in seconds for each entry. Must be positive.\n        clock: Monotonic clock function used for expiry checks.\n    \"\"\"\n\n    def __init__(\n        self,\n        maxsize: int = 128,\n        ttl: float = 60.0,\n        clock: Callable[[], float] = time.monotonic,\n    ) -> None:\n        if maxsize <= 0:\n            raise ValueError(\"maxsize must be positive\")\n        if ttl <= 0:\n            raise ValueError(\"ttl must be positive\")\n        self.maxsize = maxsize\n        self.ttl = ttl\n        self.clock = clock\n        self._data: OrderedDict[Hashable, tuple[V, float]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Hashable, default: Optional[V] = None) -> Optional[V]:\n        \"\"\"Return the cached value for ``key``, or ``default`` if missing/expired.\"\"\"\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return default\n            value, expires_at = item\n            if self.clock() >= expires_at:\n                del self._data[key]\n                return default\n            self._data.move_to_end(key)\n            return value\n\n    def set(self, key: Hashable, value: V) -> None:\n        \"\"\"Store ``value`` under ``key``, evicting the least-recently-used entry if needed.\"\"\"\n        with self._lock:\n            if key in self._data:\n                self._data.move_to_end(key)\n            self._data[key] = (value, self.clock() + self.ttl)\n            while len(self._data) > self.maxsize:\n                self._data.popitem(last=False)\n\n    def get_or_set(self, key: Hashable, factory: Callable[[], V]) -> V:\n        \"\"\"Return the cached value for ``key``, computing and storing it if absent/expired.\"\"\"\n        with self._lock:\n            item = self._data.get(key)\n            if item is not None:\n                value, expires_at = item\n                if self.clock() < expires_at:\n                    self._data.move_to_end(key)\n                    return value\n                del self._data[key]\n        value = factory()\n        self.set(key, value)\n        return value\n\n    def delete(self, key: Hashable) -> bool:\n        \"\"\"Delete ``key`` if present. Returns True if an entry was removed.\"\"\"\n        with self._lock:\n            return self._data.pop(key, None) is not None\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._data.clear()\n\n    def __len__(self) -> int:\n        with self._lock:\n            self._purge_expired()\n            return len(self._data)\n\n    def __contains__(self, key: Hashable) -> bool:\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return False\n            value, expires_at = item\n            if self.clock() >= expires_at:\n                del self._data[key]\n                return False\n            self._data.move_to_end(key)\n            return True\n\n    def _purge_expired(self) -> None:\n        now = self.clock()\n        expired = [k for k, (_, exp) in self._data.items() if now >= exp]\n        for k in expired:\n            del self._data[k]\n\n\ndef _default_key(args: tuple[Any, ...], kwargs: dict[str, Any]) -> Hashable:\n    return (args, tuple(sorted(kwargs.items())))\n\n\ndef lru_cache_ttl(\n    maxsize: int = 128,\n    ttl: float = 60.0,\n    key: Optional[Callable[..., Hashable]] = None,\n) -> Callable[[Callable[..., V]], Callable[..., V]]:\n    \"\"\"Create a decorator that caches a function's return value with LRU eviction and TTL.\n\n    Args:\n        maxsize: Maximum number of cached entries.\n        ttl: Seconds each cached entry remains valid.\n        key: Optional callable used to derive the cache key from the call arguments.\n            Defaults to ``(args, tuple(sorted(kwargs.items())))``.\n\n    Returns:\n        A decorator preserving the wrapped function's metadata. The decorated function\n        exposes a ``cache`` attribute of type :class:`LRUCacheTTL`.\n    \"\"\"\n\n    def decorator(func: Callable[..., V]) -> Callable[..., V]:\n        cache = LRUCacheTTL(maxsize=maxsize, ttl=ttl)",
+   "reasoning_chars": 2085,
+   "prompt_id": "gen-python",
+   "run": 0
+  },
+  {
+   "wall_s": 26.436961208004504,
+   "engine_decode_tps": 36.45901571477665,
+   "engine_prefill_tps": 382.11398228841125,
+   "visible_chars": 800,
+   "visible_tps_est": 8.645903996796061,
+   "completion_tokens": 931,
+   "prompt_tokens": 347,
+   "ttft_s": 20.431107082869858,
+   "decode_tps": 154.85329263411717,
+   "e2e_tps": 35.21584771694996,
+   "chunks": 279,
+   "text": "export interface Org {\n  id?: string;\n  name?: string;\n  [key: string]: unknown;\n}\n\nexport interface User {\n  id?: string;\n  orgId: string;\n  org?: Org;\n  [key: string]: unknown;\n}\n\nasync function fetchJson<T>(url: string): Promise<T> {\n  const response = await fetch(url);\n  if (!response.ok) {\n    throw new Error(`Request failed with status ${response.status} for ${url}`);\n  }\n  return (await response.json()) as T;\n}\n\nexport async function loadUser(id: string): Promise<User> {\n  const user = await fetchJson<User>(`/api/users/${encodeURIComponent(id)}`);\n  const org = await fetchJson<Org>(`/api/orgs/${encodeURIComponent(user.orgId)}`);\n  return { ...user, org };\n}\n\nexport async function loadUsers(ids: string[]): Promise<User[]> {\n  return await Promise.all(ids.map((id) => loadUser(id)));\n}",
+   "reasoning_chars": 2343,
+   "prompt_id": "refactor-ts",
+   "run": 0
+  },
+  {
+   "wall_s": 17.091102625010535,
+   "engine_decode_tps": 34.756358226404465,
+   "engine_prefill_tps": 153.66855566549728,
+   "visible_chars": 951,
+   "visible_tps_est": 15.897996266002659,
+   "completion_tokens": 585,
+   "prompt_tokens": 51,
+   "ttft_s": 8.68062866711989,
+   "decode_tps": 70.0924494740644,
+   "e2e_tps": 34.22833580929594,
+   "chunks": 322,
+   "text": "- `Rc<RefCell<T>>`: single-threaded shared ownership + runtime-checked interior mutability. Not `Send`/`Sync`. Use when data is shared within one thread/event loop. Borrow conflicts panic.\n- `Arc<Mutex<T>>`: atomic shared ownership across threads + blocking mutual exclusion. Use when multiple threads need shared mutable state. Locks can block; poisoning possible.\n\n```rust\n// Rc<RefCell<T>>\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nlet shared = Rc::new(RefCell::new(0));\nlet a = shared.clone();\nlet b = shared.clone();\n\n*a.borrow_mut() += 1;\nprintln!(\"{}\", b.borrow()); // 1\n```\n\n```rust\n// Arc<Mutex<T>>\nuse std::sync::{Arc, Mutex};\nuse std::thread;\n\nlet counter = Arc::new(Mutex::new(0));\nlet c = counter.clone();\n\nlet handle = thread::spawn(move || {\n    *c.lock().unwrap() += 1;\n});\n\nhandle.join().unwrap();\nprintln!(\"{}\", *counter.lock().unwrap()); // 1\n```\n\nRule of thumb: single-threaded \u2192 `Rc<RefCell<T>>`; multi-threaded \u2192 `Arc<Mutex<T>>`.",
+   "reasoning_chars": 864,
+   "prompt_id": "explain-rust",
+   "run": 0
+  }
+ ]
+}

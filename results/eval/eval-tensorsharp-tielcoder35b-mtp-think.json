@@ -1,0 +1,93 @@
+{
+ "label": "tensorsharp-tielcoder35b-mtp-think",
+ "extra": {
+  "model": "Tiel-Coder-35B-A3B-MTP-UD-IQ4_XS"
+ },
+ "when": "2026-11-22 19:39:04",
+ "passed": 8,
+ "total": 10,
+ "wall_s_total": 65.54668062436394,
+ "tokens_total": 5917,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.659327375004068,
+   "completion_tokens": 112,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 2.6114937500096858,
+   "completion_tokens": 216,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.799788458039984,
+   "completion_tokens": 140,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": false,
+   "wall_s": 38.66931258281693,
+   "completion_tokens": 3725,
+   "finish": "stop",
+   "err": "/53/j16v3jb13mx16vch5kghdlw00000gn/T/tmpw_hndsh3.py\", line 68, in put\n    self._insert_after_head(node)\n    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^\n  File \"<task>.py\", line 32, in _insert_after_head\n    p = self.prev[h]\n        ~~~~~~~~~^^^\nKeyError: None\n"
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 3.062020249897614,
+   "completion_tokens": 260,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 4.255193291930482,
+   "completion_tokens": 350,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 2.2773631669115275,
+   "completion_tokens": 184,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.663717957912013,
+   "completion_tokens": 212,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 4.063507874961942,
+   "completion_tokens": 338,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": false,
+   "wall_s": 4.484955916879699,
+   "completion_tokens": 380,
+   "finish": "stop",
+   "err": "Traceback (most recent call last):\n  File \"<task>.py\", line 36, in <module>\n    m.add(x); assert m.median()==e, (x, m.median())\n    ^^^^^\nAttributeError: 'MedianFinder' object has no attribute 'add'\n"
+  }
+ ]
+}

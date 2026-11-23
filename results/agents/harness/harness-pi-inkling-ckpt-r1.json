@@ -1,0 +1,42 @@
+{
+ "label": "pi-inkling-ckpt-r1",
+ "harness": "pi",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091",
+ "context": 131072,
+ "when": "2026-11-23 20:40:52",
+ "turns": 3,
+ "total_wall_s": 108.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 20.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 1405,
+   "prompt_tokens": 18832,
+   "cached_tokens": 10309
+  },
+  {
+   "turn": 2,
+   "wall_s": 16.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 408,
+   "prompt_tokens": 39995,
+   "cached_tokens": 37640
+  },
+  {
+   "turn": 3,
+   "wall_s": 72.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 8,
+   "answer_chars": 4666,
+   "prompt_tokens": 178348,
+   "cached_tokens": 161069
+  }
+ ]
+}

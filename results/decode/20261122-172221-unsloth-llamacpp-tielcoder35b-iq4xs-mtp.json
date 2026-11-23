@@ -1,0 +1,72 @@
+{
+ "label": "unsloth-llamacpp-tielcoder35b-iq4xs-mtp",
+ "url": "http://127.0.0.1:8092",
+ "model": null,
+ "max_tokens": 4096,
+ "notes": "unsloth llama.cpp b12588, --spec-type draft-mtp, default thinking",
+ "extra": null,
+ "when": "2026-11-22 17:22:21",
+ "decode_tps_median": 97.94973609440643,
+ "decode_tps_by_prompt": {
+  "gen-python": 103.21496844199471,
+  "refactor-ts": 90.10540822761568,
+  "explain-rust": 97.94973609440643
+ },
+ "visible_tps_est_median": 50.15818329427271,
+ "wall_s_total": 73.45600758306682,
+ "completion_tokens_total": 6987,
+ "visible_chars_total": 7226,
+ "rows": [
+  {
+   "wall_s": 26.254083708161488,
+   "engine_decode_tps": 103.21496844199471,
+   "engine_prefill_tps": 407.1977041805631,
+   "visible_chars": 4609,
+   "visible_tps_est": 50.15818329427271,
+   "completion_tokens": 2700,
+   "prompt_tokens": 221,
+   "ttft_s": 15.394285541959107,
+   "decode_tps": 248.53881861819255,
+   "e2e_tps": 102.8411438773871,
+   "chunks": 1180,
+   "text": "```python\n\"\"\"Thread-safe LRU cache with time-to-live (TTL) expiry and a decorator interface.\n\nPublic API:\n    TTLCache   - a manual get/set LRU+TTL cache.\n    ttl_cache  - a decorator factory wrapping a function with such a cache.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Hashable, Optional, TypeVar\n\n__all__ = [\"TTLCache\", \"ttl_cache\"]\n\nT = TypeVar(\"T\")\n\n# Sentinel distinguishing \"key absent\" from \"value is None\".\n_UNSET: Any = object()\n\n\nclass TTLCache:\n    \"\"\"A thread-safe LRU cache with per-entry TTL expiry.\n\n    Entries expire after ``ttl`` seconds. When the number of stored entries\n    exceeds ``maxsize``, the least-recently-used entry is evicted. Expired\n    entries are removed lazily on access and eagerly during eviction.\n\n    Args:\n        maxsize: Maximum number of entries to retain. Must be > 0.\n        ttl: Time-to-live in seconds. ``0`` disables expiry. Must be >= 0.\n    \"\"\"\n\n    def __init__(self, maxsize: int = 128, ttl: float = 0.0) -> None:\n        if maxsize <= 0:\n            raise ValueError(\"maxsize must be > 0\")\n        if ttl < 0:\n            raise ValueError(\"ttl must be >= 0\")\n        self._maxsize = maxsize\n        self._ttl = ttl\n        # Maps key -> (value, absolute_expiry_monotonic_time).\n        self._store: \"OrderedDict[Hashable, tuple[Any, float]]\" = OrderedDict()\n        self._lock = threading.Lock()\n        self._now = time.monotonic\n\n    def _is_expired(self, expires_at: float) -> bool:\n        return self._now() >= expires_at\n\n    def get(self, key: Hashable, default: Any = None) -> Any:\n        \"\"\"Return the value for ``key`` if present and not expired, else ``default``.\"\"\"\n        with self._lock:\n            entry = self._store.get(key)\n            if entry is None:\n                return default\n            value, expires_at = entry\n            if self._is_expired(expires_at):\n                del self._store[key]\n                return default\n            self._store.move_to_end(key)\n            return value\n\n    def set(self, key: Hashable, value: Any, ttl: Optional[float] = None) -> None:\n        \"\"\"Store ``value`` under ``key`` with an optional per-call TTL override.\"\"\"\n        with self._lock:\n            expires_at = self._now() + (ttl if ttl is not None else self._ttl)\n            if key in self._store:\n                self._store.move_to_end(key)\n            self._store[key] = (value, expires_at)\n            self._store.move_to_end(key)\n            while len(self._store) > self._maxsize:\n                self._store.popitem(last=False)\n\n    def __contains__(self, key: object) -> bool:\n        with self._lock:\n            entry = self._store.get(key)\n            if entry is None:\n                return False\n            _, expires_at = entry\n            if self._is_expired(expires_at):\n                del self._store[key]\n                return False\n            return True\n\n    def __len__(self) -> int:\n        with self._lock:\n            return len(self._store)\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._store.clear()\n\n    def __repr__(self) -> str:\n        return f\"{type(self).__name__}(maxsize={self._maxsize}, ttl={self._ttl})\"\n\n\ndef ttl_cache(\n    maxsize: int = 128,\n    ttl: float = 0.0,\n) -> Callable[[Callable[..., T]], Callable[..., T]]:\n    \"\"\"Decorator factory caching function results with LRU + TTL eviction.\n\n    Args:\n        maxsize: Maximum number of cached entries.\n        ttl: Time-to-live in seconds. ``0`` disables expiry.\n\n    Returns:\n        A decorator wrapping ``func`` with a thread-safe :class:`TTLCache`.\n\n    Notes:\n        The wrapped function's positional and keyword arguments must be\n        hashable. The underlying cache is exposed as ``wrapper.cache`` and\n        cleared via ``wrapper.cache_clear()``.\n    \"\"\"\n\n    def decorator(func: Callable[..., T]) -> Callable[..., T]:\n        cache = TTLCache(maxsize=maxsize, ttl=ttl)\n\n        @functools.wraps(func)\n        def wrapper(*args: Hashable, **kwargs: Hashable) -> T:\n            key = (args, frozenset(kwargs.items()))\n            cached = cache.get(key, _UNSET)\n            if cached is _UNSET:\n                cached = func(*args, **kwargs)\n                cache.set(key, cached)\n            return cached\n\n        # Expose cache controls on the wrapper.\n        wrapper.cache = cache  # type: ignore[attr-defined]\n        wrapper.cache_clear = cache.clear  # type: ignore[attr-defined]\n        return wrapper\n\n    return decorator\n```",
+   "reasoning_chars": 5897,
+   "prompt_id": "gen-python",
+   "run": 0
+  },
+  {
+   "wall_s": 38.6559276250191,
+   "engine_decode_tps": 90.10540822761568,
+   "engine_prefill_tps": 1143.4643995749202,
+   "visible_chars": 1069,
+   "visible_tps_est": 7.901209211466194,
+   "completion_tokens": 3462,
+   "prompt_tokens": 448,
+   "ttft_s": 35.882030750159174,
+   "decode_tps": 1262.3644130825357,
+   "e2e_tps": 89.5593564222038,
+   "chunks": 301,
+   "text": "```ts\ninterface Org {\n  [key: string]: unknown;\n}\n\ninterface User {\n  id: number;\n  orgId: number;\n  org?: Org;\n  [key: string]: unknown;\n}\n\nasync function loadUser(id: number | string): Promise<User> {\n  const res = await fetch(`/api/users/${id}`);\n  if (!res.ok) {\n    throw new Error(`bad status ${res.status}`);\n  }\n  const user = (await res.json()) as User;\n\n  const orgRes = await fetch(`/api/orgs/${user.orgId}`);\n  if (!orgRes.ok) {\n    throw new Error(`bad status ${orgRes.status}`);\n  }\n  user.org = (await orgRes.json()) as Org;\n\n  return user;\n}\n\nasync function loadUsers(ids: (number | string)[]): Promise<User[]> {\n  return Promise.all(ids.map((id) => loadUser(id)));\n}\n\nmodule.exports = { loadUser, loadUsers };\n```\n\nBehavior change worth flagging: the original `loadUsers` never called its callback when `ids` was empty (it hung); `Promise.all([])` resolves to `[]`, so empty input now resolves correctly. `Promise.all` also rejects on the first failure (matching the original fail-fast intent) while letting in-flight requests finish in the background.",
+   "reasoning_chars": 12638,
+   "prompt_id": "refactor-ts",
+   "run": 0
+  },
+  {
+   "wall_s": 8.54599624988623,
+   "engine_decode_tps": 97.94973609440643,
+   "engine_prefill_tps": 383.736256402556,
+   "visible_chars": 1548,
+   "visible_tps_est": 51.75355819885859,
+   "completion_tokens": 825,
+   "prompt_tokens": 225,
+   "ttft_s": 3.775594624923542,
+   "decode_tps": 172.73765060814645,
+   "e2e_tps": 96.53643365581667,
+   "chunks": 463,
+   "text": "**Core difference:** both give shared ownership + interior mutability, but `Rc<RefCell<T>>` is single-threaded while `Arc<Mutex<T>>` is multi-threaded.\n\n- `Rc` (reference count) is cheap but not `Send`/`Sync` \u2014 can't move it across threads. `Arc` (atomic reference count) is thread-safe.\n- `RefCell` enforces borrow rules at runtime and **panics** if violated; it needs no lock. `Mutex` enforces them via a **lock** that blocks other threads, so it's safe to share across threads.\n\n**When to use which:**\n- `Rc<RefCell<T>>` \u2014 shared mutable data confined to one thread; you want cheap, lock-free access and can guarantee no data races.\n- `Arc<Mutex<T>>` \u2014 shared mutable data accessed from multiple threads; the lock serializes access.\n\n**Example \u2014 `Rc<RefCell<T>>` (single thread):**\n```rust\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nlet a = Rc::new(RefCell::new(5));\nlet b = Rc::clone(&a);\n*b.borrow_mut() += 1;\nprintln!(\"{}\", *b.borrow()); // 6\n```\n\n**Example \u2014 `Arc<Mutex<T>>` (multi-thread):**\n```rust\nuse std::sync::{Arc, Mutex};\nuse std::thread;\n\nlet data = Arc::new(Mutex::new(0));\nlet mut handles = vec![];\nfor _ in 0..4 {\n    let data = Arc::clone(&data);\n    handles.push(thread::spawn(move || {\n        *data.lock().unwrap() += 1;\n    }));\n}\nfor h in handles { h.join().unwrap(); }\nprintln!(\"{}\", *data.lock().unwrap()); // 4\n```\n\nNote: `Mutex` locks must not be held across a `Send` boundary that could deadlock, and `RefCell` will panic (not just fail to compile) if you borrow mutably while a borrow is alive \u2014 so keep borrows short.",
+   "reasoning_chars": 1251,
+   "prompt_id": "explain-rust",
+   "run": 0
+  }
+ ]
+}

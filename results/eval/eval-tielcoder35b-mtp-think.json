@@ -1,0 +1,91 @@
+{
+ "label": "tielcoder35b-mtp-think",
+ "extra": null,
+ "when": "2026-11-22 17:24:39",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 69.99843054241501,
+ "tokens_total": 6805,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.6191809999290854,
+   "completion_tokens": 135,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 2.6838561249896884,
+   "completion_tokens": 271,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.9291766670066863,
+   "completion_tokens": 199,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 2.73208075016737,
+   "completion_tokens": 265,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 12.865858749952167,
+   "completion_tokens": 1270,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 8.396192457992584,
+   "completion_tokens": 812,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 9.816586832981557,
+   "completion_tokens": 1020,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.861927750054747,
+   "completion_tokens": 296,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 13.873000250197947,
+   "completion_tokens": 1291,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 13.220569959143177,
+   "completion_tokens": 1246,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

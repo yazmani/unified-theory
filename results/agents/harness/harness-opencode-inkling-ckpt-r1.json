@@ -1,0 +1,42 @@
+{
+ "label": "opencode-inkling-ckpt-r1",
+ "harness": "opencode",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091",
+ "context": 131072,
+ "when": "2026-11-23 20:46:04",
+ "turns": 3,
+ "total_wall_s": 65.9,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 26.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 630,
+   "prompt_tokens": 33093,
+   "cached_tokens": 17997
+  },
+  {
+   "turn": 2,
+   "wall_s": 12.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 80,
+   "prompt_tokens": 82382,
+   "cached_tokens": 79849
+  },
+  {
+   "turn": 3,
+   "wall_s": 27.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1707,
+   "prompt_tokens": 100539,
+   "cached_tokens": 95646
+  }
+ ]
+}

@@ -1,0 +1,141 @@
+[
+ {
+  "run": "inkling-sq15-ckpt-r1",
+  "total_s": 105.3,
+  "turn_s": [
+   29.9,
+   21.5,
+   53.9
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "4/8",
+  "t3_false_claims": 0,
+  "failed_checks": []
+ },
+ {
+  "run": "inkling-sq15-ckpt-r2",
+  "total_s": 112.6,
+  "turn_s": [
+   31.4,
+   18.6,
+   62.6
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "6/8",
+  "t3_false_claims": 0,
+  "failed_checks": []
+ },
+ {
+  "run": "tiel-q4kxl-mtp1-rb8k",
+  "total_s": 142.0,
+  "turn_s": [
+   27.2,
+   24.6,
+   90.2
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "4/8",
+  "t3_false_claims": 0,
+  "failed_checks": []
+ },
+ {
+  "run": "tiel-q4kxl-mtp1-rb8k-r2",
+  "total_s": 168.0,
+  "turn_s": [
+   26.9,
+   26.5,
+   114.6
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "7/8",
+  "t3_false_claims": 0,
+  "failed_checks": []
+ },
+ {
+  "run": "cyber-q4kxl-mtp1-rb8k",
+  "total_s": 152.7,
+  "turn_s": [
+   26.0,
+   14.2,
+   112.5
+  ],
+  "t1_t2_checks": "8/9",
+  "t3_true_findings": "3/8",
+  "t3_false_claims": 0,
+  "failed_checks": [
+   "t2_local_config_excluded"
+  ]
+ },
+ {
+  "run": "cyber-q4kxl-mtp1-rb8k-r2",
+  "total_s": 180.8,
+  "turn_s": [
+   25.6,
+   25.6,
+   129.6
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "4/8",
+  "t3_false_claims": 0,
+  "failed_checks": []
+ },
+ {
+  "run": "tiel-iq4xs-mtp1-rb8k",
+  "total_s": 609.7,
+  "turn_s": [
+   27.0,
+   476.0,
+   106.7
+  ],
+  "t1_t2_checks": "7/9",
+  "t3_true_findings": "4/8",
+  "t3_false_claims": 0,
+  "failed_checks": [
+   "t2_message_conventional",
+   "t2_tree_clean_except_local"
+  ]
+ },
+ {
+  "run": "tiel-iq4xs-mtp1-rb8k-r2",
+  "total_s": 284.0,
+  "turn_s": [
+   33.1,
+   28.5,
+   222.4
+  ],
+  "t1_t2_checks": "9/9",
+  "t3_true_findings": "4/8",
+  "t3_false_claims": 1,
+  "failed_checks": []
+ },
+ {
+  "run": "tiel-q4kxl-mtp3-rb8k",
+  "total_s": 205.9,
+  "turn_s": [
+   23.3,
+   13.8,
+   168.8
+  ],
+  "t1_t2_checks": "8/9",
+  "t3_true_findings": "3/8",
+  "t3_false_claims": 0,
+  "failed_checks": [
+   "t2_local_config_excluded"
+  ]
+ },
+ {
+  "run": "tiel-q4kxl-mtp1",
+  "total_s": 856.5,
+  "turn_s": [
+   28.9,
+   668.4,
+   159.2
+  ],
+  "t1_t2_checks": "8/9",
+  "t3_true_findings": "6/8",
+  "t3_false_claims": 0,
+  "failed_checks": [
+   "t2_tree_clean_except_local"
+  ]
+ }
+]

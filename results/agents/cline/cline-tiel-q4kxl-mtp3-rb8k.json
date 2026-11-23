@@ -1,0 +1,32 @@
+{
+ "label": "tiel-q4kxl-mtp3-rb8k",
+ "model": "local",
+ "base_url": "http://127.0.0.1:8092/v1",
+ "context": 131072,
+ "when": "2026-11-23 00:28:47",
+ "turns": 3,
+ "total_wall_s": 205.9,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 23.3,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 1834
+  },
+  {
+   "turn": 2,
+   "wall_s": 13.8,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 640
+  },
+  {
+   "turn": 3,
+   "wall_s": 168.8,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 3788
+  }
+ ]
+}

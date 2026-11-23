@@ -1,0 +1,73 @@
+{
+ "label": "dbg-session",
+ "files": [
+  "inkling_dialect.py",
+  "inkling_kind.py",
+  "toolformat.py",
+  "frontend.py"
+ ],
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 66.49101983406581,
+   "prompt_tokens": 29963,
+   "cached": 0,
+   "prompt_ms": 30658.0,
+   "completion_tokens": 1437,
+   "finish": "stop",
+   "answer_chars": 568
+  },
+  {
+   "turn": 2,
+   "wall_s": 43.79693820816465,
+   "prompt_tokens": 30186,
+   "cached": 0,
+   "prompt_ms": 30969.1,
+   "completion_tokens": 598,
+   "finish": "stop",
+   "answer_chars": 557
+  },
+  {
+   "turn": 3,
+   "wall_s": 19.990542124956846,
+   "prompt_tokens": 30378,
+   "cached": 30783,
+   "prompt_ms": 167.6,
+   "completion_tokens": 954,
+   "finish": "stop",
+   "answer_chars": 540
+  },
+  {
+   "turn": 4,
+   "wall_s": 28.27963954093866,
+   "prompt_tokens": 30614,
+   "cached": 31771,
+   "prompt_ms": 201.8,
+   "completion_tokens": 1339,
+   "finish": "stop",
+   "answer_chars": 444
+  },
+  {
+   "turn": 5,
+   "wall_s": 65.1032016670797,
+   "prompt_tokens": 30793,
+   "cached": 33140,
+   "prompt_ms": 201.8,
+   "completion_tokens": 2651,
+   "finish": "stop",
+   "answer_chars": 176
+  },
+  {
+   "turn": 6,
+   "wall_s": 39.78210112499073,
+   "prompt_tokens": 30869,
+   "cached": 0,
+   "prompt_ms": 31899.0,
+   "completion_tokens": 321,
+   "finish": "stop",
+   "answer_chars": 693
+  }
+ ],
+ "total_s": 263.4434425001964,
+ "followups_s": 196.9524226661306
+}

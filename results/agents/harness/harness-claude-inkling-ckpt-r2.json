@@ -1,0 +1,42 @@
+{
+ "label": "claude-inkling-ckpt-r2",
+ "harness": "claude",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091",
+ "context": 131072,
+ "when": "2026-11-23 21:12:20",
+ "turns": 3,
+ "total_wall_s": 325.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 38.5,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 1762,
+   "prompt_tokens": 88276,
+   "cached_tokens": 67589
+  },
+  {
+   "turn": 2,
+   "wall_s": 22.0,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 286,
+   "prompt_tokens": 134626,
+   "cached_tokens": 131698
+  },
+  {
+   "turn": 3,
+   "wall_s": 265.1,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 44,
+   "answer_chars": 11330,
+   "prompt_tokens": 2676799,
+   "cached_tokens": 2618796
+  }
+ ]
+}

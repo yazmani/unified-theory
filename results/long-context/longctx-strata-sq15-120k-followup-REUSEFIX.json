@@ -1,0 +1,71 @@
+{
+ "turn1": {
+  "wall_s": 218.61280737491325,
+  "usage": {
+   "prompt_tokens": 119155,
+   "completion_tokens": 779,
+   "total_tokens": 119934,
+   "prompt_tokens_details": {
+    "cached_tokens": 0
+   }
+  },
+  "timings": {
+   "cache_n": 0,
+   "prompt_n": 119155,
+   "prompt_ms": 190029.4,
+   "prompt_per_token_ms": 1.595,
+   "prompt_per_second": 627.0,
+   "predicted_n": 779,
+   "predicted_ms": 28412.4,
+   "predicted_per_token_ms": 36.473,
+   "predicted_per_second": 27.4
+  },
+  "needles": 8
+ },
+ "turn2": {
+  "wall_s": 11.968111458001658,
+  "usage": {
+   "prompt_tokens": 119348,
+   "completion_tokens": 299,
+   "total_tokens": 119647,
+   "prompt_tokens_details": {
+    "cached_tokens": 119933
+   }
+  },
+  "timings": {
+   "cache_n": 119933,
+   "prompt_n": 0,
+   "prompt_ms": 424.1,
+   "prompt_per_token_ms": null,
+   "prompt_per_second": null,
+   "predicted_n": 299,
+   "predicted_ms": 11441.1,
+   "predicted_per_token_ms": 38.265,
+   "predicted_per_second": 26.1
+  },
+  "answer": "app/host/src/lib/i18n.ts"
+ },
+ "turn3": {
+  "wall_s": 113.59583808295429,
+  "usage": {
+   "prompt_tokens": 119388,
+   "completion_tokens": 3000,
+   "total_tokens": 122388,
+   "prompt_tokens_details": {
+    "cached_tokens": 120258
+   }
+  },
+  "timings": {
+   "cache_n": 120258,
+   "prompt_n": 0,
+   "prompt_ms": 392.9,
+   "prompt_per_token_ms": null,
+   "prompt_per_second": null,
+   "predicted_n": 3000,
+   "predicted_ms": 113138.2,
+   "predicted_per_token_ms": 37.713,
+   "predicted_per_second": 26.5
+  },
+  "answer": ""
+ }
+}

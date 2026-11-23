@@ -1,0 +1,42 @@
+{
+ "label": "claude-inkling-0220-r1",
+ "harness": "claude",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091",
+ "context": 131072,
+ "when": "2026-11-23 20:57:39",
+ "turns": 3,
+ "total_wall_s": 406.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 82.4,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2035,
+   "prompt_tokens": 67467,
+   "cached_tokens": 0
+  },
+  {
+   "turn": 2,
+   "wall_s": 127.1,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 210,
+   "prompt_tokens": 111760,
+   "cached_tokens": 0
+  },
+  {
+   "turn": 3,
+   "wall_s": 196.9,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 4639,
+   "prompt_tokens": 148365,
+   "cached_tokens": 0
+  }
+ ]
+}

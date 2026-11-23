@@ -1,0 +1,32 @@
+{
+ "label": "inkling-ckpt-r3",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091/v1",
+ "context": 131072,
+ "when": "2026-11-23 20:11:20",
+ "turns": 3,
+ "total_wall_s": 119.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 34.4,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2256
+  },
+  {
+   "turn": 2,
+   "wall_s": 21.3,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 975
+  },
+  {
+   "turn": 3,
+   "wall_s": 63.3,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 5150
+  }
+ ]
+}

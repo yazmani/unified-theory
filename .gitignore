@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.gguf
+*.strata
+.DS_Store
+
+# Local-only working files: private terms list, private agent-bench grader/template/transcripts, scratch runs.
+# Never committed. See .local/README.md (also local) and docs/methodology.md.
+.local/

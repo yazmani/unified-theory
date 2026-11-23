@@ -1,0 +1,91 @@
+{
+ "label": "inkling-strata-0220-sq-15-dspark",
+ "extra": null,
+ "when": "2026-11-23 19:37:04",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 34.77516899839975,
+ "tokens_total": 2450,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.778457790846005,
+   "completion_tokens": 95,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 3.0641137501224875,
+   "completion_tokens": 204,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.7039501669351012,
+   "completion_tokens": 146,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 2.7474677502177656,
+   "completion_tokens": 234,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 3.4100320001598448,
+   "completion_tokens": 229,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": false,
+   "wall_s": 6.984177166130394,
+   "completion_tokens": 454,
+   "finish": "stop",
+   "err": "n/T/tmpm21kuw6i.py\", line 42, in <module>\n    o=topo_sort({'a':['b','c'],'b':['c'],'c':[]});assert o.index('c')<o.index('b')<o.index('a')\n  File \"<task>.py\", line 37, in topo_sort\n    raise ValueError(\"Cycle detected\")\nValueError: Cycle detected\n"
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 2.2756152499932796,
+   "completion_tokens": 138,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.970147332875058,
+   "completion_tokens": 249,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 3.5986332080792636,
+   "completion_tokens": 306,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 6.24257458304055,
+   "completion_tokens": 395,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

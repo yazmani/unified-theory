@@ -1,0 +1,32 @@
+{
+ "label": "inkling-0220-tplfix-r1",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091/v1",
+ "context": 131072,
+ "when": "2026-11-23 19:56:23",
+ "turns": 3,
+ "total_wall_s": 719.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 31.8,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 1921
+  },
+  {
+   "turn": 2,
+   "wall_s": 632.5,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 436
+  },
+  {
+   "turn": 3,
+   "wall_s": 54.9,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2938
+  }
+ ]
+}

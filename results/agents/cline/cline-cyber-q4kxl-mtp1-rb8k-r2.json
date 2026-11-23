@@ -1,0 +1,32 @@
+{
+ "label": "cyber-q4kxl-mtp1-rb8k-r2",
+ "model": "local",
+ "base_url": "http://127.0.0.1:8092/v1",
+ "context": 131072,
+ "when": "2026-11-23 00:36:10",
+ "turns": 3,
+ "total_wall_s": 180.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 25.6,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 1891
+  },
+  {
+   "turn": 2,
+   "wall_s": 25.6,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 727
+  },
+  {
+   "turn": 3,
+   "wall_s": 129.6,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 4776
+  }
+ ]
+}

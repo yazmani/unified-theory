@@ -1,0 +1,32 @@
+{
+ "label": "tiel-iq4xs-mtp1-rb8k",
+ "model": "local",
+ "base_url": "http://127.0.0.1:8092/v1",
+ "context": 131072,
+ "when": "2026-11-23 00:24:53",
+ "turns": 3,
+ "total_wall_s": 609.7,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 27.0,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2259
+  },
+  {
+   "turn": 2,
+   "wall_s": 476.0,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 1113
+  },
+  {
+   "turn": 3,
+   "wall_s": 106.7,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 3777
+  }
+ ]
+}

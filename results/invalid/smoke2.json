@@ -1,0 +1,68 @@
+{
+ "label": "smoke2",
+ "url": "http://127.0.0.1:8091",
+ "model": null,
+ "max_tokens": 512,
+ "notes": "",
+ "when": "2026-11-22 14:20:55",
+ "decode_tps_median": 3.9,
+ "decode_tps_by_prompt": {
+  "gen-python": 5.8,
+  "refactor-ts": 3.0,
+  "explain-rust": 3.9
+ },
+ "visible_tps_est_median": 0.0,
+ "wall_s_total": 396.28498054202646,
+ "completion_tokens_total": 1536,
+ "visible_chars_total": 475,
+ "rows": [
+  {
+   "wall_s": 89.07346058310941,
+   "engine_decode_tps": 5.8,
+   "engine_prefill_tps": 312.1,
+   "visible_chars": 0,
+   "visible_tps_est": 0.0,
+   "completion_tokens": 512,
+   "prompt_tokens": 49,
+   "ttft_s": null,
+   "decode_tps": null,
+   "e2e_tps": 5.7480645373857655,
+   "chunks": 0,
+   "text_head": "",
+   "prompt_id": "gen-python",
+   "run": 0
+  },
+  {
+   "wall_s": 170.6889621668961,
+   "engine_decode_tps": 3.0,
+   "engine_prefill_tps": 328.1,
+   "visible_chars": 0,
+   "visible_tps_est": 0.0,
+   "completion_tokens": 512,
+   "prompt_tokens": 347,
+   "ttft_s": null,
+   "decode_tps": null,
+   "e2e_tps": 2.9996081381019652,
+   "chunks": 0,
+   "text_head": "",
+   "prompt_id": "refactor-ts",
+   "run": 0
+  },
+  {
+   "wall_s": 136.52255779202096,
+   "engine_decode_tps": 3.9,
+   "engine_prefill_tps": 13.3,
+   "visible_chars": 475,
+   "visible_tps_est": 0.9940795712385746,
+   "completion_tokens": 512,
+   "prompt_tokens": 51,
+   "ttft_s": 133.238284625113,
+   "decode_tps": 156.00479356411734,
+   "e2e_tps": 3.7502959824411066,
+   "chunks": 144,
+   "text_head": "- `Rc<RefCell<T>>`: single-threaded shared ownership + runtime-checked interior mutability. Cheap, but not `Send`/`Sync`; borrow violations panic.\n- `Arc<Mutex<T>>`: thread-safe shared ownership + exc",
+   "prompt_id": "explain-rust",
+   "run": 0
+  }
+ ]
+}

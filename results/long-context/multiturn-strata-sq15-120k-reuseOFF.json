@@ -1,0 +1,83 @@
+{
+ "label": "strata-sq15-120k-reuseOFF",
+ "truth": {
+  "after03": "app/host/src/lib/i18n.ts",
+  "before06": "terminal/tools/vision/own/image_prep.cpp"
+ },
+ "turns": [
+  {
+   "wall_s": 217.99613933311775,
+   "usage": {
+    "prompt_tokens": 119155,
+    "completion_tokens": 779,
+    "total_tokens": 119934,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    }
+   },
+   "timings": {
+    "cache_n": 0,
+    "prompt_n": 119155,
+    "prompt_ms": 189492.7,
+    "prompt_per_token_ms": 1.59,
+    "prompt_per_second": 628.8,
+    "predicted_n": 779,
+    "predicted_ms": 28359.3,
+    "predicted_per_token_ms": 36.405,
+    "predicted_per_second": 27.5
+   },
+   "answer": "KINTSUGI_PROBE_00 = \"13fdd645-0adb\"\nKINTSUGI_PROBE_01 = \"4e23c564-748e\"\nKINTSUGI_PROBE_02 = \"8bf2c2e1-d589\"\nKINTSUGI_PROBE_03 = \"620e85fd-adf6\"\nKINTSUGI_PROBE_04 = \"2940fdea-1039\"\nKINTSUGI_PROBE_05 = \"538cbd49-450d\"\nKINTSUGI_PROBE_06 = \"e1ec107a-a526\"\nKINTSUGI_PROBE_07 = \"83f7f484-be08\"",
+   "needles": 8
+  },
+  {
+   "wall_s": 293.90347016602755,
+   "usage": {
+    "prompt_tokens": 119348,
+    "completion_tokens": 2785,
+    "total_tokens": 122133,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    }
+   },
+   "timings": {
+    "cache_n": 0,
+    "prompt_n": 119348,
+    "prompt_ms": 189817.8,
+    "prompt_per_token_ms": 1.59,
+    "prompt_per_second": 628.8,
+    "predicted_n": 2785,
+    "predicted_ms": 103985.3,
+    "predicted_per_token_ms": 37.338,
+    "predicted_per_second": 26.8
+   },
+   "answer": "app/host/src/lib/i18n.ts",
+   "correct": true,
+   "finish": "stop"
+  },
+  {
+   "wall_s": 299.74732491606846,
+   "usage": {
+    "prompt_tokens": 119388,
+    "completion_tokens": 3000,
+    "total_tokens": 122388,
+    "prompt_tokens_details": {
+     "cached_tokens": 0
+    }
+   },
+   "timings": {
+    "cache_n": 0,
+    "prompt_n": 119388,
+    "prompt_ms": 190129.5,
+    "prompt_per_token_ms": 1.593,
+    "prompt_per_second": 627.9,
+    "predicted_n": 3000,
+    "predicted_ms": 109547.6,
+    "predicted_per_token_ms": 36.516,
+    "predicted_per_second": 27.4
+   },
+   "answer": "",
+   "correct": false,
+   "finish": "length"
+  }
+ ]
+}

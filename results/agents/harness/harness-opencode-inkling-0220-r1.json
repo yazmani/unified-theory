@@ -1,0 +1,42 @@
+{
+ "label": "opencode-inkling-0220-r1",
+ "harness": "opencode",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091",
+ "context": 131072,
+ "when": "2026-11-23 21:03:54",
+ "turns": 3,
+ "total_wall_s": 374.3,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 49.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 621,
+   "prompt_tokens": 45252,
+   "cached_tokens": 0
+  },
+  {
+   "turn": 2,
+   "wall_s": 143.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 80,
+   "prompt_tokens": 132959,
+   "cached_tokens": 0
+  },
+  {
+   "turn": 3,
+   "wall_s": 181.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 6,
+   "answer_chars": 2107,
+   "prompt_tokens": 161007,
+   "cached_tokens": 0
+  }
+ ]
+}

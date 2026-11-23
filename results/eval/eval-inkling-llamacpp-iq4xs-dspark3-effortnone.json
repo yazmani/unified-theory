@@ -1,0 +1,95 @@
+{
+ "label": "inkling-llamacpp-iq4xs-dspark3-effortnone",
+ "extra": {
+  "chat_template_kwargs": {
+   "reasoning_effort": "none"
+  }
+ },
+ "when": "2026-11-22 17:35:55",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 202.67794874939136,
+ "tokens_total": 7733,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 8.139295000117272,
+   "completion_tokens": 280,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 13.59514629188925,
+   "completion_tokens": 562,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 14.980415583122522,
+   "completion_tokens": 589,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 12.675464000087231,
+   "completion_tokens": 521,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 24.918218583101407,
+   "completion_tokens": 940,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 24.3368920001667,
+   "completion_tokens": 905,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 18.072665750049055,
+   "completion_tokens": 706,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 13.671776833944023,
+   "completion_tokens": 571,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 41.834977665916085,
+   "completion_tokens": 1529,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 30.453097040997818,
+   "completion_tokens": 1130,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

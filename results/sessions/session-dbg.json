@@ -1,0 +1,28 @@
+{
+ "label": "dbg",
+ "files": [],
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 5.939862958155572,
+   "prompt_tokens": 39,
+   "cached": 0,
+   "prompt_ms": 137.4,
+   "completion_tokens": 284,
+   "finish": "stop",
+   "answer_chars": 720
+  },
+  {
+   "turn": 2,
+   "wall_s": 5.388466084143147,
+   "prompt_tokens": 220,
+   "cached": 322,
+   "prompt_ms": 122.4,
+   "completion_tokens": 235,
+   "finish": "stop",
+   "answer_chars": 387
+  }
+ ],
+ "total_s": 11.32832904229872,
+ "followups_s": 5.388466084143147
+}

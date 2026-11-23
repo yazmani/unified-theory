@@ -1,0 +1,32 @@
+{
+ "label": "inkling-0220-r1",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091/v1",
+ "context": 131072,
+ "when": "2026-11-23 19:43:13",
+ "turns": 3,
+ "total_wall_s": 330.3,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 31.8,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 1815
+  },
+  {
+   "turn": 2,
+   "wall_s": 103.2,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 1351
+  },
+  {
+   "turn": 3,
+   "wall_s": 195.3,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 6682
+  }
+ ]
+}

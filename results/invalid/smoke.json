@@ -1,0 +1,50 @@
+{
+ "label": "smoke-strata-sq20",
+ "url": "http://127.0.0.1:8091",
+ "model": null,
+ "max_tokens": 400,
+ "notes": "",
+ "when": "2026-11-22 14:13:24",
+ "decode_tps_median": 342.34073913168237,
+ "decode_tps_by_prompt": {
+  "gen-python": 0,
+  "refactor-ts": 0,
+  "explain-rust": 342.34073913168237
+ },
+ "ttft_median_s": 11.781905708834529,
+ "rows": [
+  {
+   "completion_tokens": 400,
+   "prompt_tokens": 49,
+   "ttft_s": null,
+   "decode_tps": null,
+   "e2e_tps": 30.917096740684492,
+   "chunks": 0,
+   "text_head": "",
+   "prompt_id": "gen-python",
+   "run": 0
+  },
+  {
+   "completion_tokens": 400,
+   "prompt_tokens": 347,
+   "ttft_s": null,
+   "decode_tps": null,
+   "e2e_tps": 37.79868327716304,
+   "chunks": 0,
+   "text_head": "",
+   "prompt_id": "refactor-ts",
+   "run": 0
+  },
+  {
+   "completion_tokens": 400,
+   "prompt_tokens": 51,
+   "ttft_s": 11.781905708834529,
+   "decode_tps": 342.34073913168237,
+   "e2e_tps": 30.893356712276386,
+   "chunks": 42,
+   "text_head": "- `Rc<RefCell<T>>`: single-threaded shared ownership + runtime-checked interior mutability. Cheap, but not `Send`/`Sync`; borrow violations panic.\n- `",
+   "prompt_id": "explain-rust",
+   "run": 0
+  }
+ ]
+}

@@ -1,0 +1,21 @@
+[project]
+name = "unified-theory"
+version = "0.1.0"
+description = "Benchmarks for coding with local LLMs on Apple Silicon: models, runtimes and agent harnesses"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+longctx = ["tokenizers>=0.20"]   # bench/long_context.py, bench/longctx_multiturn.py
+dev = ["ruff>=0.6"]
+
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+extend-exclude = [".local", ".venv"]
+
+[tool.ruff.lint]
+select = ["E", "F", "B"]
+ignore = ["E401", "E501", "E731", "E741", "E702"]   # compact script style: long lines, multi-imports, small lambdas

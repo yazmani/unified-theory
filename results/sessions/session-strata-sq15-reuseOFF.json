@@ -1,0 +1,92 @@
+{
+ "label": "strata-sq15-reuseOFF",
+ "files": [
+  "TensorSharp.Chat/ConversationTranscriptStore.cs",
+  "TensorSharp.Chat/ModelLifecycleService.cs",
+  "TensorSharp.Chat/ChatHistoryPreparer.cs"
+ ],
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 28.92558154091239,
+   "prompt_tokens": 23662,
+   "cached": 0,
+   "prompt_ms": 23398.2,
+   "completion_tokens": 230,
+   "finish": "stop",
+   "answer_chars": 1052
+  },
+  {
+   "turn": 2,
+   "wall_s": 22.256856749998406,
+   "prompt_tokens": 23917,
+   "cached": 0,
+   "prompt_ms": 170.1,
+   "completion_tokens": 1411,
+   "finish": "stop",
+   "answer_chars": 3688
+  },
+  {
+   "turn": 3,
+   "wall_s": 38.49537287512794,
+   "prompt_tokens": 25037,
+   "cached": 0,
+   "prompt_ms": 24895.8,
+   "completion_tokens": 573,
+   "finish": "stop",
+   "answer_chars": 620
+  },
+  {
+   "turn": 4,
+   "wall_s": 105.87704891711473,
+   "prompt_tokens": 25248,
+   "cached": 0,
+   "prompt_ms": 25195.4,
+   "completion_tokens": 4000,
+   "finish": "length",
+   "answer_chars": 0
+  },
+  {
+   "turn": 5,
+   "wall_s": 40.85406908299774,
+   "prompt_tokens": 25271,
+   "cached": 0,
+   "prompt_ms": 25243.5,
+   "completion_tokens": 625,
+   "finish": "stop",
+   "answer_chars": 649
+  },
+  {
+   "turn": 6,
+   "wall_s": 31.219206999987364,
+   "prompt_tokens": 25456,
+   "cached": 0,
+   "prompt_ms": 25375.9,
+   "completion_tokens": 240,
+   "finish": "stop",
+   "answer_chars": 448
+  },
+  {
+   "turn": 7,
+   "wall_s": 35.1583182499744,
+   "prompt_tokens": 25600,
+   "cached": 0,
+   "prompt_ms": 25535.8,
+   "completion_tokens": 415,
+   "finish": "stop",
+   "answer_chars": 302
+  },
+  {
+   "turn": 8,
+   "wall_s": 30.540316167054698,
+   "prompt_tokens": 25694,
+   "cached": 0,
+   "prompt_ms": 25696.3,
+   "completion_tokens": 192,
+   "finish": "stop",
+   "answer_chars": 354
+  }
+ ],
+ "total_s": 333.3267705831677,
+ "followups_s": 304.4011890422553
+}
