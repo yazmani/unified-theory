@@ -1,0 +1,32 @@
+{
+ "label": "pr-metalckpt-main-r1",
+ "model": "inkling-2-mini-sq-15",
+ "base_url": "http://127.0.0.1:8091/v1",
+ "context": 131072,
+ "when": "2026-11-23 22:23:49",
+ "turns": 3,
+ "total_wall_s": 259.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 43.8,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2066
+  },
+  {
+   "turn": 2,
+   "wall_s": 63.7,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 583
+  },
+  {
+   "turn": 3,
+   "wall_s": 152.3,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 5879
+  }
+ ]
+}

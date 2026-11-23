@@ -98,3 +98,9 @@ that the next turn's history reproduces.
 The same happens with Claude Code, pi and OpenCode: 0 cached tokens on 0.2.20, 2.5–5.7× slower
 ([agent-harnesses.md](agent-harnesses.md)). Upstream fix needed: render the empty thinking block back for
 tool-using assistant turns, or stop appending it.
+
+**Fix in progress (2026-11-23):** [PR #6914](https://github.com/Niko1221/Strata/pull/6914) adds the Metal checkpoint
+(the engine half). Together with a server-half PR ([#6827](https://github.com/Niko1221/Strata/pull/6827) or
+[#6774](https://github.com/Niko1221/Strata/pull/6774)), the same Cline session on `main` went from 408.5 s (17 of 17
+requests re-read from scratch) to 145.7–154.8 s (only the first request read cold). Either half alone: no reuse on
+tool turns.
