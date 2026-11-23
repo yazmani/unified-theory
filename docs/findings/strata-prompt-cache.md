@@ -3,7 +3,8 @@
 Multi-turn chats and agents are only fast if each follow-up reuses the already-read conversation. On Strata, for
 Inkling-2-Mini, that was broken in 0.2.19 and is broken in a different way in 0.2.20. This page is the whole story,
 with the numbers. Upstream threads: [#6627](https://github.com/Niko1221/Strata/issues/6627),
-[PR #6665](https://github.com/Niko1221/Strata/pull/6665), [#6675](https://github.com/Niko1221/Strata/issues/6675).
+[PR #6665](https://github.com/Niko1221/Strata/pull/6665), [#6675](https://github.com/Niko1221/Strata/issues/6675),
+[#6904](https://github.com/Niko1221/Strata/issues/6904) (0.2.20: no Metal checkpoint, no reuse with tools).
 
 **TL;DR (2026-11-23)**
 
