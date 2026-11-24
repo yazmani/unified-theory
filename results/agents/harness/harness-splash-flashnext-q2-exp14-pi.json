@@ -1,0 +1,42 @@
+{
+ "label": "splash-flashnext-q2-exp14-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 13:32:00",
+ "turns": 3,
+ "total_wall_s": 204.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 35.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 8,
+   "answer_chars": 2517,
+   "prompt_tokens": 32015,
+   "cached_tokens": 23168
+  },
+  {
+   "turn": 2,
+   "wall_s": 43.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 1195,
+   "prompt_tokens": 67403,
+   "cached_tokens": 63040
+  },
+  {
+   "turn": 3,
+   "wall_s": 126.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 11,
+   "answer_chars": 5548,
+   "prompt_tokens": 182565,
+   "cached_tokens": 165280
+  }
+ ]
+}

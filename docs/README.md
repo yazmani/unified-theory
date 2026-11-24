@@ -1,6 +1,7 @@
 # Docs
 
 ## Findings (one question per page)
+- [splash](findings/splash.md): the Splash engine (fastest here) and two Qwen3.8-27B fine-tunes
 - [decode-speed](findings/decode-speed.md): fastest model and runtime for coding on an M5 Pro
 - [long-context](findings/long-context.md): Inkling-2-Mini at 30K / 120K / 240K
 - [agent-models](findings/agent-models.md): which local model makes the best coding agent (Cline)

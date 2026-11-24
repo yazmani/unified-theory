@@ -1,0 +1,76 @@
+{
+ "label": "llamacpp-davidau-q4km-mtp2",
+ "url": "http://127.0.0.1:8092",
+ "model": null,
+ "max_tokens": 2048,
+ "notes": "llama.cpp PR32218 build 9f57b44, draft-mtp n-max 2",
+ "extra": {
+  "chat_template_kwargs": {
+   "enable_thinking": false
+  }
+ },
+ "when": "2026-11-24 10:19:13",
+ "decode_tps_median": 24.174192904335683,
+ "decode_tps_by_prompt": {
+  "gen-python": 24.174192904335683,
+  "refactor-ts": 24.982282744322806,
+  "explain-rust": 22.539874632327564
+ },
+ "visible_tps_est_median": 20.64369254647204,
+ "wall_s_total": 54.000509458826855,
+ "completion_tokens_total": 1248,
+ "visible_chars_total": 4568,
+ "rows": [
+  {
+   "wall_s": 30.11463737487793,
+   "engine_decode_tps": 24.174192904335683,
+   "engine_prefill_tps": 108.82684659371971,
+   "visible_chars": 2857,
+   "visible_tps_est": 27.10594532898715,
+   "completion_tokens": 719,
+   "prompt_tokens": 44,
+   "ttft_s": 0.41355045791715384,
+   "decode_tps": 24.174258424651065,
+   "e2e_tps": 23.875432768777095,
+   "chunks": 718,
+   "text": "```python\n\"\"\"LRU cache with TTL expiry, thread safety, and decorator interface.\"\"\"\n\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Dict, Optional, Tuple, TypeVar\n\nF = TypeVar(\"F\", bound=Callable[..., Any])\n\n\nclass LRUCache:\n    \"\"\"Thread-safe LRU cache with per-entry TTL expiry.\"\"\"\n\n    def __init__(self, maxsize: int = 128, ttl: float = 300.0):\n        \"\"\"\n        Initialize cache.\n\n        Args:\n            maxsize: Maximum number of entries.\n            ttl: Time-to-live in seconds for each entry.\n        \"\"\"\n        self.maxsize = maxsize\n        self.ttl = ttl\n        self._cache: OrderedDict[Any, Tuple[Any, float]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Any) -> Optional[Any]:\n        \"\"\"\n        Retrieve value by key, or None if missing/expired.\n\n        Args:\n            key: Cache key.\n\n        Returns:\n            Cached value or None.\n        \"\"\"\n        with self._lock:\n            entry = self._cache.get(key)\n            if entry is None:\n                return None\n            value, created = entry\n            if time.monotonic() - created > self.ttl:\n                del self._cache[key]\n                return None\n            self._cache.move_to_end(key)\n            return value\n\n    def set(self, key: Any, value: Any) -> None:\n        \"\"\"\n        Store a value in the cache.\n\n        Args:\n            key: Cache key.\n            value: Value to store.\n        \"\"\"\n        with self._lock:\n            if key in self._cache:\n                self._cache.move_to_end(key)\n            self._cache[key] = (value, time.monotonic())\n            while len(self._cache) > self.maxsize:\n                self._cache.popitem(last=False)\n\n    def clear(self) -> None:\n        \"\"\"Clear all entries.\"\"\"\n        with self._lock:\n            self._cache.clear()\n\n    def __len__(self) -> int:\n        \"\"\"Return number of entries.\"\"\"\n        with self._lock:\n            return len(self._cache)\n\n\ndef cached(maxsize: int = 128, ttl: float = 300.0) -> Callable[[F], F]:\n    \"\"\"\n    Decorator that caches function results with LRU eviction and TTL expiry.\n\n    Args:\n        maxsize: Maximum number of cached results.\n        ttl: Time-to-live in seconds for each cached result.\n\n    Returns:\n        Decorated function with caching.\n    \"\"\"\n    cache = LRUCache(maxsize=maxsize, ttl=ttl)\n\n    def decorator(func: F) -> F:\n        def wrapper(*args: Any, **kwargs: Any) -> Any:\n            key = (args, tuple(sorted(kwargs.items())))\n            result = cache.get(key)\n            if result is not None:\n                return result\n            result = func(*args, **kwargs)\n            cache.set(key, result)\n            return result\n\n        wrapper.cache = cache\n        return wrapper  # type: ignore[return-value]\n\n    return decorator\n```",
+   "reasoning_chars": 0,
+   "prompt_id": "gen-python",
+   "run": 0
+  },
+  {
+   "wall_s": 9.978834917070344,
+   "engine_decode_tps": 24.982282744322806,
+   "engine_prefill_tps": 260.2253686125955,
+   "visible_chars": 721,
+   "visible_tps_est": 20.64369254647204,
+   "completion_tokens": 224,
+   "prompt_tokens": 271,
+   "ttft_s": 1.0525330419186503,
+   "decode_tps": 24.98273719474831,
+   "e2e_tps": 22.44751034179484,
+   "chunks": 223,
+   "text": "```typescript\ninterface User {\n  id: number;\n  name: string;\n  orgId: number;\n  org?: Org;\n}\n\ninterface Org {\n  id: number;\n  name: string;\n}\n\nasync function loadUser(id: number): Promise<User> {\n  const res = await fetch(`/api/users/${id}`);\n  if (!res.ok) {\n    throw new Error(`bad status ${res.status}`);\n  }\n  const user: User = await res.json();\n\n  const orgRes = await fetch(`/api/orgs/${user.orgId}`);\n  if (!orgRes.ok) {\n    throw new Error(`bad status ${orgRes.status}`);\n  }\n  user.org = await orgRes.json();\n  return user;\n}\n\nasync function loadUsers(ids: number[]): Promise<User[]> {\n  const results = await Promise.all(ids.map((id) => loadUser(id)));\n  return results;\n}\n\nexport { loadUser, loadUsers };\n```",
+   "reasoning_chars": 0,
+   "prompt_id": "refactor-ts",
+   "run": 0
+  },
+  {
+   "wall_s": 13.907037166878581,
+   "engine_decode_tps": 22.539874632327564,
+   "engine_prefill_tps": 117.2249913912897,
+   "visible_chars": 990,
+   "visible_tps_est": 20.33913762241205,
+   "completion_tokens": 305,
+   "prompt_tokens": 48,
+   "ttft_s": 0.41983183403499424,
+   "decode_tps": 22.54015700075966,
+   "e2e_tps": 21.931342840328146,
+   "chunks": 304,
+   "text": "**`Rc<RefCell<T>>`** - Single-threaded shared ownership with interior mutability.\n- Use when multiple owners need mutable access on the same thread\n- Runtime borrow checking (panics on violation)\n- No synchronization overhead\n\n```rust\nuse std::rc::Rc;\nuse std::cell::RefCell;\n\nlet data = Rc::new(RefCell::new(42));\nlet a = Rc::clone(&data);\nlet b = Rc::clone(&data);\n\n*a.borrow_mut() = 100;\nprintln!(\"{}\", b.borrow()); // 100\n```\n\n**`Arc<Mutex<T>>`** - Multi-threaded shared ownership with synchronization.\n- Use when data is shared across threads\n- Thread-safe with blocking locks\n- Slight overhead for atomic operations\n\n```rust\nuse std::sync::{Arc, Mutex};\nuse std::thread;\n\nlet data = Arc::new(Mutex::new(42));\nlet a = Arc::clone(&data);\nlet b = Arc::clone(&data);\n\nlet t = thread::spawn(move || {\n    *a.lock().unwrap() = 100;\n});\nt.join().unwrap();\nprintln!(\"{}\", b.lock().unwrap()); // 100\n```\n\n**Rule of thumb:** Single thread \u2192 `Rc<RefCell<T>>`. Multiple threads \u2192 `Arc<Mutex<T>>`.",
+   "reasoning_chars": 0,
+   "prompt_id": "explain-rust",
+   "run": 0
+  }
+ ]
+}

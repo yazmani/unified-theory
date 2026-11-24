@@ -22,12 +22,22 @@ untracked local config folder). How it is graded is in [methodology](../methodol
 | Tiel-Coder Q4_K_XL, MTP n-max 3, budget 8K | 1 | 206 s | 8/9 (committed local config) | 3 | 0 |
 | Tiel-Coder Q4_K_XL, MTP n-max 1, **no budget** | 1 | 857 s (commit turn 668 s) | 8/9 | 6 | 0 |
 | Inkling-2-Mini SQ-15, **stock Strata 0.2.20** | 2 | 330 / 341 s | 7/9, 8/9 | 6, 5 | 0 |
+| Inkling-2-Mini **AtomicChat AD-Q4_K** + DSpark n=3, llama.cpp PR #32218, 128K | 2 | 278 / 218 s | 9/9, 9/9 | 3, 5 | 0, 1 |
 
 llama.cpp runs: Unsloth fork b12588, `-c 131072 -fa on -ctk q8_0 -ctv q8_0 --jinja --temp 0.6 --top-p 0.95 --top-k 20
 --spec-type draft-mtp --spec-draft-p-min 0.0` (the model card's agentic settings).
 
 Server-side: Tiel Q4_K_XL n-max 1 decoded at 57–61 tok/s with 0.84–0.87 MTP acceptance (n-max 3: 47 tok/s, 0.64);
 Inkling ~48 tok/s with 85–88% of prompt tokens from cache.
+
+Inkling AD-Q4_K on llama.cpp (2026-11-24): PR #32218 `9f57b44`, same flags as above plus
+`-md dspark-Inkling-2-Mini-Q8_0.gguf --spec-type draft-dspark --spec-draft-n-max 3
+--chat-template-kwargs '{"reasoning_effort":"none"}'` (run 2 also `--cache-ram 2048`). Prompt reuse works out of the
+box: 21–23K prompt tokens read across 13–19 requests. Generation ran at 34–36 tok/s. **Between stock Strata 0.2.20
+(330–341 s) and our patched Strata (105–155 s).** Run 1 grew swap from 3.9 to 11.4 GB (default `--cache-ram 8192`,
+other apps open); run 2 with `--cache-ram 2048` kept it flat.
+
+**Update 2026-11-24:** on [Splash](splash.md), Tiel-Coder (94–101 s) and Inkling (75–94 s) beat every row above.
 
 ## Findings
 

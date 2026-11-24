@@ -1,0 +1,32 @@
+{
+ "label": "splash-tiel-q4kxl-tb8k-r2",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 10:43:25",
+ "turns": 3,
+ "total_wall_s": 94.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 9.0,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 1721
+  },
+  {
+   "turn": 2,
+   "wall_s": 15.7,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 468
+  },
+  {
+   "turn": 3,
+   "wall_s": 69.5,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 5563
+  }
+ ]
+}

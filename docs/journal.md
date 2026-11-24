@@ -31,11 +31,32 @@ matching page under [findings/](findings/).
 - Opened [PR #6914](https://github.com/Niko1221/Strata/pull/6914): Metal prompt-end checkpoint. With #6827, Cline
   session 408.5 s → 145.7–154.8 s on `main`.
 
+## 2026-11-24
+
+- AtomicChat AD-Q4_K quant + Atomic Engine (SSD expert streaming fork) on Inkling: AD-Q4_K on llama.cpp PR #32218
+  is the best llama.cpp option (42 tok/s, Cline 218–278 s), still behind Strata. Atomic Engine: 45 tok/s on real
+  prompts (README's 77 is a repetitive 64-token fixture); its profiles are 4K context with no prompt reuse.
+  → [decode-speed](findings/decode-speed.md#atomicchat-ad-quants-and-atomic-engine-2026-11-24),
+  [agent-models](findings/agent-models.md)
+
+- Splash 1.7.2 (Metal engine with DFlash 2 drafters): Tiel-Coder 191 tok/s and Cline 94–101 s, Inkling 101 tok/s
+  and Cline 75–94 s, both faster than every earlier setup. Qwen3.8-27B fine-tunes: pi-adapted (90 tok/s on Splash)
+  beats DavidAU's TURBO-Fable (21–24 tok/s, weaker in both harnesses). Basalt is NVIDIA-only.
+  → [splash](findings/splash.md)
+- Agent sandboxes moved outside the repo after a model `cd`-ed from its sandbox up into this repo and committed there
+  (undone, not pushed).
+- Qwen3.8-Flash-Next Q2_0 (66 GB) on Splash with SSD expert streaming: 96–129 tok/s, and the first model to find
+  all 8 issues in Cline (twice, no false claims), at 280–348 s per session. Defaults tried to load every expert and
+  pushed swap to 7 GB; set `--expert-memory`. → [splash](findings/splash.md)
+
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to pick a quality winner, not just a speed winner.
 - [ ] LM Studio (MLX engine) and mlx-lm on the same models.
-- [ ] More models: Qwen3-Coder-30B-A3B, a dense ~27B as a quality reference.
+- [ ] More models: Qwen3-Coder-30B-A3B.
+- [x] Qwen3.8-Flash-Next on Splash with SSD expert streaming ([splash](findings/splash.md)).
+- [ ] Flash-Next: larger expert store (24–28 GB) and thinking off, to trade some quality for session time.
+- [ ] Splash: Inkling tool call returned as text once; report upstream with a repro.
 - [ ] The harness comparison on Tiel-Coder (llama.cpp).
 - [ ] Re-run the decode table with no VM running, to measure what it cost.
 - [ ] Tiel-Coder MTP `--spec-draft-n-max` sweep beyond 1 and 3.

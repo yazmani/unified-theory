@@ -1,0 +1,94 @@
+{
+ "label": "splash-davidau-q4km-effortnone",
+ "extra": {
+  "model": "local/m",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-24 10:02:57",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 85.16908046114258,
+ "tokens_total": 1858,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 4.295834792079404,
+   "completion_tokens": 80,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 9.757955709006637,
+   "completion_tokens": 214,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 6.54450916708447,
+   "completion_tokens": 113,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 8.883221917087212,
+   "completion_tokens": 167,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 9.34981704200618,
+   "completion_tokens": 209,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 9.83559733396396,
+   "completion_tokens": 212,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 4.654619375010952,
+   "completion_tokens": 147,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 10.135118207894266,
+   "completion_tokens": 225,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 8.219309041975066,
+   "completion_tokens": 224,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 13.493097875034437,
+   "completion_tokens": 267,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

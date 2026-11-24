@@ -1,0 +1,42 @@
+{
+ "label": "llamacpp-davidau-q4km-mtp2-pi",
+ "harness": "pi",
+ "model": "local",
+ "base_url": "http://127.0.0.1:8092",
+ "context": 131072,
+ "when": "2026-11-24 10:24:10",
+ "turns": 3,
+ "total_wall_s": 45.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 13.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 506,
+   "prompt_tokens": 3261,
+   "cached_tokens": 1595
+  },
+  {
+   "turn": 2,
+   "wall_s": 9.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 134,
+   "prompt_tokens": 7572,
+   "cached_tokens": 6139
+  },
+  {
+   "turn": 3,
+   "wall_s": 23.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1111,
+   "prompt_tokens": 21942,
+   "cached_tokens": 20451
+  }
+ ]
+}

@@ -1,0 +1,23 @@
+{
+ "label": "splash-davidau-q4km-effortnone",
+ "wall_s": 35.687830459093675,
+ "usage": {
+  "prompt_tokens": 44,
+  "completion_tokens": 726,
+  "total_tokens": 770,
+  "prompt_tokens_details": {
+   "cached_tokens": 32,
+   "prefix_tokens": 32,
+   "state_source": "memory",
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 20.366139935550855,
+ "content_chars": 2893,
+ "reasoning_chars": 0,
+ "content": "```python\n\"\"\"LRU cache with TTL expiry, thread safety, and decorator interface.\"\"\"\n\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom functools import wraps\nfrom typing import Any, Callable, Dict, Optional, Tuple\n\n\nclass LRUCache:\n    \"\"\"Thread-safe LRU cache with per-entry TTL expiry.\n\n    Args:\n        maxsize: Maximum number of entries. Must be > 0.\n        default_ttl: Default time-to-live in seconds for entries.\n    \"\"\"\n\n    def __init__(self, maxsize: int = 128, default_ttl: float = 300.0) -> None:\n        if maxsize <= 0:\n            raise ValueError(\"maxsize must be positive\")\n        self._maxsize = maxsize\n        self._default_ttl = default_ttl\n        self._cache: OrderedDict[Any, Tuple[Any, float]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Any) -> Optional[Any]:\n        \"\"\"Retrieve value by key, or None if missing/expired.\"\"\"\n        with self._lock:\n            entry = self._cache.get(key)\n            if entry is None:\n                return None\n            value, expires_at = entry\n            if time.monotonic() > expires_at:\n                del self._cache[key]\n                return None\n            self._cache.move_to_end(key)\n            return value\n\n    def set(self, key: Any, value: Any, ttl: Optional[float] = None) -> None:\n        \"\"\"Store a value with optional per-entry TTL override.\"\"\"\n        if ttl is None:\n            ttl = self._default_ttl\n        expires_at = time.monotonic() + ttl\n        with self._lock:\n            if key in self._cache:\n                self._cache.move_to_end(key)\n            self._cache[key] = (value, expires_at)\n            while len(self._cache) > self._maxsize:\n                self._cache.popitem(last=False)\n\n    def delete(self, key: Any) -> None:\n        \"\"\"Remove an entry by key.\"\"\"\n        with self._lock:\n            self._cache.pop(key, None)\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._cache.clear()\n\n    def __contains__(self, key: Any) -> bool:\n        return self.get(key) is not None\n\n\ndef cached(maxsize: int = 128, ttl: float = 300.0) -> Callable:\n    \"\"\"Decorator that caches function results with LRU eviction and TTL.\n\n    Args:\n        maxsize: Maximum cached results to retain.\n        ttl: Time-to-live in seconds for each cached result.\n    \"\"\"\n    cache = LRUCache(maxsize=maxsize, default_ttl=ttl)\n\n    def decorator(func: Callable) -> Callable:\n        @wraps(func)\n        def wrapper(*args: Any, **kwargs: Any) -> Any:\n            key = (args, tuple(sorted(kwargs.items())))\n            result = cache.get(key)\n            if result is not None:\n                return result\n            result = func(*args, **kwargs)\n            cache.set(key, result)\n            return result\n\n        wrapper.cache = cache\n        return wrapper\n\n    return decorator\n```"
+}

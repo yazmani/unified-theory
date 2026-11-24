@@ -1,0 +1,94 @@
+{
+ "label": "splash-flashnext-q2-exp14-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-24 13:22:11",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 34.26826383289881,
+ "tokens_total": 2562,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.7262737499549985,
+   "completion_tokens": 80,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 2.4391622501425445,
+   "completion_tokens": 177,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 2.3431198329199106,
+   "completion_tokens": 145,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 6.144551540957764,
+   "completion_tokens": 508,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 3.6754027081187814,
+   "completion_tokens": 289,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 3.9127599999774247,
+   "completion_tokens": 310,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 2.3788162090349942,
+   "completion_tokens": 155,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 3.6450486248359084,
+   "completion_tokens": 283,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 3.932855874998495,
+   "completion_tokens": 309,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": false,
+   "wall_s": 4.070273041957989,
+   "completion_tokens": 306,
+   "finish": "stop",
+   "err": "Traceback (most recent call last):\n  File \"median_stream.py\", line 31, in <module>\n    m.add(x); assert m.median()==e, (x, m.median())\n                     ^^^^^^^^^^^^^\nAssertionError: (15, 15)\n"
+  }
+ ]
+}

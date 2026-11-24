@@ -1,0 +1,32 @@
+{
+ "label": "inkling-llamacpp-adq4k-dspark3-r2",
+ "model": "local",
+ "base_url": "http://127.0.0.1:8092/v1",
+ "context": 131072,
+ "when": "2026-11-24 01:29:22",
+ "turns": 3,
+ "total_wall_s": 217.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 65.5,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2402
+  },
+  {
+   "turn": 2,
+   "wall_s": 30.7,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 767
+  },
+  {
+   "turn": 3,
+   "wall_s": 121.4,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 6874
+  }
+ ]
+}

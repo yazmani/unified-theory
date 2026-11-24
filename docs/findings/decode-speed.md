@@ -15,6 +15,8 @@
 | 5 | Inkling-2-Mini Strata SQ-20 (lossless) + DSpark | 48 (41–51) | 72 s | 10/10 (144 s) |
 | 6 | Inkling-2-Mini UD-IQ4_XS + DSpark n=3, Unsloth llama.cpp | 36 | 57 s | 10/10 (203 s) |
 | 7 | Inkling-2-Mini UD-IQ4_XS, Unsloth llama.cpp, no speculative decoding (≈ Unsloth Studio defaults) | 30 | 148 s | not run |
+| — | Inkling-2-Mini **AtomicChat AD-Q4_K** + DSpark n=3, Atomic Engine (20 GiB budget, 4K context) | 45 (42–48) | 73 s | 10/10 (220 s) |
+| — | Inkling-2-Mini **AtomicChat AD-Q4_K** + DSpark n=3, llama.cpp PR #32218 | 42 (39–46) | 63 s | 10/10 (180 s) |
 
 \* Wall time to a finished answer for the `gen-python` prompt (LRU cache with TTL, thread safety, decorator),
 max 8000 tokens, finish reason `stop`. Every engine's code compiled and imported. Thinking length varies run to
@@ -29,6 +31,29 @@ run, so this is noisier than decode tok/s.
 
 Strata 0.2.20 (2026-11-23) moved Inkling SQ-15 to **65.9 tok/s** with thinking forced off; see
 [strata-prompt-cache.md](strata-prompt-cache.md#4-strata-0220).
+
+## AtomicChat AD quants and Atomic Engine (2026-11-24)
+
+[AtomicChat/Inkling-2-Mini-GGUF](https://huggingface.co/AtomicChat/Inkling-2-Mini-GGUF) publishes per-tensor
+"AD" quants with KL-divergence against BF16: **AD-Q4_K is 16.5 GB with 96.3% top-1 agreement** (stock Q4_K_M:
+94.7%). [Atomic Engine](https://github.com/AtomicBot-ai/atomic-engine) is their llama.cpp fork that streams
+experts from SSD under a memory budget. Both rows above use AD-Q4_K and AtomicChat's own DSpark drafter
+(revision `3095098`), same prompts and settings as the other rows (`reasoning_effort: none`, 2048 max tokens).
+
+- llama.cpp: [PR #32218](https://github.com/ggml-org/llama.cpp/pull/32218) head `9f57b44` (DSpark for Inkling, not
+  merged yet), `-c 32768 -ctk q8_0 -ctv q8_0`, 16.9 GiB RSS, draft acceptance 0.62–0.75.
+- Atomic Engine: branch `codex/expert-weight-source` at `e110381`, the README's Q4_K profile (20 GiB budget,
+  `-c 4096`, Q4_0 KV, `--ctx-checkpoints 0 --cache-ram 0`), 15.7 GiB RSS, acceptance 0.66–0.83.
+
+Findings:
+
+1. **AD-Q4_K on llama.cpp is ~15% faster than Unsloth UD-IQ4_XS** (42 vs 36 tok/s, both DSpark n=3) and passed
+   every task. It is the best llama.cpp option for Inkling measured here.
+2. **Strata is still faster**: SQ-15 at 58 (0.2.19) / 66 (0.2.20) tok/s against 42–45.
+3. **Atomic Engine's 77 tok/s at 20 GiB (M4 Max, README) didn't reproduce on real prompts**: 45 tok/s here.
+   Its benchmark is a 64-token answer on a repetitive fixture. Its value is the memory cap, not speed on a Mac
+   that already fits the model.
+4. **Atomic's published profiles can't run an agent**: 4K context, one slot, prompt reuse off. Not benched in Cline.
 
 ## Findings
 

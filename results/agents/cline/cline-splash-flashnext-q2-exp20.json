@@ -1,0 +1,32 @@
+{
+ "label": "splash-flashnext-q2-exp20",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 13:38:41",
+ "turns": 3,
+ "total_wall_s": 279.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 39.0,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 3594
+  },
+  {
+   "turn": 2,
+   "wall_s": 83.2,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 2263
+  },
+  {
+   "turn": 3,
+   "wall_s": 157.4,
+   "stop": "end_turn",
+   "tool_calls": 9,
+   "answer_chars": 9216
+  }
+ ]
+}

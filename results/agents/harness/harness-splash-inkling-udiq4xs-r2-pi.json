@@ -1,0 +1,42 @@
+{
+ "label": "splash-inkling-udiq4xs-r2-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 10:41:27",
+ "turns": 3,
+ "total_wall_s": 59.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 18.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1737,
+   "prompt_tokens": 25839,
+   "cached_tokens": 15552
+  },
+  {
+   "turn": 2,
+   "wall_s": 10.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 593,
+   "prompt_tokens": 48418,
+   "cached_tokens": 47232
+  },
+  {
+   "turn": 3,
+   "wall_s": 30.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 5220,
+   "prompt_tokens": 59650,
+   "cached_tokens": 55680
+  }
+ ]
+}
