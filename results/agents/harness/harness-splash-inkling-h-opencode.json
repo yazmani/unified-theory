@@ -1,0 +1,42 @@
+{
+ "label": "splash-inkling-h-opencode",
+ "harness": "opencode",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 00:22:27",
+ "turns": 3,
+ "total_wall_s": 139.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 34.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 2819,
+   "prompt_tokens": 75029,
+   "cached_tokens": 58464
+  },
+  {
+   "turn": 2,
+   "wall_s": 25.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 908,
+   "prompt_tokens": 122505,
+   "cached_tokens": 119872
+  },
+  {
+   "turn": 3,
+   "wall_s": 79.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 8,
+   "answer_chars": 5487,
+   "prompt_tokens": 223274,
+   "cached_tokens": 205440
+  }
+ ]
+}

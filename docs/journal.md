@@ -58,6 +58,9 @@ matching page under [findings/](findings/).
   none beat KAT-Ornith in agents. New security review check (all 16–18/18) and per-session engine stats; 100K runs:
   every Qwen3.6-35B 8/8 at ~160–223 tok/s decode. oMLX (Inkling 261 tok/s, slow in agents) and DSpine on Qwen3.8-27B
   (90 tok/s, 7–8 issues, 18 tok/s at 100K). → [model-sweep](findings/model-sweep.md)
+- Correction: oMLX Inkling is 55 tok/s wall-clock, not 261 (bursty streaming fooled the streamed benchmark; new
+  `bench/raw_decode.py`). Harness comparison on Inkling: pi fastest on Splash (49 s) and oMLX (86 s); Splash faster
+  in every harness. Deleted the models that lost (KAT-Coder, AgentWorld, Qwopus, Distill, RavenX, oMLX Tiel).
 
 ## Open threads
 

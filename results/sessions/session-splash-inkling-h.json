@@ -1,0 +1,22 @@
+{
+ "label": "splash-inkling-h",
+ "requests": 55,
+ "generated_tokens": 20923,
+ "decode_peak_tps": 164.4,
+ "decode_median_tps": 87.2,
+ "decode_weighted_tps": 80.3,
+ "decode_share_over_100": 0.38,
+ "prefill_peak_tps": 1813,
+ "prefill_mean_tps": 1416,
+ "prefill_mean_tps_2k_plus": 1466,
+ "prefix_cache_hit": 0.904,
+ "ttft_p50_s": 0.6,
+ "ttft_p95_s": 7.0,
+ "largest_prompt": {
+  "input": 40945,
+  "cached": 38880,
+  "ttft_s": 1.6,
+  "decode_tps": 60.0
+ },
+ "accept_tokens_per_cycle": 4.28
+}

@@ -27,8 +27,12 @@ many of 8 facts hidden in it the model recalled.
 | RavenX-CyberAgent (security-tuned) | Splash | 174 | 10/10 | 42 s · 7/9 · 0 | 21 s · 2 | 17/18 · 3/3 | — |
 | Cyber-Tiel (abliterated Tiel) | Splash | 194 | 9/10 | 88 s · 8/9 · 5 | 42 s · 5 | 17/18 · 3/3 | 1,769 / 206 · 8/8 |
 | Tiel-Coder oQ4e-MTP | **oMLX** 0.8.3 | 126 | 9/10 | 85 s · 8/9 · 5 | 44 s · 3 | 18/18 · 3/3 | 1,451 / 112 · 8/8 |
-| Inkling-2-Mini oQ4e-mtp, effort 0 | **oMLX** 0.8.3 | **261** | 10/10 | 370 s · 9/9 · 6 | 86 s · 4 | 17/18 · 3/3 | 682 / 24 · 8/8 |
+| Inkling-2-Mini oQ4e-mtp, effort 0 | **oMLX** 0.8.3 | 55* | 10/10 | 370 s · 9/9 · 6 | 86 s · 4 | 17/18 · 3/3 | 682 / 24 · 8/8 |
 | Qwen3.8-27B 4-bit + DSpine, T=0.6 | **dspine-hybrid-mlx** 0.4.0 | 90 | 10/10 | 166 s · 9/9 · **7** | 115 s · **8** | 17/18 · 3/3 | 416 / 18 · 8/8 |
+
+\* Wall-clock (`bench/raw_decode.py`, non-streamed). The streamed benchmark reported 261 tok/s for this row: oMLX
+releases Inkling's tokens in bursts, so the first-to-last-token window looked short. oMLX's own log agrees with 55.
+The other oMLX and DSpine rows match between the two methods (Tiel 117 vs 126, DSpine 87 vs 90).
 
 Session stats over each model's whole run (decode peak / token-weighted mean, prefix-cache hit), from
 `bench/session_stats.py`: KAT-Ornith 320 / 205 tok/s, 67%; Tiel 337 / 160, 88%; KAT-Coder 327 / 182, 62%;
@@ -49,9 +53,10 @@ Swap stayed under 7 GB for every Splash run.
    of 18 planted flaws and nobody refused (the check is defensive). HauhauCS Aggressive matches the best coders there,
    runs at 242 tok/s and has the fastest decode at 100K, so it's a reasonable pick if refusals ever get in the way;
    RavenX, despite its security branding, found 0 issues in the Cline review and was the slowest of the batch.
-4. **oMLX vs Splash depends on the model.** Splash is faster for Tiel (191 vs 126 tok/s, and 187 vs 112 at 100K).
-   For Inkling, oMLX's MTP decode is 2.6× Splash's (261 vs 101 tok/s), but its 100K behaviour is poor (682 / 24 tok/s)
-   and Cline sessions took 370 s against 75–94 s on Splash.
+4. **Splash beats oMLX on both models.** Tiel: 191 vs 126 tok/s (187 vs 112 at 100K). Inkling: 116 vs 55 tok/s
+   wall-clock, and 682 / 24 tok/s at 100K on oMLX. oMLX's MTP is worth +24% (55 vs 44 tok/s with it off). In agent
+   turns oMLX also throttles prefill under its memory guard and stores the prompt cache of this hybrid model in
+   2,048-token blocks, so each turn re-reads 5–9K tokens at ~700 tok/s.
 5. **oMLX needs thinking turned off on the server for agent work.** `chat_template_kwargs.enable_thinking=false`
    doesn't reach Inkling, and harness requests carry no thinking settings. Setting `"chat_template_kwargs":
    {"reasoning_effort": 0.0}` in oMLX's per-model settings took the Cline session from 532 s / 4 issues / pi 3/9 checks
@@ -64,6 +69,22 @@ Swap stayed under 7 GB for every Splash run.
 7. **Don't run DSpine greedy.** Its server defaults to temperature 0, and in Cline one request looped for 32,000
    tokens until the turn timed out. With Qwen's sampling (`--temperature 0.6 --top-p 0.95 --top-k 20`) the same
    session took 166 s.
+
+## Harnesses on Inkling: Splash vs oMLX
+
+Same 3-turn session, same model (Inkling-2-Mini, thinking off), each harness against each engine. Time · commit checks
+· issues found of 8.
+
+| Engine (wall-clock decode) | Cline | OpenCode | Claude Code | pi |
+|---|---|---|---|---|
+| **Splash** (116 tok/s) | 75–94 s · 9/9 · 6 | 139 s · 9/9 · **6** | 139 s · 9/9 · 4 | **49 s** · 9/9 · 4 |
+| oMLX, MTP (55 tok/s) | 370 s · 9/9 · 6 | 268 s · 8/9 · 5 | 168 s · 9/9 · 4 | 86 s · 9/9 · 4 |
+
+- **The harness matters 2–5×, the engine on top of that.** pi is the fastest on both engines; Cline is the slowest on
+  oMLX. Splash is faster in every harness (1.2–4×).
+- **OpenCode is no longer the fastest.** It was on Strata ([agent-harnesses](agent-harnesses.md), 66 s), but it sends
+  the largest prompts (223–323K prompt tokens over the session, against 53K for pi), so on engines with fast decode
+  and working prompt reuse pi wins. OpenCode and Cline found the most issues (6).
 
 ## Security review check
 

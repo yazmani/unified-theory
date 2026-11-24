@@ -1,0 +1,42 @@
+{
+ "label": "omlx-inkling-e0-h-claude",
+ "harness": "claude",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 00:17:15",
+ "turns": 3,
+ "total_wall_s": 167.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 50.7,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 2306,
+   "prompt_tokens": 89318,
+   "cached_tokens": 67826
+  },
+  {
+   "turn": 2,
+   "wall_s": 34.6,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 512,
+   "prompt_tokens": 94642,
+   "cached_tokens": 90481
+  },
+  {
+   "turn": 3,
+   "wall_s": 82.2,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 5333,
+   "prompt_tokens": 156602,
+   "cached_tokens": 142832
+  }
+ ]
+}

@@ -14,7 +14,7 @@ How every number in this repo was produced, and what it does and doesn't tell yo
 
 | Metric | Where it comes from | Note |
 |---|---|---|
-| Decode tok/s | the engine's own counter (`timings.predicted_per_second`) | Strata streams in large chunks, so client-side chunk timing is meaningless |
+| Decode tok/s | the engine's own counter (`timings.predicted_per_second`) | Strata streams in large chunks, so client-side chunk timing is meaningless. Engines without a counter (oMLX, DSpine) are cross-checked with `bench/raw_decode.py` (non-streamed, tokens / wall time) |
 | TTFT | client clock, request → first content | includes hidden thinking on engines that hide it |
 | Wall time to a finished answer | client clock | **the number that matters**: a model that thinks 3× longer at the same tok/s is 3× slower |
 | Cached tokens | `usage.prompt_tokens_details.cached_tokens`, or the harness's own usage report | the agent benchmarks also read the server log to count full re-reads |

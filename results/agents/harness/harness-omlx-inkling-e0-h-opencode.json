@@ -1,0 +1,42 @@
+{
+ "label": "omlx-inkling-e0-h-opencode",
+ "harness": "opencode",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 00:14:28",
+ "turns": 3,
+ "total_wall_s": 268.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 62.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 2307,
+   "prompt_tokens": 85923,
+   "cached_tokens": 68659
+  },
+  {
+   "turn": 2,
+   "wall_s": 56.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1018,
+   "prompt_tokens": 99947,
+   "cached_tokens": 95943
+  },
+  {
+   "turn": 3,
+   "wall_s": 149.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 12,
+   "answer_chars": 5290,
+   "prompt_tokens": 323173,
+   "cached_tokens": 304124
+  }
+ ]
+}

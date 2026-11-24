@@ -1,0 +1,24 @@
+{
+ "label": "omlx-inkling-e0-nomtp",
+ "extra": "{\"chat_template_kwargs\":{\"enable_thinking\":false},\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 00:19:33",
+ "wall_tps_best": 44.3,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1500,
+   "wall_s": 34.14,
+   "wall_tps": 43.9,
+   "visible_chars": 0,
+   "reasoning_chars": 4571
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1500,
+   "wall_s": 33.89,
+   "wall_tps": 44.3,
+   "visible_chars": 0,
+   "reasoning_chars": 4571
+  }
+ ]
+}

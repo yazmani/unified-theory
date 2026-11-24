@@ -1,0 +1,42 @@
+{
+ "label": "splash-inkling-h-claude",
+ "harness": "claude",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 00:24:46",
+ "turns": 3,
+ "total_wall_s": 138.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 31.9,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 2021,
+   "prompt_tokens": 97732,
+   "cached_tokens": 73888
+  },
+  {
+   "turn": 2,
+   "wall_s": 47.8,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 839,
+   "prompt_tokens": 190783,
+   "cached_tokens": 177472
+  },
+  {
+   "turn": 3,
+   "wall_s": 58.9,
+   "rc": 0,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 4599,
+   "prompt_tokens": 206292,
+   "cached_tokens": 194624
+  }
+ ]
+}
