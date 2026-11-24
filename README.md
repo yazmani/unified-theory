@@ -12,9 +12,9 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 
 | Question | Answer (2026-11-24) | Details |
 |---|---|---|
-| Fastest good coding model? | **Tiel-Coder-35B-A3B on Splash: ~191 tok/s** (Q4_K_XL); 98 on llama.cpp + MTP. Flint (139 tok/s) has the fastest agent sessions (63 s) but misses most issues | [splash](docs/findings/splash.md), [decode-speed](docs/findings/decode-speed.md) |
+| Fastest good coding model? | **KAT-Ornith-HERO-35B-A3B on Splash: ~235 tok/s** (Q4_K_M); Tiel-Coder 191 (98 on llama.cpp + MTP) | [splash](docs/findings/splash.md), [decode-speed](docs/findings/decode-speed.md) |
 | Fastest runtime on a Mac? | **Splash**: ~2× llama.cpp and Strata for Tiel, Inkling and Qwen3.8-27B, if the model matches its drafter | [splash](docs/findings/splash.md) |
-| Best model inside an agent? | **Tiel-Coder or Inkling-2-Mini on Splash**: 75–101 s per Cline session, 9/9 checks (best runs). Most thorough: **Qwen3.8-Flash-Next** on Splash (66 GB, experts streamed from the SSD): all 8 issues found, but 280–348 s. Of the Qwen3.8-27B fine-tunes, **pi-adapted** beats DavidAU's TURBO-Fable | [splash](docs/findings/splash.md), [agent-models](docs/findings/agent-models.md) |
+| Best model inside an agent? | **KAT-Ornith-HERO on Splash**: 52–79 s per Cline session, 6/8 issues found in both runs. Tiel-Coder and Inkling-2-Mini: 75–101 s. Most thorough: **Qwen3.8-Flash-Next** on Splash (66 GB, experts streamed from the SSD): all 8 issues found, but 280–348 s. Of the Qwen3.8-27B fine-tunes, **pi-adapted** beats DavidAU's TURBO-Fable | [splash](docs/findings/splash.md), [agent-models](docs/findings/agent-models.md) |
 | Does the agent harness matter? | Yes, ~2× with the same model: **OpenCode** fastest (66 s), **pi** best balance, **Claude Code** most thorough | [agent-harnesses](docs/findings/agent-harnesses.md) |
 | What matters most for agents? | **Prompt reuse across turns.** Without it every harness got 2.5–5.7× slower | [strata-prompt-cache](docs/findings/strata-prompt-cache.md) |
 | Strata 0.2.20: upgrade? | For chat yes (66 tok/s, instant first token). For agents no, not yet (~3× slower) | [strata-prompt-cache §4](docs/findings/strata-prompt-cache.md#4-strata-0220) |
@@ -25,7 +25,9 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 
 | Model / runtime | Decode tok/s | Long answer | Mini-eval |
 |---|---|---|---|
-| Tiel-Coder-35B-A3B UD-Q4_K_XL, **Splash** 1.7.2 | **191** | 8 s | 9/10 |
+| KAT-Ornith-HERO-35B-A3B Fusion i1-Q4_K_M, **Splash** 1.7.2 | **235** | 9 s | 9/10 |
+| Ornith-1.5-35B-A3B Q4_K_M, **Splash** 1.7.2 | 219 | 8 s | 7/10 |
+| Tiel-Coder-35B-A3B UD-Q4_K_XL, **Splash** 1.7.2 | 191 | 8 s | 9/10 |
 | Flint UD-Q4_K_XL, **Splash** 1.7.2 (thinks even with effort none) | 139 | 42 s | 10/10 |
 | Qwen3.8-Flash-Next GSQ-RCO Q2_0 (66 GB, 20 GB expert store), **Splash** 1.7.2 | 129 | 10 s | 8/10 |
 | Inkling-2-Mini UD-IQ4_XS, **Splash** 1.7.2 | 101 | 24 s | 10/10 |

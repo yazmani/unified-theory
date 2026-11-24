@@ -51,6 +51,9 @@ matching page under [findings/](findings/).
 - Flint (40B MoE, ~2.5B active) on Splash: 139 tok/s and a 63 s Cline session (fastest yet), but only 1–4 of 8
   issues found. Ornith-1.5-122B IQ3_XXS with expert streaming: 44 tok/s, 249 s Cline, 4/8 issues, 7/10 mini-eval;
   not worth it on 48 GB. → [splash](findings/splash.md)
+- Ornith-35B family (Tiel's base) on Splash: **KAT-Ornith-HERO fusion 235 tok/s, Cline 52–79 s with 6/8 issues**
+  (both runs), the new everyday pick over Tiel. Stock Ornith-1.5-35B: 219 tok/s, weaker. The Ornith DFlash2 drafter
+  from jzinno doesn't load in Splash. → [splash](findings/splash.md)
 
 ## Open threads
 

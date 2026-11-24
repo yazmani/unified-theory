@@ -1,0 +1,42 @@
+{
+ "label": "splash-ornith35-q4km-tb8k-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 20:20:22",
+ "turns": 3,
+ "total_wall_s": 28.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 4.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 1327,
+   "prompt_tokens": 6138,
+   "cached_tokens": 1696
+  },
+  {
+   "turn": 2,
+   "wall_s": 2.5,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 286,
+   "prompt_tokens": 10963,
+   "cached_tokens": 10016
+  },
+  {
+   "turn": 3,
+   "wall_s": 20.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 2983,
+   "prompt_tokens": 48674,
+   "cached_tokens": 34720
+  }
+ ]
+}

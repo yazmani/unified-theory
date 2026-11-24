@@ -16,7 +16,9 @@ found of 8.
 
 | Model | Engine | Decode tok/s | Cline session | Cline checks / issues | pi session | pi checks / issues |
 |---|---|---:|---:|---|---:|---|
-| **Tiel-Coder-35B-A3B UD-Q4_K_XL**, thinking budget 8K | **Splash** | **191** | **101 / 94 s** | 9/9, 8/9 · 6, 2 | **36 s** | 8/9 · 4 |
+| **KAT-Ornith-HERO-35B-A3B Fusion i1-Q4_K_M**, thinking budget 8K | **Splash** | **235** | **79 / 52 s** | 8/9, 9/9 · 6, 6 | 26 / 35 s | 8/9, 7/9 · 3, 3 |
+| Ornith-1.5-35B-A3B Q4_K_M (official), thinking budget 8K | Splash | 219 | 86 s | 8/9 · 4 | 28 s | 7/9 · 5 |
+| **Tiel-Coder-35B-A3B UD-Q4_K_XL**, thinking budget 8K | **Splash** | 191 | **101 / 94 s** | 9/9, 8/9 · 6, 2 | **36 s** | 8/9 · 4 |
 | | llama.cpp + MTP (before) | 98* | 142 / 168 s | 9/9, 9/9 · 4, 7 | — | — |
 | **Inkling-2-Mini UD-IQ4_XS**, thinking off | **Splash** | **101** | **94 / 75 s** | 9/9, 3/9† · 6, 6 | 60 s | 3/9‡ · 4 |
 | | Strata 0.2.19 + checkpoint engine (before) | 58 | 105–119 s | 9/9, 9/9, 8/9 · 4–6 | 88–108 s | — |
@@ -33,7 +35,7 @@ found of 8.
 turn ended without running it. ‡ The model stopped to ask for a git identity instead of setting one.
 
 Mini-eval (10 small coding tasks, thinking off): pi-adapted 10/10, DavidAU 10/10, Inkling 10/10, Tiel 9/10,
-Flash-Next 9/10 and 8/10, Flint 10/10, Ornith 7/10.
+Flash-Next 9/10 and 8/10, Flint 10/10, Ornith-122B 7/10, KAT-Ornith 9/10, Ornith-35B 7/10.
 Swap stayed flat (0.85 GB) for every Splash run.
 
 ## Findings
@@ -71,12 +73,24 @@ Swap stayed flat (0.85 GB) for every Splash run.
     in both harnesses: slower than Flash-Next and less thorough. Swap rose ~1 GB while it loaded. A Q4 file (80 GB)
     would stream more from the SSD and be slower still.
 
+11. **KAT-Ornith-HERO is the best everyday agent model here.** Tiel-Coder is a fine-tune of Ornith-1.5-35B-A3B, so
+    other Ornith-35B models run on the same Splash drafter. KAT-Ornith-HERO (a merge of KAT-Coder-V2.5, Ornith-1.5
+    and HERO-35B-A3B) decodes at 235 tok/s and ran the Cline session in **52–79 s with 6 of 8 issues** both times,
+    faster and more thorough than Tiel. In pi it was quick (26–35 s) but found 3 issues and committed the local
+    config folder. Stock Ornith-1.5-35B is nearly as fast (219 tok/s) but weaker (7/10 mini-eval, 4–5 issues).
+    The Ornith-trained DFlash2 drafter `jzinno/Ornith-1.5-35B-A3B-DFlash2` doesn't load in Splash 1.7.2 (sliding
+    window 4096, Splash expects 2048).
+
 ## Setup
 
 ```sh
 brew install incoai/tap/splash
 # Tiel-Coder (Qwen3.6-35B-A3B family), thinking capped
 splash serve --model local/tiel --model-dir ~/models/tiel/Tiel-Coder-35B-A3B-MTP-UD-Q4_K_XL.gguf \
+  --draft-model ~/models/drafts/Qwen3.6-35B-A3B-DFlash2 --thinking-token-budget 8192 --max-context 128K \
+  --language-only --idle-release off --max-cache-disk 4G --served-model-name gpt-4o
+# KAT-Ornith-HERO fusion (Qwen3.6-35B-A3B family): the best everyday agent model here
+splash serve --model local/kat --model-dir ~/models/ornith35/KAT-Ornith-HERO-35B-A3B-Fusion.i1-Q4_K_M.gguf \
   --draft-model ~/models/drafts/Qwen3.6-35B-A3B-DFlash2 --thinking-token-budget 8192 --max-context 128K \
   --language-only --idle-release off --max-cache-disk 4G --served-model-name gpt-4o
 # Inkling-2-Mini, thinking off by default
@@ -93,7 +107,8 @@ splash serve --model local/flashnext \
 
 Drafters: `incoai/Qwen3.6-35B-A3B-DFlash2` (1 GB), `incoai/Inkling-2-Mini-DFlash2` (0.9 GB),
 `incoai/Qwen3.8-27B-DFlash2` (3.6 GB), `incoai/Qwen3.8-Flash-Next-DFlash2` (1.2 GB). Flash-Next model:
-`ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder `Q2_0` (37.6 + 28.8 GB). Without `--model-dir`,
+`ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder `Q2_0` (37.6 + 28.8 GB). KAT-Ornith:
+`mradermacher/KAT-Ornith-HERO-35B-A3B-Fusion-i1-GGUF` (21.7 GB). Without `--model-dir`,
 `splash serve --model OWNER/REPO:VARIANT` downloads the model and its drafter. Point clients at `http://127.0.0.1:8000/v1`. `splash pi`, `splash opencode` and
 `splash claude` start a harness wired to the server.
 

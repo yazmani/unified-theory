@@ -1,0 +1,42 @@
+{
+ "label": "splash-katornith-q4km-tb8k-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 20:23:27",
+ "turns": 3,
+ "total_wall_s": 25.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 6.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1134,
+   "prompt_tokens": 18578,
+   "cached_tokens": 11584
+  },
+  {
+   "turn": 2,
+   "wall_s": 4.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 294,
+   "prompt_tokens": 15747,
+   "cached_tokens": 8960
+  },
+  {
+   "turn": 3,
+   "wall_s": 14.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 6,
+   "answer_chars": 3117,
+   "prompt_tokens": 62900,
+   "cached_tokens": 51424
+  }
+ ]
+}
