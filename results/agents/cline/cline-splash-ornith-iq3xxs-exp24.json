@@ -1,0 +1,32 @@
+{
+ "label": "splash-ornith-iq3xxs-exp24",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 19:57:03",
+ "turns": 3,
+ "total_wall_s": 249.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 38.7,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 2307
+  },
+  {
+   "turn": 2,
+   "wall_s": 67.0,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 1449
+  },
+  {
+   "turn": 3,
+   "wall_s": 143.5,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 4672
+  }
+ ]
+}

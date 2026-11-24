@@ -12,7 +12,7 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 
 | Question | Answer (2026-11-24) | Details |
 |---|---|---|
-| Fastest good coding model? | **Tiel-Coder-35B-A3B on Splash: ~191 tok/s** (Q4_K_XL); 98 on llama.cpp + MTP | [splash](docs/findings/splash.md), [decode-speed](docs/findings/decode-speed.md) |
+| Fastest good coding model? | **Tiel-Coder-35B-A3B on Splash: ~191 tok/s** (Q4_K_XL); 98 on llama.cpp + MTP. Flint (139 tok/s) has the fastest agent sessions (63 s) but misses most issues | [splash](docs/findings/splash.md), [decode-speed](docs/findings/decode-speed.md) |
 | Fastest runtime on a Mac? | **Splash**: ~2× llama.cpp and Strata for Tiel, Inkling and Qwen3.8-27B, if the model matches its drafter | [splash](docs/findings/splash.md) |
 | Best model inside an agent? | **Tiel-Coder or Inkling-2-Mini on Splash**: 75–101 s per Cline session, 9/9 checks (best runs). Most thorough: **Qwen3.8-Flash-Next** on Splash (66 GB, experts streamed from the SSD): all 8 issues found, but 280–348 s. Of the Qwen3.8-27B fine-tunes, **pi-adapted** beats DavidAU's TURBO-Fable | [splash](docs/findings/splash.md), [agent-models](docs/findings/agent-models.md) |
 | Does the agent harness matter? | Yes, ~2× with the same model: **OpenCode** fastest (66 s), **pi** best balance, **Claude Code** most thorough | [agent-harnesses](docs/findings/agent-harnesses.md) |
@@ -26,9 +26,11 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 | Model / runtime | Decode tok/s | Long answer | Mini-eval |
 |---|---|---|---|
 | Tiel-Coder-35B-A3B UD-Q4_K_XL, **Splash** 1.7.2 | **191** | 8 s | 9/10 |
+| Flint UD-Q4_K_XL, **Splash** 1.7.2 (thinks even with effort none) | 139 | 42 s | 10/10 |
 | Qwen3.8-Flash-Next GSQ-RCO Q2_0 (66 GB, 20 GB expert store), **Splash** 1.7.2 | 129 | 10 s | 8/10 |
 | Inkling-2-Mini UD-IQ4_XS, **Splash** 1.7.2 | 101 | 24 s | 10/10 |
 | Qwen3.8-27B-pi-adapted Q4_K_M, **Splash** 1.7.2 | 90 | 22 s | 10/10 |
+| Ornith-1.5-122B UD-IQ3_XXS (24 GB expert store), **Splash** 1.7.2 | 44 | 41 s | 7/10 |
 | Tiel-Coder-35B-A3B UD-IQ4_XS + MTP, Unsloth llama.cpp | 98 | 26 s | 10/10 |
 | Tiel-Coder-35B-A3B UD-IQ4_XS, no speculative decoding | 70 | 42 s | — |
 | Inkling-2-Mini SQ-15, Strata 0.2.20 (thinking off) | 66 | — | 9/10 |

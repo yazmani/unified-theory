@@ -1,0 +1,94 @@
+{
+ "label": "splash-ornith-iq3xxs-exp24-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-24 19:51:59",
+ "passed": 7,
+ "total": 10,
+ "wall_s_total": 72.0604316254612,
+ "tokens_total": 2832,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 3.905891750007868,
+   "completion_tokens": 113,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 4.586662375135347,
+   "completion_tokens": 215,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 4.0660517499782145,
+   "completion_tokens": 142,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 12.715064292075112,
+   "completion_tokens": 609,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": false,
+   "wall_s": 9.024080792209134,
+   "completion_tokens": 317,
+   "finish": "stop",
+   "err": "ecent call last):\n  File \"parse_duration.py\", line 25, in <module>\n    assert parse_duration('1h30m')==5400\n           ~~~~~~~~~~~~~~^^^^^^^^^\n  File \"parse_duration.py\", line 20, in parse_duration\n    for num, unit in matches:\n        ^^^^^^^^^\nTypeError: cannot unpack non-iterable re.Match object\n"
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 9.82405245793052,
+   "completion_tokens": 370,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": false,
+   "wall_s": 4.743346374947578,
+   "completion_tokens": 148,
+   "finish": "stop",
+   "err": "Traceback (most recent call last):\n  File \"flatten.py\", line 18, in <module>\n    assert flatten({'a':{}})=={}\n           ^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n"
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 5.986729333177209,
+   "completion_tokens": 231,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 7.985337374964729,
+   "completion_tokens": 318,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": false,
+   "wall_s": 9.223215125035495,
+   "completion_tokens": 369,
+   "finish": "stop",
+   "err": "Traceback (most recent call last):\n  File \"median_stream.py\", line 34, in <module>\n    m.add(x); assert m.median()==e, (x, m.median())\n                     ^^^^^^^^^^^^^\nAssertionError: (15, -5.0)\n"
+  }
+ ]
+}

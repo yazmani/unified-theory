@@ -22,6 +22,8 @@ found of 8.
 | | Strata 0.2.19 + checkpoint engine (before) | 58 | 105–119 s | 9/9, 9/9, 8/9 · 4–6 | 88–108 s | — |
 | **Qwen3.8-Flash-Next GSQ-RCO Q2_0**, 20 GB expert store, thinking budget 8K | **Splash** | **129** | 280 s | 7/9 · **8** | — | — |
 | same, 14 GB expert store | Splash | 96 | 348 s | 9/9 · **8** | 204 s | 9/9 · 7 |
+| **Flint UD-Q4_K_XL** (40B MoE, ~2.5B active), thinking budget 8K | **Splash** | **139** | **63 s** | 8/9 · 4 | 88 s | 9/9 · 1 |
+| Ornith-1.5-122B UD-IQ3_XXS (49.5 GB), 24 GB expert store, thinking budget 8K | Splash | 44 | 249 s | 9/9 · 4 | 141 s | 8/9 · 4 |
 | **Qwen3.8-27B-pi-adapted** (Q4_K_M), thinking off | **Splash** | **90** | 228 / 169 s | 7/9, 8/9 · 4, 5 | 57 / 143 s | 7/9, 7/9 · 5, 5 |
 | Qwen3.8-27B TURBO-Fable (DavidAU, Q4_K_M), thinking off | Splash | 21 | — | — | — | — |
 | | llama.cpp + MTP n-max 2 | 24 | 213 s | 6/9 · 2 | 45 s | 5/9 · 1 |
@@ -31,7 +33,7 @@ found of 8.
 turn ended without running it. ‡ The model stopped to ask for a git identity instead of setting one.
 
 Mini-eval (10 small coding tasks, thinking off): pi-adapted 10/10, DavidAU 10/10, Inkling 10/10, Tiel 9/10,
-Flash-Next 9/10 and 8/10.
+Flash-Next 9/10 and 8/10, Flint 10/10, Ornith 7/10.
 Swap stayed flat (0.85 GB) for every Splash run.
 
 ## Findings
@@ -59,6 +61,15 @@ Swap stayed flat (0.85 GB) for every Splash run.
 8. **Set `--expert-memory` and `--max-memory` for Flash-Next.** With the defaults Splash planned to load every
    expert (39 GB minimum), pushed swap from 0.8 to 7 GB while starting and then refused with "not enough free
    memory". With `--expert-memory 20G --max-memory 36G` swap stayed flat and the process stayed at ~3 GiB RSS.
+
+9. **Flint is the fastest model in an agent, but shallow.** 139 tok/s (114 in agent turns, 0.5 s to first token),
+   10/10 on the mini-eval and a 63 s Cline session, the fastest yet. But it found 4 and 1 of the 8 issues, committed
+   the local config folder in Cline, and it ignores `reasoning_effort: none` (5,665 thinking tokens on the long
+   answer). Good for quick edits and commits, not for reviews.
+10. **Ornith-1.5-122B doesn't pay for its size here.** At IQ3_XXS with 58% of the routed experts in a 24 GB store it
+    decodes at 44 tok/s (35 in agent turns), failed 3 of 10 mini-eval tasks on logic bugs, and found 4 of 8 issues
+    in both harnesses: slower than Flash-Next and less thorough. Swap rose ~1 GB while it loaded. A Q4 file (80 GB)
+    would stream more from the SSD and be slower still.
 
 ## Setup
 

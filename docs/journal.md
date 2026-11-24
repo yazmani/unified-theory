@@ -48,6 +48,9 @@ matching page under [findings/](findings/).
 - Qwen3.8-Flash-Next Q2_0 (66 GB) on Splash with SSD expert streaming: 96–129 tok/s, and the first model to find
   all 8 issues in Cline (twice, no false claims), at 280–348 s per session. Defaults tried to load every expert and
   pushed swap to 7 GB; set `--expert-memory`. → [splash](findings/splash.md)
+- Flint (40B MoE, ~2.5B active) on Splash: 139 tok/s and a 63 s Cline session (fastest yet), but only 1–4 of 8
+  issues found. Ornith-1.5-122B IQ3_XXS with expert streaming: 44 tok/s, 249 s Cline, 4/8 issues, 7/10 mini-eval;
+  not worth it on 48 GB. → [splash](findings/splash.md)
 
 ## Open threads
 

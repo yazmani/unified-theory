@@ -1,0 +1,32 @@
+{
+ "label": "splash-flint-q4kxl-tb8k",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 19:45:30",
+ "turns": 3,
+ "total_wall_s": 62.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 19.6,
+   "stop": "end_turn",
+   "tool_calls": 9,
+   "answer_chars": 1921
+  },
+  {
+   "turn": 2,
+   "wall_s": 6.1,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 741
+  },
+  {
+   "turn": 3,
+   "wall_s": 36.9,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 2902
+  }
+ ]
+}
