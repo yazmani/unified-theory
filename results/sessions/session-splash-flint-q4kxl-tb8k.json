@@ -1,0 +1,22 @@
+{
+ "label": "splash-flint-q4kxl-tb8k",
+ "requests": 49,
+ "generated_tokens": 36087,
+ "decode_peak_tps": 230.7,
+ "decode_median_tps": 125.3,
+ "decode_weighted_tps": 138.0,
+ "decode_share_over_100": 0.79,
+ "prefill_peak_tps": 3671,
+ "prefill_mean_tps": 2484,
+ "prefill_mean_tps_2k_plus": 2747,
+ "prefix_cache_hit": 0.893,
+ "ttft_p50_s": 0.2,
+ "ttft_p95_s": 1.0,
+ "largest_prompt": {
+  "input": 29493,
+  "cached": 27712,
+  "ttft_s": 0.9,
+  "decode_tps": 88.0
+ },
+ "accept_tokens_per_cycle": 3.33
+}

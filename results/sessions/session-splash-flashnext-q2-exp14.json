@@ -1,0 +1,22 @@
+{
+ "label": "splash-flashnext-q2-exp14",
+ "requests": 48,
+ "generated_tokens": 27809,
+ "decode_peak_tps": 96.0,
+ "decode_median_tps": 63.8,
+ "decode_weighted_tps": 62.5,
+ "decode_share_over_100": 0.0,
+ "prefill_peak_tps": 1167,
+ "prefill_mean_tps": 859,
+ "prefill_mean_tps_2k_plus": 1091,
+ "prefix_cache_hit": 0.912,
+ "ttft_p50_s": 1.8,
+ "ttft_p95_s": 5.5,
+ "largest_prompt": {
+  "input": 55769,
+  "cached": 54592,
+  "ttft_s": 1.8,
+  "decode_tps": 60.9
+ },
+ "accept_tokens_per_cycle": 3.42
+}

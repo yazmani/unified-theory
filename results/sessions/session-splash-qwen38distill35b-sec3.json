@@ -1,0 +1,22 @@
+{
+ "label": "splash-qwen38distill35b-sec3",
+ "requests": 21,
+ "generated_tokens": 8608,
+ "decode_peak_tps": 191.1,
+ "decode_median_tps": 173.1,
+ "decode_weighted_tps": 173.6,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 1570,
+ "prefill_mean_tps": 1134,
+ "prefill_mean_tps_2k_plus": null,
+ "prefix_cache_hit": 0.027,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 0.1,
+ "largest_prompt": {
+  "input": 157,
+  "cached": 0,
+  "ttft_s": 0.1,
+  "decode_tps": 178.1
+ },
+ "accept_tokens_per_cycle": 3.82
+}

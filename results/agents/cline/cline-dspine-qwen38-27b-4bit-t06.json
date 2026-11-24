@@ -1,0 +1,32 @@
+{
+ "label": "dspine-qwen38-27b-4bit-t06",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 23:34:47",
+ "turns": 3,
+ "total_wall_s": 166.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 37.2,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2245
+  },
+  {
+   "turn": 2,
+   "wall_s": 15.3,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 743
+  },
+  {
+   "turn": 3,
+   "wall_s": 113.9,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 4525
+  }
+ ]
+}

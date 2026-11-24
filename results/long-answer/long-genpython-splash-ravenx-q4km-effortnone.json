@@ -1,0 +1,23 @@
+{
+ "label": "splash-ravenx-q4km-effortnone",
+ "wall_s": 0.6955520000774413,
+ "usage": {
+  "prompt_tokens": 44,
+  "completion_tokens": 114,
+  "total_tokens": 158,
+  "prompt_tokens_details": {
+   "cached_tokens": 32,
+   "prefix_tokens": 32,
+   "state_source": "memory",
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 170.5163627803523,
+ "content_chars": 341,
+ "reasoning_chars": 0,
+ "content": "```python\ndef test():\n    \"\"\"Test the LRU cache with TTL expiry.\"\"\"\n    from lru_cache import LRU, ttl_cache\n\n    @ttl_cache(maxsize=100, ttl=10)\n    def expensive(x):\n        return x * 2\n\n    assert expensive(5) == 10\n    assert expensive(5) == 10  # cached\n    assert expensive(6) == 12\n    assert expensive(5) == 10  # still cached\n\n\n```"
+}

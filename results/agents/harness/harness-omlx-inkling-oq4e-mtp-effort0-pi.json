@@ -1,0 +1,42 @@
+{
+ "label": "omlx-inkling-oq4e-mtp-effort0-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 23:24:51",
+ "turns": 3,
+ "total_wall_s": 86.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 24.5,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 1812,
+   "prompt_tokens": 18640,
+   "cached_tokens": 10060
+  },
+  {
+   "turn": 2,
+   "wall_s": 13.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 338,
+   "prompt_tokens": 40532,
+   "cached_tokens": 37866
+  },
+  {
+   "turn": 3,
+   "wall_s": 47.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 4072,
+   "prompt_tokens": 74030,
+   "cached_tokens": 65640
+  }
+ ]
+}

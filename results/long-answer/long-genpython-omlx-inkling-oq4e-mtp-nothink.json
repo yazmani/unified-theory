@@ -1,0 +1,28 @@
+{
+ "label": "omlx-inkling-oq4e-mtp-nothink",
+ "wall_s": 53.74495366588235,
+ "usage": {
+  "prompt_tokens": 49,
+  "completion_tokens": 3100,
+  "total_tokens": 3149,
+  "input_tokens": 49,
+  "output_tokens": 3100,
+  "prompt_tokens_details": {
+   "cached_tokens": 0
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 1603
+  },
+  "time_to_first_token": 0.36,
+  "total_time": 53.73,
+  "prompt_eval_duration": 0.36,
+  "generation_duration": 53.37,
+  "prompt_tokens_per_second": 135.45,
+  "generation_tokens_per_second": 58.08
+ },
+ "finish": "stop",
+ "engine_tps": null,
+ "content_chars": 4700,
+ "reasoning_chars": 5264,
+ "content": "\"\"\"Thread-safe LRU cache with TTL expiry and a decorator interface.\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Optional, ParamSpec, TypeVar\n\n__all__ = [\"TTLCache\", \"lru_ttl_cache\"]\n\nP = ParamSpec(\"P\")\nR = TypeVar(\"R\")\n\n_MISS = object()\n\n\ndef _default_key(args: tuple[Any, ...], kwargs: dict[str, Any]) -> Any:\n    \"\"\"Build a stable cache key from positional and keyword arguments.\"\"\"\n    return (repr(args), repr(sorted(kwargs.items())))\n\n\nclass TTLCache:\n    \"\"\"A bounded LRU cache whose entries expire after a fixed TTL.\n\n    Args:\n        maxsize: Maximum number of live entries retained. Must be >= 1.\n        ttl: Time-to-live in seconds. Must be > 0.\n        clock: Monotonic clock used for expiry checks. Defaults to ``time.monotonic``.\n    \"\"\"\n\n    def __init__(\n        self,\n        maxsize: int = 128,\n        ttl: float = 60.0,\n        clock: Callable[[], float] = time.monotonic,\n    ) -> None:\n        if maxsize < 1:\n            raise ValueError(\"maxsize must be >= 1\")\n        if ttl <= 0:\n            raise ValueError(\"ttl must be > 0\")\n        self.maxsize = maxsize\n        self.ttl = float(ttl)\n        self._clock = clock\n        self._data: OrderedDict[Any, tuple[Any, float]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Any) -> Any:\n        \"\"\"Return the cached value for ``key``, or ``None`` if missing/expired.\"\"\"\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return None\n            value, expires_at = item\n            if expires_at <= self._clock():\n                del self._data[key]\n                return None\n            self._data.move_to_end(key)\n            return value\n\n    def set(self, key: Any, value: Any) -> None:\n        \"\"\"Store ``value`` under ``key``, evicting expired and LRU entries as needed.\"\"\"\n        with self._lock:\n            self._data[key] = (value, self._clock() + self.ttl)\n            self._data.move_to_end(key)\n            self._evict_expired_locked()\n            while len(self._data) > self.maxsize:\n                self._data.popitem(last=False)\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._data.clear()\n\n    def __len__(self) -> int:\n        with self._lock:\n            self._evict_expired_locked()\n            return len(self._data)\n\n    def __contains__(self, key: Any) -> bool:\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return False\n            value, expires_at = item\n            if expires_at <= self._clock():\n                del self._data[key]\n                return False\n            self._data.move_to_end(key)\n            return True\n\n    def _evict_expired_locked(self) -> None:\n        now = self._clock()\n        expired = [k for k, (_, expires_at) in self._data.items() if expires_at <= now]\n        for k in expired:\n            del self._data[k]\n\n\ndef lru_ttl_cache(\n    maxsize: int = 128,\n    ttl: float = 60.0,\n    key_func: Optional[Callable[[tuple[Any, ...], dict[str, Any]], Any]] = None,\n) -> Callable[[Callable[P, R]], Callable[P, R]]:\n    \"\"\"Create a decorator that caches a function's results with LRU eviction and TTL.\n\n    Args:\n        maxsize: Maximum number of cached results retained.\n        ttl: Seconds each cached result remains valid.\n        key_func: Optional callable mapping ``(args, kwargs)`` to a cache key.\n            Defaults to a repr-based key that works for unhashable arguments.\n\n    Returns:\n        A decorator preserving the wrapped function's signature and metadata.\n        The decorated function exposes a ``cache`` attribute of type ``TTLCache``.\n    \"\"\"\n\n    def decorator(func: Callable[P, R]) -> Callable[P, R]:\n        cache = TTLCache(maxsize=maxsize, ttl=ttl)\n\n        @functools.wraps(func)\n        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n            key = key_func(args, kwargs) if key_func is not None else _default_key(args, kwargs)\n            with cache._lock:\n                item = cache._data.get(key)\n                if item is not None:\n                    value, expires_at = item\n                    if expires_at > cache._clock():\n                        cache._data.move_to_end(key)\n                        return value  # type: ignore[return-value]\n                    del cache._data[key]\n\n            value = func(*args, **kwargs)\n            cache.set(key, value)\n            return value\n\n        wrapper.cache = cache  # type: ignore[attr-defined]\n        return wrapper\n\n    return decorator"
+}

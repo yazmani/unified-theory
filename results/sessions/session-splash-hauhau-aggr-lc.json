@@ -1,0 +1,22 @@
+{
+ "label": "splash-hauhau-aggr-lc",
+ "requests": 22,
+ "generated_tokens": 33177,
+ "decode_peak_tps": 245.6,
+ "decode_median_tps": 223.0,
+ "decode_weighted_tps": 216.3,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 1769,
+ "prefill_mean_tps": 1746,
+ "prefill_mean_tps_2k_plus": 1769,
+ "prefix_cache_hit": 0.001,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 0.1,
+ "largest_prompt": {
+  "input": 99062,
+  "cached": 0,
+  "ttft_s": 56.0,
+  "decode_tps": 222.9
+ },
+ "accept_tokens_per_cycle": 5.44
+}

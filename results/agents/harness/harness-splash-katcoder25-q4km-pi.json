@@ -1,0 +1,42 @@
+{
+ "label": "splash-katcoder25-q4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 20:59:47",
+ "turns": 3,
+ "total_wall_s": 31.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 9.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 1297,
+   "prompt_tokens": 23501,
+   "cached_tokens": 9888
+  },
+  {
+   "turn": 2,
+   "wall_s": 6.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 155,
+   "prompt_tokens": 29006,
+   "cached_tokens": 15584
+  },
+  {
+   "turn": 3,
+   "wall_s": 15.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 6,
+   "answer_chars": 2545,
+   "prompt_tokens": 55009,
+   "cached_tokens": 45312
+  }
+ ]
+}

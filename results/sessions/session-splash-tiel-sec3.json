@@ -1,0 +1,22 @@
+{
+ "label": "splash-tiel-sec3",
+ "requests": 21,
+ "generated_tokens": 15590,
+ "decode_peak_tps": 159.0,
+ "decode_median_tps": 143.0,
+ "decode_weighted_tps": 142.7,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3360,
+ "prefill_mean_tps": 2916,
+ "prefill_mean_tps_2k_plus": null,
+ "prefix_cache_hit": 0.0,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 0.1,
+ "largest_prompt": {
+  "input": 336,
+  "cached": 0,
+  "ttft_s": 0.1,
+  "decode_tps": 129.6
+ },
+ "accept_tokens_per_cycle": 3.7
+}

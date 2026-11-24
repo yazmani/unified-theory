@@ -1,0 +1,22 @@
+{
+ "label": "splash-cybertiel-sec3",
+ "requests": 21,
+ "generated_tokens": 9250,
+ "decode_peak_tps": 162.7,
+ "decode_median_tps": 138.4,
+ "decode_weighted_tps": 140.1,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3370,
+ "prefill_mean_tps": 2926,
+ "prefill_mean_tps_2k_plus": null,
+ "prefix_cache_hit": 0.0,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 0.1,
+ "largest_prompt": {
+  "input": 337,
+  "cached": 0,
+  "ttft_s": 0.1,
+  "decode_tps": 135.5
+ },
+ "accept_tokens_per_cycle": 3.6
+}

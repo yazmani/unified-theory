@@ -1,0 +1,42 @@
+{
+ "label": "splash-cybertiel-q4kxl-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 21:28:30",
+ "turns": 3,
+ "total_wall_s": 41.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 7.5,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 1227,
+   "prompt_tokens": 14263,
+   "cached_tokens": 7040
+  },
+  {
+   "turn": 2,
+   "wall_s": 4.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 250,
+   "prompt_tokens": 34531,
+   "cached_tokens": 33600
+  },
+  {
+   "turn": 3,
+   "wall_s": 29.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 4828,
+   "prompt_tokens": 83660,
+   "cached_tokens": 70016
+  }
+ ]
+}

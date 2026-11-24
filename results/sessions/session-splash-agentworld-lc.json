@@ -1,0 +1,22 @@
+{
+ "label": "splash-agentworld-lc",
+ "requests": 22,
+ "generated_tokens": 43752,
+ "decode_peak_tps": 210.4,
+ "decode_median_tps": 181.8,
+ "decode_weighted_tps": 176.8,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 1782,
+ "prefill_mean_tps": 1759,
+ "prefill_mean_tps_2k_plus": 1782,
+ "prefix_cache_hit": 0.001,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 0.1,
+ "largest_prompt": {
+  "input": 99062,
+  "cached": 0,
+  "ttft_s": 55.6,
+  "decode_tps": 198.7
+ },
+ "accept_tokens_per_cycle": 4.8
+}

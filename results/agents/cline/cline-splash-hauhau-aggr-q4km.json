@@ -1,0 +1,32 @@
+{
+ "label": "splash-hauhau-aggr-q4km",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 21:18:41",
+ "turns": 3,
+ "total_wall_s": 50.1,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 10.6,
+   "stop": "end_turn",
+   "tool_calls": 10,
+   "answer_chars": 1691
+  },
+  {
+   "turn": 2,
+   "wall_s": 5.8,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 422
+  },
+  {
+   "turn": 3,
+   "wall_s": 33.7,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 4390
+  }
+ ]
+}

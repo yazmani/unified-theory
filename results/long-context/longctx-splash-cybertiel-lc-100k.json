@@ -1,0 +1,70 @@
+{
+ "label": "splash-cybertiel-lc",
+ "when": "2026-11-24 21:46:05",
+ "target_tokens": 100000,
+ "prompt_tokens_local": 98976,
+ "usage": {
+  "prompt_tokens": 99242,
+  "completion_tokens": 457,
+  "total_tokens": 99699,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "prefix_tokens": 160,
+   "state_source": null,
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 247
+  }
+ },
+ "timings": {
+  "prompt_n": 99242,
+  "prompt_ms": 56089.331,
+  "prompt_per_second": 1769.356100895552,
+  "predicted_n": 457,
+  "predicted_ms": 2208.849,
+  "predicted_per_second": 206.4423597991533,
+  "cache_n": 0,
+  "draft_n": 532,
+  "draft_n_accepted": 401
+ },
+ "wall_s": 58.38609904097393,
+ "first_visible_s": 57.75224008294754,
+ "needles_found": 8,
+ "needles_total": 8,
+ "answer": "KINTSUGI_PROBE_00 = \"17e9a352-08f2\"\nKINTSUGI_PROBE_01 = \"b0f29e0d-b356\"\nKINTSUGI_PROBE_02 = \"9f31f2fd-81f4\"\nKINTSUGI_PROBE_03 = \"a1f6ee2c-e039\"\nKINTSUGI_PROBE_04 = \"a6f86945-d288\"\nKINTSUGI_PROBE_05 = \"c3652b5e-82eb\"\nKINTSUGI_PROBE_06 = \"3695bf28-1a1b\"\nKINTSUGI_PROBE_07 = \"9e9494f4-7bcb\"",
+ "needles": [
+  [
+   "KINTSUGI_PROBE_00",
+   "17e9a352-08f2"
+  ],
+  [
+   "KINTSUGI_PROBE_01",
+   "b0f29e0d-b356"
+  ],
+  [
+   "KINTSUGI_PROBE_02",
+   "9f31f2fd-81f4"
+  ],
+  [
+   "KINTSUGI_PROBE_03",
+   "a1f6ee2c-e039"
+  ],
+  [
+   "KINTSUGI_PROBE_04",
+   "a6f86945-d288"
+  ],
+  [
+   "KINTSUGI_PROBE_05",
+   "c3652b5e-82eb"
+  ],
+  [
+   "KINTSUGI_PROBE_06",
+   "3695bf28-1a1b"
+  ],
+  [
+   "KINTSUGI_PROBE_07",
+   "9e9494f4-7bcb"
+  ]
+ ]
+}

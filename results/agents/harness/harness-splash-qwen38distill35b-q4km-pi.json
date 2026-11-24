@@ -1,0 +1,42 @@
+{
+ "label": "splash-qwen38distill35b-q4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 21:15:25",
+ "turns": 3,
+ "total_wall_s": 31.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 5.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 1000,
+   "prompt_tokens": 3994,
+   "cached_tokens": 1824
+  },
+  {
+   "turn": 2,
+   "wall_s": 3.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 558,
+   "prompt_tokens": 6196,
+   "cached_tokens": 4256
+  },
+  {
+   "turn": 3,
+   "wall_s": 22.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 12,
+   "answer_chars": 4244,
+   "prompt_tokens": 81304,
+   "cached_tokens": 58272
+  }
+ ]
+}

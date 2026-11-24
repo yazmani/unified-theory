@@ -1,0 +1,42 @@
+{
+ "label": "splash-hauhau-aggr-q4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 21:19:20",
+ "turns": 3,
+ "total_wall_s": 39.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 7.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 946,
+   "prompt_tokens": 15279,
+   "cached_tokens": 6976
+  },
+  {
+   "turn": 2,
+   "wall_s": 4.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 227,
+   "prompt_tokens": 28668,
+   "cached_tokens": 20480
+  },
+  {
+   "turn": 3,
+   "wall_s": 27.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 13,
+   "answer_chars": 5239,
+   "prompt_tokens": 85677,
+   "cached_tokens": 59392
+  }
+ ]
+}

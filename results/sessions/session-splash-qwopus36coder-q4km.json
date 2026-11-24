@@ -1,0 +1,22 @@
+{
+ "label": "splash-qwopus36coder-q4km",
+ "requests": 58,
+ "generated_tokens": 55192,
+ "decode_peak_tps": 397.9,
+ "decode_median_tps": 226.6,
+ "decode_weighted_tps": 284.1,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3650,
+ "prefill_mean_tps": 2492,
+ "prefill_mean_tps_2k_plus": 2581,
+ "prefix_cache_hit": 0.63,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 1.5,
+ "largest_prompt": {
+  "input": 44047,
+  "cached": 16928,
+  "ttft_s": 12.4,
+  "decode_tps": 105.8
+ },
+ "accept_tokens_per_cycle": 5.94
+}

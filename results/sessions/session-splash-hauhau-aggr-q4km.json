@@ -1,0 +1,22 @@
+{
+ "label": "splash-hauhau-aggr-q4km",
+ "requests": 63,
+ "generated_tokens": 47870,
+ "decode_peak_tps": 333.4,
+ "decode_median_tps": 221.9,
+ "decode_weighted_tps": 219.8,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3892,
+ "prefill_mean_tps": 2538,
+ "prefill_mean_tps_2k_plus": 2626,
+ "prefix_cache_hit": 0.727,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 3.6,
+ "largest_prompt": {
+  "input": 43681,
+  "cached": 36800,
+  "ttft_s": 3.6,
+  "decode_tps": 113.6
+ },
+ "accept_tokens_per_cycle": 5.85
+}

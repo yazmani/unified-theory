@@ -1,0 +1,32 @@
+{
+ "label": "omlx-tiel-oq4e-mtp",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 22:37:44",
+ "turns": 3,
+ "total_wall_s": 85.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 16.6,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 1669
+  },
+  {
+   "turn": 2,
+   "wall_s": 8.7,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 798
+  },
+  {
+   "turn": 3,
+   "wall_s": 59.7,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 4395
+  }
+ ]
+}

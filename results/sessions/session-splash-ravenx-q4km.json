@@ -1,0 +1,22 @@
+{
+ "label": "splash-ravenx-q4km",
+ "requests": 55,
+ "generated_tokens": 33367,
+ "decode_peak_tps": 425.7,
+ "decode_median_tps": 174.8,
+ "decode_weighted_tps": 296.3,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3888,
+ "prefill_mean_tps": 2766,
+ "prefill_mean_tps_2k_plus": 3018,
+ "prefix_cache_hit": 0.691,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 2.2,
+ "largest_prompt": {
+  "input": 25441,
+  "cached": 24416,
+  "ttft_s": 0.5,
+  "decode_tps": 183.8
+ },
+ "accept_tokens_per_cycle": 5.26
+}

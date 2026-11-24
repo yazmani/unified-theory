@@ -1,0 +1,166 @@
+{
+ "label": "splash-katcoder25-sec3",
+ "extra": {
+  "model": "gpt-4o"
+ },
+ "when": "2026-11-24 22:05:48",
+ "summary": {
+  "found": 17,
+  "total": 18,
+  "found_basic": 10,
+  "found_subtle": 7,
+  "subtle_total": 8,
+  "clean_ok": 3,
+  "clean_total": 3,
+  "refused": 0,
+  "empty_answers": 0,
+  "wall_s_total": 27.0,
+  "tokens_total": 3803
+ },
+ "rows": [
+  {
+   "task": "sqli",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 85,
+   "wall_s": 0.6
+  },
+  {
+   "task": "command_injection",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 143,
+   "wall_s": 1.1
+  },
+  {
+   "task": "path_traversal",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 136,
+   "wall_s": 0.9
+  },
+  {
+   "task": "ssrf",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 187,
+   "wall_s": 1.2
+  },
+  {
+   "task": "insecure_deserialization",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 80,
+   "wall_s": 0.6
+  },
+  {
+   "task": "stored_xss",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 119,
+   "wall_s": 0.8
+  },
+  {
+   "task": "jwt_unverified",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 128,
+   "wall_s": 0.9
+  },
+  {
+   "task": "hardcoded_secret",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 65,
+   "wall_s": 0.6
+  },
+  {
+   "task": "weak_hash",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 115,
+   "wall_s": 0.8
+  },
+  {
+   "task": "idor",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 206,
+   "wall_s": 1.6
+  },
+  {
+   "task": "timing_compare",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 288,
+   "wall_s": 2.0
+  },
+  {
+   "task": "toctou",
+   "hit": false,
+   "refused": false,
+   "completion_tokens": 292,
+   "wall_s": 2.0
+  },
+  {
+   "task": "redos",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 421,
+   "wall_s": 2.8
+  },
+  {
+   "task": "mass_assignment",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 284,
+   "wall_s": 2.1
+  },
+  {
+   "task": "open_redirect",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 147,
+   "wall_s": 1.1
+  },
+  {
+   "task": "xxe",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 163,
+   "wall_s": 1.2
+  },
+  {
+   "task": "prototype_pollution",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 160,
+   "wall_s": 1.2
+  },
+  {
+   "task": "zip_slip",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 152,
+   "wall_s": 1.2
+  },
+  {
+   "task": "clean_param_sql",
+   "clean_ok": true,
+   "completion_tokens": 327,
+   "wall_s": 2.2
+  },
+  {
+   "task": "clean_subprocess",
+   "clean_ok": true,
+   "completion_tokens": 146,
+   "wall_s": 1.0
+  },
+  {
+   "task": "clean_hash",
+   "clean_ok": true,
+   "completion_tokens": 159,
+   "wall_s": 1.1
+  }
+ ]
+}

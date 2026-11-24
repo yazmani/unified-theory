@@ -1,0 +1,22 @@
+{
+ "label": "splash-ornith35-q4km-tb8k",
+ "requests": 45,
+ "generated_tokens": 19868,
+ "decode_peak_tps": 346.1,
+ "decode_median_tps": 172.1,
+ "decode_weighted_tps": 172.4,
+ "decode_share_over_100": 1.0,
+ "prefill_peak_tps": 3902,
+ "prefill_mean_tps": 2504,
+ "prefill_mean_tps_2k_plus": 2635,
+ "prefix_cache_hit": 0.84,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 2.3,
+ "largest_prompt": {
+  "input": 40950,
+  "cached": 40064,
+  "ttft_s": 0.5,
+  "decode_tps": 112.9
+ },
+ "accept_tokens_per_cycle": 4.65
+}

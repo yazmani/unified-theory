@@ -1,0 +1,42 @@
+{
+ "label": "dspine-qwen38-27b-4bit-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 22:28:57",
+ "turns": 3,
+ "total_wall_s": 114.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 41.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1410,
+   "prompt_tokens": 15442,
+   "cached_tokens": 8994
+  },
+  {
+   "turn": 2,
+   "wall_s": 5.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 463,
+   "prompt_tokens": 22230,
+   "cached_tokens": 21201
+  },
+  {
+   "turn": 3,
+   "wall_s": 68.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 10,
+   "answer_chars": 3684,
+   "prompt_tokens": 121640,
+   "cached_tokens": 109804
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "label": "splash-ornith-iq3xxs-exp24",
+ "requests": 23,
+ "generated_tokens": 10037,
+ "decode_peak_tps": 48.0,
+ "decode_median_tps": 33.4,
+ "decode_weighted_tps": 32.5,
+ "decode_share_over_100": 0.0,
+ "prefill_peak_tps": 1040,
+ "prefill_mean_tps": 685,
+ "prefill_mean_tps_2k_plus": 901,
+ "prefix_cache_hit": 0.808,
+ "ttft_p50_s": 2.2,
+ "ttft_p95_s": 6.7,
+ "largest_prompt": {
+  "input": 27151,
+  "cached": 26720,
+  "ttft_s": 2.0,
+  "decode_tps": 30.4
+ },
+ "accept_tokens_per_cycle": 3.37
+}

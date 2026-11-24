@@ -1,0 +1,32 @@
+{
+ "label": "omlx-inkling-oq4e-mtp",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 22:56:39",
+ "turns": 3,
+ "total_wall_s": 531.7,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 50.8,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 2698
+  },
+  {
+   "turn": 2,
+   "wall_s": 209.3,
+   "stop": "end_turn",
+   "tool_calls": 16,
+   "answer_chars": 1572
+  },
+  {
+   "turn": 3,
+   "wall_s": 271.6,
+   "stop": "end_turn",
+   "tool_calls": 8,
+   "answer_chars": 5559
+  }
+ ]
+}

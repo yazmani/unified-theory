@@ -65,7 +65,7 @@ def main():
     body = {"messages": [{"role": "user", "content": prompt}], "max_tokens": a.max_tokens, "temperature": 0,
             "stream": True, "stream_options": {"include_usage": True}, **(json.loads(a.extra) if a.extra else {})}
     t0 = time.perf_counter()
-    t_first, text, usage, timings = None, [], None, None
+    t_first, t_any, text, usage, timings = None, None, [], None, None
     req = urllib.request.Request(a.url.rstrip("/") + "/v1/chat/completions", json.dumps(body).encode(), {"Content-Type": "application/json"})
     with urllib.request.urlopen(req, timeout=7200) as r:
         for raw in r:
@@ -79,7 +79,10 @@ def main():
             usage = ev.get("usage") or usage
             timings = ev.get("timings") or timings
             for ch in ev.get("choices") or []:
-                piece = (ch.get("delta") or {}).get("content") or ""
+                d = ch.get("delta") or {}
+                if d.get("content") or d.get("reasoning_content") or d.get("reasoning"):
+                    t_any = t_any or time.perf_counter()   # first token of any kind = end of prefill
+                piece = d.get("content") or ""
                 if piece:
                     t_first = t_first or time.perf_counter()
                     text.append(piece)
@@ -94,7 +97,14 @@ def main():
     p = Path(f"results/long-context/longctx-{a.label}-{a.tokens // 1000}k.json")
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(out, indent=1))
-    t = timings or {}
+    t = dict(timings or {})
+    comp = (usage or {}).get("completion_tokens")
+    if not t.get("prompt_per_second") and t_any:      # server sent no timings: measure from the client stream
+        pre = t_any - t0
+        t = {"prompt_ms": pre * 1000, "prompt_per_second": round(n_prompt / pre, 1),
+             "predicted_per_second": round(comp / (wall - pre), 1) if comp and wall > pre else None, "source": "client"}
+        out["timings_client"] = t
+        p.write_text(json.dumps(out, indent=1))
     print(f"{a.label} {a.tokens//1000}k: prompt={n_prompt} tok, prefill={t.get('prompt_per_second')} tok/s "
           f"({(t.get('prompt_ms') or 0)/1000:.0f}s), decode={t.get('predicted_per_second')} tok/s, "
           f"completion={(usage or {}).get('completion_tokens')}, wall={wall:.0f}s, needles {hits}/{len(needles)}")

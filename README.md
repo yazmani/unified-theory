@@ -13,19 +13,23 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 | Question | Answer (2026-11-24) | Details |
 |---|---|---|
 | Fastest good coding model? | **KAT-Ornith-HERO-35B-A3B on Splash: ~235 tok/s** (Q4_K_M); Tiel-Coder 191 (98 on llama.cpp + MTP) | [splash](docs/findings/splash.md), [decode-speed](docs/findings/decode-speed.md) |
-| Fastest runtime on a Mac? | **Splash**: ~2× llama.cpp and Strata for Tiel, Inkling and Qwen3.8-27B, if the model matches its drafter | [splash](docs/findings/splash.md) |
-| Best model inside an agent? | **KAT-Ornith-HERO on Splash**: 52–79 s per Cline session, 6/8 issues found in both runs. Tiel-Coder and Inkling-2-Mini: 75–101 s. Most thorough: **Qwen3.8-Flash-Next** on Splash (66 GB, experts streamed from the SSD): all 8 issues found, but 280–348 s. Of the Qwen3.8-27B fine-tunes, **pi-adapted** beats DavidAU's TURBO-Fable | [splash](docs/findings/splash.md), [agent-models](docs/findings/agent-models.md) |
+| Fastest runtime on a Mac? | **Splash**: ~2× llama.cpp and Strata for Tiel, Inkling and Qwen3.8-27B, if the model matches its drafter. oMLX is faster for Inkling (261 tok/s) but slower in agents and at 100K | [splash](docs/findings/splash.md), [model-sweep](docs/findings/model-sweep.md) |
+| Best model inside an agent? | **KAT-Ornith-HERO on Splash**: 52–79 s per Cline session, 6/8 issues found in both runs. Tiel-Coder and Inkling-2-Mini: 75–101 s. Most thorough: **Qwen3.8-Flash-Next** on Splash (66 GB, experts streamed from the SSD): all 8 issues found, but 280–348 s. Of the Qwen3.8-27B fine-tunes, **pi-adapted** beats DavidAU's TURBO-Fable. Seven more Qwen3.6-35B coders, uncensored and security builds: none beat KAT-Ornith | [splash](docs/findings/splash.md), [model-sweep](docs/findings/model-sweep.md), [agent-models](docs/findings/agent-models.md) |
 | Does the agent harness matter? | Yes, ~2× with the same model: **OpenCode** fastest (66 s), **pi** best balance, **Claude Code** most thorough | [agent-harnesses](docs/findings/agent-harnesses.md) |
 | What matters most for agents? | **Prompt reuse across turns.** Without it every harness got 2.5–5.7× slower | [strata-prompt-cache](docs/findings/strata-prompt-cache.md) |
 | Strata 0.2.20: upgrade? | For chat yes (66 tok/s, instant first token). For agents no, not yet (~3× slower) | [strata-prompt-cache §4](docs/findings/strata-prompt-cache.md#4-strata-0220) |
-| Long context on 48 GB? | Inkling-2-Mini: 8/8 recall at 30K, 120K and 240K | [long-context](docs/findings/long-context.md) |
+| Long context on 48 GB? | Inkling-2-Mini: 8/8 recall at 30K, 120K and 240K. Every Qwen3.6-35B on Splash: 8/8 at 99K, ~1,760 tok/s prefill, 160–223 tok/s decode at that depth | [long-context](docs/findings/long-context.md), [model-sweep](docs/findings/model-sweep.md) |
+| Best model for security review? | Any good coder: every Qwen3.6-35B found 16–18 of 18 planted flaws with no refusals. Uncensored builds aren't better; HauhauCS Aggressive matches the best | [model-sweep](docs/findings/model-sweep.md#security-review-check) |
 
 <details>
 <summary>Speed leaderboard (decode tok/s, M5 Pro 48 GB)</summary>
 
 | Model / runtime | Decode tok/s | Long answer | Mini-eval |
 |---|---|---|---|
-| KAT-Ornith-HERO-35B-A3B Fusion i1-Q4_K_M, **Splash** 1.7.2 | **235** | 9 s | 9/10 |
+| Inkling-2-Mini oQ4e-mtp, **oMLX** 0.8.3 (MTP) | **261** | 54 s | 10/10 |
+| Qwopus3.6-35B-A3B-Coder Q4_K_M, **Splash** 1.7.2 | 244 | 25 s | 9/10 |
+| HauhauCS Qwen3.6-35B-A3B Aggressive Q4_K_M, **Splash** 1.7.2 | 242 | 6 s | 9/10 |
+| KAT-Ornith-HERO-35B-A3B Fusion i1-Q4_K_M, **Splash** 1.7.2 | 235 | 9 s | 9/10 |
 | Ornith-1.5-35B-A3B Q4_K_M, **Splash** 1.7.2 | 219 | 8 s | 7/10 |
 | Tiel-Coder-35B-A3B UD-Q4_K_XL, **Splash** 1.7.2 | 191 | 8 s | 9/10 |
 | Flint UD-Q4_K_XL, **Splash** 1.7.2 (thinks even with effort none) | 139 | 42 s | 10/10 |

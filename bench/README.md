@@ -8,6 +8,8 @@ one JSON file under `results/`. Pure standard library except where noted. Run fr
 | `oai_bench.py` | decode tok/s (engine counter), TTFT, wall time, visible-output rate over `prompts.json` | `results/decode/` |
 | `long_answer.py` | wall time to one complete long answer (8000 max tokens), hidden reasoning size | `results/long-answer/` |
 | `mini_eval.py` | 10 Python tasks with hidden asserts (pass@1): a broken-code smoke test | `results/eval/` |
+| `security_review_eval.py` | spots planted vulnerabilities in 18 snippets, false alarms on 3 clean ones (defensive review only) | `results/security/` |
+| `session_stats.py` | whole-run engine stats from a Splash server log: decode peak/mean, prefill, cache hit, TTFT | `results/sessions/` |
 | `long_context.py` | prefill/decode at depth and needle recall on a code haystack (needs `tokenizers`) | `results/long-context/` |
 | `longctx_multiturn.py` | 3-turn chat over a ~120K dump: is the prompt reused? (needs `tokenizers`) | `results/long-context/` |
 | `agent_session.py` | 8-turn coding chat over pasted source files: per-turn read time and cached tokens | `results/sessions/` |

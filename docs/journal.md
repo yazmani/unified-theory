@@ -54,11 +54,17 @@ matching page under [findings/](findings/).
 - Ornith-35B family (Tiel's base) on Splash: **KAT-Ornith-HERO fusion 235 tok/s, Cline 52–79 s with 6/8 issues**
   (both runs), the new everyday pick over Tiel. Stock Ornith-1.5-35B: 219 tok/s, weaker. The Ornith DFlash2 drafter
   from jzinno doesn't load in Splash. → [splash](findings/splash.md)
+- Model sweep: KAT-Coder-V2.5, AgentWorld, Qwopus3.6-Coder, Qwen3.8-35B-Distill, HauhauCS, RavenX, Cyber-Tiel on Splash;
+  none beat KAT-Ornith in agents. New security review check (all 16–18/18) and per-session engine stats; 100K runs:
+  every Qwen3.6-35B 8/8 at ~160–223 tok/s decode. oMLX (Inkling 261 tok/s, slow in agents) and DSpine on Qwen3.8-27B
+  (90 tok/s, 7–8 issues, 18 tok/s at 100K). → [model-sweep](findings/model-sweep.md)
 
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to pick a quality winner, not just a speed winner.
-- [ ] LM Studio (MLX engine) and mlx-lm on the same models.
+- [ ] LM Studio (MLX engine) and mlx-lm on the same models (oMLX done: [model-sweep](findings/model-sweep.md)).
+- [ ] Session stats parser for oMLX and DSpine server logs (Splash only so far).
+- [ ] DSpine on the Qwen3.8-27B coding fine-tunes (pi-adapted) and with `--copy` for edits.
 - [ ] More models: Qwen3-Coder-30B-A3B.
 - [x] Qwen3.8-Flash-Next on Splash with SSD expert streaming ([splash](findings/splash.md)).
 - [ ] Flash-Next: larger expert store (24–28 GB) and thinking off, to trade some quality for session time.

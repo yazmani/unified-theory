@@ -1,0 +1,42 @@
+{
+ "label": "omlx-tiel-oq4e-mtp-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 22:38:29",
+ "turns": 3,
+ "total_wall_s": 44.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 9.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 1174,
+   "prompt_tokens": 14905,
+   "cached_tokens": 9641
+  },
+  {
+   "turn": 2,
+   "wall_s": 5.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 437,
+   "prompt_tokens": 18130,
+   "cached_tokens": 16974
+  },
+  {
+   "turn": 3,
+   "wall_s": 29.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 3654,
+   "prompt_tokens": 54417,
+   "cached_tokens": 45318
+  }
+ ]
+}

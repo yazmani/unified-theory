@@ -1,0 +1,22 @@
+{
+ "label": "splash-tiel-q4kxl-tb8k-r2",
+ "requests": 26,
+ "generated_tokens": 9686,
+ "decode_peak_tps": 196.4,
+ "decode_median_tps": 130.7,
+ "decode_weighted_tps": 110.9,
+ "decode_share_over_100": 0.88,
+ "prefill_peak_tps": 3911,
+ "prefill_mean_tps": 2207,
+ "prefill_mean_tps_2k_plus": 2158,
+ "prefix_cache_hit": 0.77,
+ "ttft_p50_s": 0.3,
+ "ttft_p95_s": 1.5,
+ "largest_prompt": {
+  "input": 71074,
+  "cached": 70656,
+  "ttft_s": 0.4,
+  "decode_tps": 86.3
+ },
+ "accept_tokens_per_cycle": 3.51
+}

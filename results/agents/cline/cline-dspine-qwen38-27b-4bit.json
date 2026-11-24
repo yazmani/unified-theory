@@ -1,0 +1,32 @@
+{
+ "label": "dspine-qwen38-27b-4bit",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-24 22:27:02",
+ "turns": 3,
+ "total_wall_s": 1841.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 32.1,
+   "stop": "end_turn",
+   "tool_calls": 4,
+   "answer_chars": 2199
+  },
+  {
+   "turn": 2,
+   "wall_s": 9.7,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 775
+  },
+  {
+   "turn": 3,
+   "wall_s": 1800,
+   "stop": "error: session/prompt: {'code': -32603, 'message': 'Internal error: The operation timed out.', 'data': {'message': 'The operation timed out.'}}",
+   "tool_calls": 0,
+   "answer_chars": 0
+  }
+ ]
+}

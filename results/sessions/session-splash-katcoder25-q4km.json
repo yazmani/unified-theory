@@ -1,0 +1,22 @@
+{
+ "label": "splash-katcoder25-q4km",
+ "requests": 56,
+ "generated_tokens": 20331,
+ "decode_peak_tps": 326.6,
+ "decode_median_tps": 158.5,
+ "decode_weighted_tps": 182.2,
+ "decode_share_over_100": 0.98,
+ "prefill_peak_tps": 3589,
+ "prefill_mean_tps": 2070,
+ "prefill_mean_tps_2k_plus": 2104,
+ "prefix_cache_hit": 0.622,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 3.2,
+ "largest_prompt": {
+  "input": 74528,
+  "cached": 66592,
+  "ttft_s": 5.9,
+  "decode_tps": 84.0
+ },
+ "accept_tokens_per_cycle": 4.91
+}

@@ -1,0 +1,42 @@
+{
+ "label": "splash-ravenx-q4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 21:23:40",
+ "turns": 3,
+ "total_wall_s": 21.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 11.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 1232,
+   "prompt_tokens": 22367,
+   "cached_tokens": 10816
+  },
+  {
+   "turn": 2,
+   "wall_s": 5.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 198,
+   "prompt_tokens": 25942,
+   "cached_tokens": 14144
+  },
+  {
+   "turn": 3,
+   "wall_s": 4.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 0,
+   "answer_chars": 1177,
+   "prompt_tokens": 13560,
+   "cached_tokens": 12416
+  }
+ ]
+}

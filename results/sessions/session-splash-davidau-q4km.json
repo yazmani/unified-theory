@@ -1,0 +1,22 @@
+{
+ "label": "splash-davidau-q4km",
+ "requests": 18,
+ "generated_tokens": 5092,
+ "decode_peak_tps": 33.4,
+ "decode_median_tps": 21.4,
+ "decode_weighted_tps": 21.7,
+ "decode_share_over_100": 0.0,
+ "prefill_peak_tps": 550,
+ "prefill_mean_tps": 369,
+ "prefill_mean_tps_2k_plus": null,
+ "prefix_cache_hit": 0.205,
+ "ttft_p50_s": 0.2,
+ "ttft_p95_s": 0.3,
+ "largest_prompt": {
+  "input": 271,
+  "cached": 0,
+  "ttft_s": 0.6,
+  "decode_tps": 25.4
+ },
+ "accept_tokens_per_cycle": 1.73
+}

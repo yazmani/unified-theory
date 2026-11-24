@@ -1,0 +1,42 @@
+{
+ "label": "splash-agentworld-udq4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-24 21:03:15",
+ "turns": 3,
+ "total_wall_s": 36.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 12.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 1683,
+   "prompt_tokens": 20172,
+   "cached_tokens": 13088
+  },
+  {
+   "turn": 2,
+   "wall_s": 8.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 465,
+   "prompt_tokens": 17252,
+   "cached_tokens": 10304
+  },
+  {
+   "turn": 3,
+   "wall_s": 15.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 0,
+   "answer_chars": 3750,
+   "prompt_tokens": 8675,
+   "cached_tokens": 7552
+  }
+ ]
+}
