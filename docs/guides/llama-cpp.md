@@ -1,7 +1,9 @@
 # Guide: llama.cpp (Unsloth fork) on Apple Silicon
 
 Unsloth's llama.cpp fork (b12588 at the time of writing, installed by Unsloth Studio in `~/.unsloth/llama.cpp`) is
-the best general runtime measured here. Homebrew's llama.cpp 0.7.0 was behind it (no `inkling2` architecture).
+the best general runtime measured here before [Splash](splash.md), which is about 2× faster for the models it
+supports ([runtimes](../findings/runtimes.md)). Use llama.cpp for models Splash has no drafter for. Homebrew's
+llama.cpp 0.7.0 was behind the fork (no `inkling2` architecture).
 
 ## Tiel-Coder-35B-A3B (Qwen-family MoE, MTP head built in)
 
@@ -14,7 +16,7 @@ the best general runtime measured here. Homebrew's llama.cpp 0.7.0 was behind it
 MODEL=~/models/tiel/Tiel-Coder-35B-A3B-MTP-UD-Q4_K_XL.gguf ./configs/llama.cpp/tiel-coder-agent.sh
 ```
 
-What matters, from [agent-models](../findings/agent-models.md):
+What matters, from the [agent-models runs](../archive/2026-11-23-agent-models.md):
 
 - `--spec-type draft-mtp --spec-draft-n-max 1 --spec-draft-p-min 0.0`: n-max 1 beat 3 (61 vs 47 tok/s, acceptance
   0.87 vs 0.64).

@@ -1,10 +1,10 @@
 {
   "providers": {
     "local": {
-      "baseUrl": "http://127.0.0.1:8091/v1",
+      "baseUrl": "http://127.0.0.1:8000/v1",
       "api": "openai-completions",
       "apiKey": "local",
-      "models": [{ "id": "inkling-2-mini-sq-15", "contextWindow": 131072, "maxTokens": 16384 }]
+      "models": [{ "id": "local", "contextWindow": 131072, "maxTokens": 16384 }]
     }
   }
 }

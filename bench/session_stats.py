@@ -13,7 +13,7 @@ From those it reports, over every request in the log (decode benchmark, Cline, p
   - TTFT p50 / p95, and the largest prompt seen with its TTFT and decode speed
   - speculative acceptance: mean tokens per cycle
 
-  python3 -I bench/session_stats.py LOG [--label NAME] [--out results/sessions/session-NAME.json]
+  python3 -I bench/session_stats.py LOG [--label NAME] [--out results/engine-stats/stats-NAME.json]
 """
 import argparse, json, re, statistics, sys
 from pathlib import Path
@@ -85,7 +85,7 @@ def main():
     s = stats(Path(a.log).read_text(errors="replace").splitlines())
     if not s:
         sys.exit(f"no 'Done ·' request lines in {a.log}")
-    out = Path(a.out or f"results/sessions/session-{label}.json")
+    out = Path(a.out or f"results/engine-stats/stats-{label}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps({"label": label, **s}, indent=1))
     lp = s["largest_prompt"]

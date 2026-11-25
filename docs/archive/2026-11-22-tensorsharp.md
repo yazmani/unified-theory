@@ -1,5 +1,7 @@
 # TensorSharp (C#/.NET engine on ggml) on Apple Silicon
 
+> **Archived snapshot.** Kept as measured on that date; the current answer is in [runtimes](../findings/runtimes.md).
+
 **Measured:** 2026-11-22. Built from source ([zhongkaifu/TensorSharp](https://github.com/zhongkaifu/TensorSharp)
 main `5c97544`, .NET 10.0.404, CMake 4.5.1, `-p:TensorSharpSkipMlxNative=true`), served with
 `TensorSharp.Server.Host --backend ggml_metal`. Its API requires the `model` field (the hosted model's id).

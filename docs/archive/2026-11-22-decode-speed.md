@@ -1,5 +1,7 @@
 # Decode speed: which model and runtime is fastest on an M5 Pro
 
+> **Archived snapshot.** Kept as measured on that date; the current answer is in [runtimes](../findings/runtimes.md).
+
 **Question:** what is the fastest *good* coding model on a 48 GB Apple Silicon Mac, and which runtime should run it?
 **Measured:** 2026-11-22, conditions in [methodology](../methodology.md). Raw data: [results/decode](../../results/decode/),
 [results/long-answer](../../results/long-answer/), [results/eval](../../results/eval/), [results/llama-bench](../../results/llama-bench/).
@@ -30,7 +32,7 @@ run, so this is noisier than decode tok/s.
 | Tiel-Coder-35B-A3B UD-IQ4_XS | 1772 | 71.6 ± 0.2 |
 
 Strata 0.2.20 (2026-11-23) moved Inkling SQ-15 to **65.9 tok/s** with thinking forced off; see
-[strata-prompt-cache.md](strata-prompt-cache.md#4-strata-0220).
+[strata-prompt-cache.md](../findings/strata-prompt-cache.md#4-strata-0220).
 
 ## AtomicChat AD quants and Atomic Engine (2026-11-24)
 
@@ -74,7 +76,7 @@ Findings:
 7. **Thinking off on Tiel-Coder roughly triples task speed** (70 s → 24 s for the 10 tasks) for one failure. Good for
    quick edits; keep thinking on for anything non-trivial.
 8. **The mini-eval is too easy to rank quality** (everything 9–10/10). It only shows the fast settings don't write
-   broken code. The [agent benchmarks](agent-models.md) separate models better.
+   broken code. The [agent benchmarks](2026-11-23-agent-models.md) separate models better.
 
 ## Runtimes on this Mac
 
@@ -83,7 +85,7 @@ Findings:
 | Strata (`strata-inkling`, Metal) | ✅ fastest for Inkling | ❌ its Qwen3.6-35B-A3B engine is CUDA/HIP only | Worth it for Inkling only |
 | Unsloth llama.cpp fork (b12588) | ✅ (`inkling2` arch, `draft-dspark`) | ✅ with `draft-mtp` | Best general runtime; Unsloth Studio uses it |
 | Homebrew llama.cpp 0.7.0 | ❌ `unknown model architecture: 'inkling2'` | ✅ (not benched) | Behind the fork |
-| [TensorSharp](tensorsharp.md) | ❌ on Mac | ✅ 75–92 tok/s | No gain over the fork |
+| [TensorSharp](2026-11-22-tensorsharp.md) | ❌ on Mac | ✅ 75–92 tok/s | No gain over the fork |
 | LM Studio / mlx-lm | not tested | not tested | Open thread |
 
 How to run the winners: [guides/llama-cpp.md](../guides/llama-cpp.md), [guides/strata.md](../guides/strata.md).

@@ -81,7 +81,7 @@ the same characters written as text. Still open in 0.2.20.
 template never renders that block back into history, so the next prompt diverges right there and the engine
 re-reads everything (~1,000 tok/s, 10–20 s per request at 10–20K tokens).
 
-| Cline, same 3-turn session ([details](agent-models.md)) | Total | Prompt reuse |
+| Cline, same 3-turn session ([details](../archive/2026-11-23-agent-models.md)) | Total | Prompt reuse |
 |---|---|---|
 | stock 0.2.20, 2 runs | 330 / 341 s | 0 of 15–16 requests |
 | 0.2.20 + chat-template workaround from the #6627 thread | 719 s | 5 of 17; one request ran to 32,000 hidden tokens (517 s) |
@@ -96,7 +96,7 @@ on. Two separate upstream gaps, both needed for agents on a Mac: Metal checkpoin
 that the next turn's history reproduces.
 
 The same happens with Claude Code, pi and OpenCode: 0 cached tokens on 0.2.20, 2.5–5.7× slower
-([agent-harnesses.md](agent-harnesses.md)). Upstream fix needed: render the empty thinking block back for
+([harnesses](harnesses.md)). Upstream fix needed: render the empty thinking block back for
 tool-using assistant turns, or stop appending it.
 
 **Fix in progress (2026-11-23):** [PR #6914](https://github.com/Niko1221/Strata/pull/6914) adds the Metal checkpoint

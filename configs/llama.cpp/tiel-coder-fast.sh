@@ -1,5 +1,6 @@
 #!/bin/sh
-# Tiel-Coder-35B-A3B UD-IQ4_XS + MTP: the fastest decode measured on the M5 Pro (~98 tok/s, ~18 GB).
+# Tiel-Coder-35B-A3B UD-IQ4_XS + MTP: the fastest llama.cpp setup measured on the M5 Pro (~98 tok/s, ~18 GB;
+# Splash runs the same model at ~191 tok/s, see docs/guides/splash.md).
 # Best for chat and quick edits; for agents prefer tiel-coder-agent.sh (Q4_K_XL, reasoning budget).
 #
 #   MODEL=/path/to/Tiel-Coder-35B-A3B-MTP-UD-IQ4_XS.gguf ./configs/llama.cpp/tiel-coder-fast.sh

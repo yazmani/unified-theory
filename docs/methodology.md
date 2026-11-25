@@ -20,7 +20,7 @@ How every number in this repo was produced, and what it does and doesn't tell yo
 | Cached tokens | `usage.prompt_tokens_details.cached_tokens`, or the harness's own usage report | the agent benchmarks also read the server log to count full re-reads |
 | Mini-eval | 10 Python tasks with hidden asserts, pass@1, greedy | a broken-code smoke test, not a leaderboard |
 | Security review | `bench/security_review_eval.py`: 18 planted flaws (10 common, 8 subtle) + 3 clean snippets, regex-graded | defensive; refusals and empty answers counted |
-| Session stats | `bench/session_stats.py` over the Splash server log: decode peak / median / token-weighted mean, prefill tok/s, prefix-cache hit, TTFT p50/p95, acceptance | covers every request of a run, harness turns included |
+| Engine stats | `bench/session_stats.py` over the Splash server log (`results/engine-stats/`): decode peak / median / token-weighted mean, prefill tok/s, prefix-cache hit, TTFT p50/p95, acceptance | covers every request of a run, harness turns included |
 | 100K context | `bench/long_context.py --tokens 100000`: prefill time and speed, decode at depth, 8-needle recall | timed client-side when the server sends no timings (oMLX, DSpine) |
 
 Generation settings: greedy (temperature 0) for speed, eval and long-context runs; the model card's agentic

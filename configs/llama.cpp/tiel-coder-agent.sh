@@ -1,6 +1,6 @@
 #!/bin/sh
 # Tiel-Coder-35B-A3B (UD-Q4_K_XL, MTP head inside the GGUF) for coding agents, on Unsloth's llama.cpp fork.
-# Settings from docs/findings/agent-models.md: MTP n-max 1, the model card's agentic sampling, and a reasoning
+# Settings from docs/archive/2026-11-23-agent-models.md: MTP n-max 1, the model card's agentic sampling, and a reasoning
 # budget (without it one agent turn thought for 11 minutes).
 #
 #   MODEL=~/models/tiel/Tiel-Coder-35B-A3B-MTP-UD-Q4_K_XL.gguf ./configs/llama.cpp/tiel-coder-agent.sh

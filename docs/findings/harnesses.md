@@ -1,8 +1,28 @@
-# Agent harnesses compared: Cline vs Claude Code vs pi vs OpenCode
+# Does the agent harness matter? Cline vs Claude Code vs pi vs OpenCode
 
-**Question:** with the same local model and the same task, how much does the agent harness itself matter?
-**Measured:** 2026-11-23. Same 3-turn session and grader as [agent-models.md](agent-models.md), model Inkling-2-Mini
-SQ-15 at 128K. Driver: `bench/harness_bench.py`. Raw metrics: [results/agents/harness](../../results/agents/harness/).
+**Current answer (2026-11-25): yes, 2–5× with the same model and task, and the engine adds to that.** On Splash,
+**pi** is the fastest harness; OpenCode and Cline found the most issues. Whatever you pick, make sure prompt reuse
+works on your server: without it every harness got 2.5–5.7× slower ([strata-prompt-cache](strata-prompt-cache.md)).
+
+## On Splash and oMLX (2026-11-24)
+
+Same 3-turn session, same model (Inkling-2-Mini, thinking off), each harness against each engine. Time · commit checks
+of 9 · real issues found of 8.
+
+| Engine (wall-clock decode) | Cline | OpenCode | Claude Code | pi |
+|---|---|---|---|---|
+| **Splash** (116 tok/s) | 75–94 s · 9/9 · 6 | 139 s · 9/9 · **6** | 139 s · 9/9 · 4 | **49 s** · 9/9 · 4 |
+| oMLX, MTP (55 tok/s) | 370 s · 9/9 · 6 | 268 s · 8/9 · 5 | 168 s · 9/9 · 4 | 86 s · 9/9 · 4 |
+
+- **pi is the fastest on both engines**: the smallest system prompt and the smallest prompts over a session (53K
+  prompt tokens, against 223–323K for OpenCode). Splash is faster than oMLX in every harness (1.2–4×).
+- **OpenCode was the fastest on Strata (66 s, below) but not here.** It sends the largest prompts, so once decode is
+  fast and prompt reuse works, pi wins.
+
+## On Strata (2026-11-23)
+
+Model Inkling-2-Mini SQ-15 at 128K. Driver: `bench/harness_bench.py`. Raw metrics:
+[results/agents/harness](../../results/agents/harness/).
 
 | Harness | Version | API it uses | How the driver runs it |
 |---|---|---|---|
@@ -13,7 +33,7 @@ SQ-15 at 128K. Driver: `bench/harness_bench.py`. Raw metrics: [results/agents/ha
 
 Each turn is one headless call that continues the session, with tools auto-approved and an isolated HOME/config.
 
-## With prompt reuse working (Strata 0.2.19 server + #6627 checkpoint engine)
+### With prompt reuse working (Strata 0.2.19 server + #6627 checkpoint engine)
 
 | Harness | Total time per run | Turns 1–2 (9 checks) | Issues found (of 8) | Tool calls | Review length | Prompt from cache |
 |---|---|---|---|---|---|---|
@@ -22,7 +42,7 @@ Each turn is one headless call that continues the session, with tools auto-appro
 | Cline | 105.3 / 112.6 / 119.0 s | 9/9, 9/9, 8/9 | 4, 6, 4 | 11, 12, 11 | ~5K chars | 85–88% |
 | Claude Code | 142.2 / 325.6 s | 9/9, 9/9 | 5, **6** | 15, 53 | 4.3K / 11.3K chars | 91–97% |
 
-## On stock Strata 0.2.20 (no reuse when tools are sent)
+### On stock Strata 0.2.20 (no reuse when tools are sent)
 
 | Harness | Total time | Slowdown | Cached tokens |
 |---|---|---|---|
@@ -33,7 +53,7 @@ Each turn is one headless call that continues the session, with tools auto-appro
 
 Quality was the same on both servers; only time changed.
 
-## Findings
+### Findings on Strata
 
 - **The 0.2.20 cache bug hits every harness**, including Claude Code over `/v1/messages`. All of them send tools,
   and the server's forced empty thinking block breaks the prefix. It is a server bug, not a harness one
@@ -49,8 +69,7 @@ Quality was the same on both servers; only time changed.
 - **Cline sits between pi and Claude Code** on time and thoroughness.
 - Every harness committed without asking under auto-approve.
 
-**Pick:** quick iterative work → OpenCode or pi; deep reviews → Claude Code (or Tiel-Coder in Cline). Whatever you
-pick, make sure prompt reuse works on your server: it is a bigger factor than the harness.
+**Pick (on Strata):** quick iterative work → OpenCode or pi; deep reviews → Claude Code.
 
 ## Gotcha: OpenCode trusts `$PWD`
 

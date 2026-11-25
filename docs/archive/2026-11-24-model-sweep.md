@@ -1,9 +1,11 @@
 # Qwen3.6-35B coding models, security review, oMLX and DSpine
 
+> **Archived snapshot.** Kept as measured on that date; the current answer is in [models](../findings/models.md), [runtimes](../findings/runtimes.md), [harnesses](../findings/harnesses.md) and [security-review](../findings/security-review.md).
+
 **Measured:** 2026-11-24, M5 Pro (20-core GPU) 48 GB, plugged in. Same prompts, graders and agent task as the other
 findings ([methodology](../methodology.md)). Raw data: [results/](../../results/).
 
-Tiel-Coder, the fastest model in [splash](splash.md), is a fine-tune of Ornith-1.5-35B-A3B, which is itself a
+Tiel-Coder, the fastest model in [splash](2026-11-24-splash.md), is a fine-tune of Ornith-1.5-35B-A3B, which is itself a
 Qwen3.6-35B-A3B. Every model in that family runs on Splash's existing `Qwen3.6-35B-A3B-DFlash2` drafter at 175–245 tok/s,
 so this page sweeps the family: coding fine-tunes, uncensored and security-tuned builds, and two other Mac runtimes
 that people call fast (oMLX, and Tencent's DSpine drafter for Qwen3.8-27B).
@@ -11,7 +13,7 @@ that people call fast (oMLX, and Tencent's DSpine drafter for Qwen3.8-27B).
 ## Results
 
 All Splash rows: Q4 GGUF, `Qwen3.6-35B-A3B-DFlash2` drafter, thinking budget 8K, 128K context. "Cline" and "pi" are the
-3-turn agent session: time, 9 commit checks, real issues found of 8 ([agent-models](agent-models.md)). Security: the
+3-turn agent session: time, 9 commit checks, real issues found of 8 ([agent-models](2026-11-23-agent-models.md)). Security: the
 new [security review check](#security-review-check). 100K: prefill / decode tok/s at 99K tokens of context, and how
 many of 8 facts hidden in it the model recalled.
 
@@ -82,7 +84,7 @@ Same 3-turn session, same model (Inkling-2-Mini, thinking off), each harness aga
 
 - **The harness matters 2–5×, the engine on top of that.** pi is the fastest on both engines; Cline is the slowest on
   oMLX. Splash is faster in every harness (1.2–4×).
-- **OpenCode is no longer the fastest.** It was on Strata ([agent-harnesses](agent-harnesses.md), 66 s), but it sends
+- **OpenCode is no longer the fastest.** It was on Strata ([agent-harnesses](../findings/harnesses.md), 66 s), but it sends
   the largest prompts (223–323K prompt tokens over the session, against 53K for pi), so on engines with fast decode
   and working prompt reuse pi wins. OpenCode and Cline found the most issues (6).
 

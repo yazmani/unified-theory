@@ -1,7 +1,7 @@
 # Guide: running Inkling-2-Mini on Strata
 
-[Strata](https://github.com/Niko1221/Strata) is the fastest way to run Inkling-2-Mini on a Mac
-([numbers](../findings/decode-speed.md)). Which setup to use depends on the client:
+[Strata](https://github.com/Niko1221/Strata) was the fastest way to run Inkling-2-Mini on a Mac before
+[Splash](splash.md), which is now ~1.7× faster ([runtimes](../findings/runtimes.md)). Which setup to use depends on the client:
 
 | Client | Use | Why |
 |---|---|---|

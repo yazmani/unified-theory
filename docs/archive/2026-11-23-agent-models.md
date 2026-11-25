@@ -1,5 +1,7 @@
 # Which local model makes the best coding agent? (Cline, 3-turn real session)
 
+> **Archived snapshot.** Kept as measured on that date; the current answer is in [models](../findings/models.md).
+
 **Measured:** 2026-11-23. Driver: `bench/cline_bench.py` + `bench/acp_client.py` (Cline CLI 3.0.75 over ACP,
 one session, auto-approve, isolated `HOME`). Raw metrics: [results/agents/cline](../../results/agents/cline/),
 summary: [results/agents/cline-session-summary.json](../../results/agents/cline-session-summary.json).
@@ -37,7 +39,7 @@ box: 21–23K prompt tokens read across 13–19 requests. Generation ran at 34�
 (330–341 s) and our patched Strata (105–155 s).** Run 1 grew swap from 3.9 to 11.4 GB (default `--cache-ram 8192`,
 other apps open); run 2 with `--cache-ram 2048` kept it flat.
 
-**Update 2026-11-24:** on [Splash](splash.md), Tiel-Coder (94–101 s) and Inkling (75–94 s) beat every row above.
+**Update 2026-11-24:** on [Splash](2026-11-24-splash.md), Tiel-Coder (94–101 s) and Inkling (75–94 s) beat every row above.
 
 ## Findings
 
@@ -51,7 +53,7 @@ other apps open); run 2 with `--cache-ram 2048` kept it flat.
 5. **Cyber-Tiel (abliterated, no refusals) was no better at coding** and is a risk with auto-approved commands.
 6. **Q4_K_XL beat IQ4_XS** on time and consistency (small sample, temperature 0.6).
 7. **Stock Strata 0.2.20 makes Inkling ~3× slower as an agent** with the same quality: see
-   [strata-prompt-cache.md](strata-prompt-cache.md#4-strata-0220).
+   [strata-prompt-cache.md](../findings/strata-prompt-cache.md#4-strata-0220).
 8. The MLX MTP builds of Tiel were skipped: they need oMLX, and the model card measured MTP slower on Apple Silicon.
 9. **Every model committed without asking** under auto-approve, and two runs committed a local config folder.
    Turn off "execute all commands" auto-approval in real use.

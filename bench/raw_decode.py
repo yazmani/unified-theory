@@ -39,7 +39,7 @@ def main():
         rows.append(row)
         print(f"{a.label} run{i}: {ct} tokens in {wall:.1f}s = {row['wall_tps']} tok/s wall | visible "
               f"{row['visible_chars']} chars, reasoning {row['reasoning_chars']} chars", flush=True)
-    out = Path(f"results/decode/raw-{a.label}.json")
+    out = Path(f"results/raw-decode/raw-{a.label}.json")
     out.parent.mkdir(parents=True, exist_ok=True)
     best = max(r["wall_tps"] for r in rows)
     out.write_text(json.dumps({"label": a.label, "extra": a.extra, "when": time.strftime("%Y-%m-%d %H:%M:%S"),

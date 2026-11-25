@@ -2,7 +2,7 @@
 """Print Markdown tables straight from results/, so docs never drift from the raw data.
 
   python3 tools/summarize.py            # all sections
-  python3 tools/summarize.py decode     # one of: decode, eval, long-answer, agents
+  python3 tools/summarize.py decode     # one of: decode, raw-decode, eval, long-answer, security, engine-stats, agents
 """
 import json, sys
 from pathlib import Path
@@ -59,7 +59,33 @@ def agents():
             + "\n\nQuality scores come from a private grader; see results/agents/cline-session-summary.json and docs/findings/.")
 
 
-SECTIONS = {"decode": decode, "eval": evals, "long-answer": long_answer, "agents": agents}
+def raw_decode():
+    rows = [(d["label"], d.get("wall_tps_best"), d.get("when", "")[:10]) for _, d in load("raw-decode/*.json")]
+    rows.sort(key=lambda r: -(r[1] or 0))
+    return "## Wall-clock decode (bench/raw_decode.py)\n\n" + table(["label", "wall tok/s (best)", "date"], rows)
+
+
+def security():
+    rows = []
+    for _, d in load("security/*.json"):
+        s = d.get("summary", {})
+        rows.append((d["label"], f'{s.get("found")}/18', s.get("found_basic"), s.get("found_subtle"), f'{s.get("clean_ok")}/3',
+                     s.get("refused")))
+    rows.sort(key=lambda r: r[0])
+    return "## Security review (bench/security_review_eval.py)\n\n" + table(
+        ["label", "found", "common (of 10)", "subtle (of 8)", "clean ok", "refused"], rows)
+
+
+def engine_stats():
+    rows = [(d["label"], d.get("requests"), d.get("decode_peak_tps"), d.get("decode_weighted_tps"),
+             d.get("prefill_peak_tps"), f'{100 * (d.get("prefix_cache_hit") or 0):.0f}%', d.get("ttft_p50_s"),
+             d.get("accept_tokens_per_cycle")) for _, d in load("engine-stats/*.json")]
+    return "## Engine stats per run (bench/session_stats.py)\n\n" + table(
+        ["label", "requests", "decode peak", "decode weighted", "prefill peak", "cache hit", "TTFT p50 s", "tok/cycle"], rows)
+
+
+SECTIONS = {"decode": decode, "raw-decode": raw_decode, "eval": evals, "long-answer": long_answer, "security": security,
+            "engine-stats": engine_stats, "agents": agents}
 
 if __name__ == "__main__":
     wanted = sys.argv[1:] or list(SECTIONS)
