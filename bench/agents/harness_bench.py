@@ -142,6 +142,23 @@ HARNESSES = {"claude": (setup_claude, cmd_claude, parse_claude), "pi": (setup_pi
              "opencode": (setup_opencode, cmd_opencode, parse_opencode)}
 
 
+def relocate_venv(ws: Path, template: Path) -> None:
+    """Point a copied virtualenv at its new place. Its scripts' #! lines and pyvenv.cfg name the template's absolute
+    path, which would tell the agent where the template lives (and what sits next to it)."""
+    old, new = str(template.resolve()), str(ws.resolve())
+    for venv in (ws / ".venv", ws / "venv"):
+        if not (venv / "pyvenv.cfg").exists():
+            continue
+        for f in [venv / "pyvenv.cfg", *(venv / "bin").iterdir()]:
+            if f.is_file() and not f.is_symlink():
+                try:
+                    text = f.read_text()
+                except (UnicodeDecodeError, OSError):
+                    continue
+                if old in text:
+                    f.write_text(text.replace(old, new))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--harness", required=True, choices=sorted(HARNESSES))
@@ -165,6 +182,7 @@ def main():
         shutil.rmtree(run)
     ws, home = run / "ws", run / "home"
     shutil.copytree(a.template, ws, symlinks=True)
+    relocate_venv(ws, Path(a.template))
     home.mkdir(parents=True)
     extra, st = setup(a, home)
     env = {k: v for k, v in os.environ.items() if not k.startswith(("CLAUDECODE", "CLAUDE_CODE_", "ANTHROPIC_"))}

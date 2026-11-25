@@ -1,0 +1,22 @@
+{
+ "label": "splash-katornith-direct",
+ "requests": 42,
+ "generated_tokens": 22021,
+ "decode_peak_tps": 268.5,
+ "decode_median_tps": 202.5,
+ "decode_weighted_tps": 176.4,
+ "decode_share_over_100": 0.98,
+ "prefill_peak_tps": 3586,
+ "prefill_mean_tps": 2175,
+ "prefill_mean_tps_2k_plus": 2188,
+ "prefix_cache_hit": 0.632,
+ "ttft_p50_s": 0.2,
+ "ttft_p95_s": 4.5,
+ "largest_prompt": {
+  "input": 72684,
+  "cached": 40768,
+  "ttft_s": 20.2,
+  "decode_tps": 92.4
+ },
+ "accept_tokens_per_cycle": 5.57
+}

@@ -1,0 +1,24 @@
+{
+ "label": "splash-katornith-direct",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 21:27:02",
+ "wall_tps_best": 214.0,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1475,
+   "wall_s": 7.61,
+   "wall_tps": 193.9,
+   "visible_chars": 5897,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1484,
+   "wall_s": 6.93,
+   "wall_tps": 214.0,
+   "visible_chars": 5917,
+   "reasoning_chars": 0
+  }
+ ]
+}

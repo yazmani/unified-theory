@@ -134,12 +134,14 @@ Engine stats per run (`tools/session_stats.py`; decode peak / token-weighted mea
     full-attention layers attend to ~2,048 indexer-picked tokens instead of all of them
     ([long-context](long-context.md#why-flash-next-holds-up-model-structure)).
 14. **Every model tested fixed all 4 long-session bugs; the pi-trained 27B was fastest.** In the [long session](../../bench/long_session/README.md) (Rich
-    14.3.4: read 9 modules, fix 4 real bugs, commit; pi on Splash, 256K context), all five models fixed all 4 bugs as
+    14.3.4: read 9 modules, fix 4 real bugs, commit; pi on Splash, 256K context), all six models fixed all 4 bugs as
     judged by upstream's own regression tests, added tests, broke none, and committed only source and test files:
 
     | Model | Session | Bugs fixed | Tests added | Largest prompt | Prompt from cache | Decode mean |
     |---|---|---|---|---|---|---|
     | Qwen3.8-27B-pi-adapted Q4_K_M, thinking off | **515 s** | **4/4** | 4 | 107K (TTFT 0.8 s, 46 tok/s) | 98% | 53 tok/s |
+    | KAT-Ornith-HERO-35B-A3B i1-Q4_K_M, thinking budget 8K | 566 s | **4/4** | 5 | 128K (TTFT 0.8 s, 109 tok/s) | 97% | 134 tok/s |
+    | same, through oMLX + Splash | 754 s | **4/4** | 6 | 172K (TTFT 0.2 s, 109 tok/s) | 99% | 121 tok/s |
     | Qwen3.8-27B base (no adapter) Q4_K_M, thinking off | 872 s | **4/4** | 4 | 136K (TTFT 0.9 s, 47 tok/s) | 99% | 54 tok/s |
     | Qwen3.8-27B-think-pi-adapted Q4_K_M, thinking budget 8K | 1,037 s | **4/4** | 5 | 128K (TTFT 1.0 s, 43 tok/s) | 98% | 46 tok/s |
     | Swift-1.5 Flash-Next Q2_0 | 1,202 s | **4/4** | 7 | — | 97% | 86 tok/s |
@@ -159,8 +161,8 @@ Engine stats per run (`tools/session_stats.py`; decode peak / token-weighted mea
     Swift-1.5 (ukisai's coding- and agent-tuned Flash-Next, card: 63% fewer thinking tokens) was 12% faster here and
     decodes 15% faster at a 250K prompt (120 vs 104 tok/s); in Cline it found 7 of 8 issues with 9/9 checks. One run
     each. Its card calls Q2_0 experimental and recommends IQ2_XS (68 GB) for quality. Swift's largest prompt is not
-    separable from its 250K test in the shared server log. The task no longer separates models on quality: all five
-    scored 4/4.
+    separable from its 250K test in the shared server log. The task no longer separates models on quality: all six
+    scored 4/4. KAT-Ornith, the fastest decoder, was second (566 s): fast tokens help when the steps stay few.
 15. **LiveCodeBench (partial): the 32K answer limit is binding.** KAT-Ornith on the 51 problems of February 2025
     (release_v6, EvalScope 1.15.0, thinking on, temperature 0.6), stopped at 44: 22 passed. All 18 answers that hit
     the 32K limit failed, 13 of them hard problems; of the 26 that finished, 22 passed. A fair run needs a 64–96K

@@ -104,15 +104,24 @@ page under [findings/](findings/).
   in 872 s with 122 requests (pi-adapted: 515 s, 57), same decode speed. The pi adapter halves the steps; it doesn't
   change the result. pi-adapted at Q8_0 (the card's recommended file): 57 tok/s vs 90 at Q4_K_M, and its agent runs pushed swap to
   10 GB with other work running; stopped, and Q4_K_M kept as the setup.
+- oMLX 0.8.3 with Splash 1.7.2 as its external engine, against Splash direct on KAT-Ornith, back to back: same
+  speed (226 vs 206 tok/s), same prompt reuse (99 vs 97% in the long session), both 4/4 on the long session
+  (754 vs 566 s, the model's variance). KAT-Ornith's long session: 4/4 in 566 s, second to pi-adapted.
+  → [runtimes](findings/runtimes.md)
+- Harness fix: in the first oMLX long session the model followed pi's documentation path (pi was installed in this
+  repo's `.local/tools/`) into the private benchmark folder, read the grader's upstream copy and edited the template
+  instead of its sandbox. Graded 0/4 and discarded; the template was restored and checked against v14.3.4, and an
+  audit of every earlier long session found no access outside the sandbox. Fixes: harness CLIs now live outside the
+  repo, and `harness_bench.py` rewrites the copied venv's paths so the template location never reaches the agent.
+- `bench/` reorganized into speed/, agents/, long_session/, context/ and security/; `session_stats.py` moved to
+  tools/.
 
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
 - [x] A long agent session (150K+ tokens of context) on Flash-Next ([models](findings/models.md), finding 14).
-- [ ] Long session on KAT-Ornith and the 27B GSQ, and a second run of each model (pi adapters done, one run each).
+- [ ] Long session on the 27B GSQ, and a second run of each model (KAT-Ornith and the pi adapters done, one run each).
 - [ ] Harder long session: every model so far fixed 4/4. Bugs that need several modules, or a hidden-test feature.
-- [ ] oMLX with Splash as its external engine (oMLX 0.7.1+): same speed as Splash alone, or does its proxy or cache
-  change agent sessions? Tested so far: oMLX's own MLX engine only.
 - [ ] pi-adapted in Cline or OpenCode on the long session, to separate harness training from model quality.
 - [ ] Swift-1.5 IQ2_XS (the card's recommended file at this size); LongCat-Flash-Lite-Sparse and Kimi-Linear on MLX or llama.cpp.
 - [ ] LiveCodeBench with a 64–96K answer limit for Flash-Next, KAT-Ornith, the 27B GSQ and Bonsai.

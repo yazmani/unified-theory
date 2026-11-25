@@ -1,0 +1,24 @@
+{
+ "label": "omlx-splash-katornith",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 21:30:53",
+ "wall_tps_best": 229.3,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1329,
+   "wall_s": 5.8,
+   "wall_tps": 229.3,
+   "visible_chars": 5599,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1411,
+   "wall_s": 7.09,
+   "wall_tps": 199.0,
+   "visible_chars": 5911,
+   "reasoning_chars": 0
+  }
+ ]
+}

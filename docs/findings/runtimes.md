@@ -17,6 +17,8 @@ client: "streamed" from first to last token, "wall-clock" and "end-to-end" as co
 | | Unsloth llama.cpp b12588 + MTP n-max 1, UD-IQ4_XS | 98 | 142–168 s (Q4_K_XL) |
 | | TensorSharp `5c97544` + MTP, UD-IQ4_XS | 75–92 (streamed) | — |
 | | Unsloth llama.cpp b12588, no speculative decoding | 70 | — |
+| **KAT-Ornith-HERO-35B-A3B** (2026-11-25, same session) | Splash 1.7.2, i1-Q4_K_M | 206 (214 wall-clock) | 95 s |
+| | oMLX 0.8.3 with Splash 1.7.2 as its external engine | 226 (229 wall-clock) | 55 s |
 | **Inkling-2-Mini** | **Splash 1.7.2**, UD-IQ4_XS / UD-Q4_K_M | **101 / 92** (109–116 wall-clock) | 72–94 s |
 | | Strata 0.2.20, SQ-15, thinking forced off | 66 | 330–341 s (no prompt reuse with tools) |
 | | Strata 0.2.19 + DSpark, SQ-15 (+ #6627 checkpoint engine for agents) | 58 | 105–119 s |
@@ -50,7 +52,7 @@ At 100K tokens of context ([long-context](long-context.md)):
 | Strata (`strata-inkling`, Metal) | ✅ | ❌ its Qwen3.6 engine is CUDA/HIP only | — | agents need the checkpoint engine ([prompt cache](strata-prompt-cache.md)) |
 | Unsloth llama.cpp fork | ✅ (`inkling2`, DSpark) | ✅ (MTP) | ✅ | best general runtime before Splash |
 | Homebrew llama.cpp 0.7.0 | ❌ unknown architecture | ✅ (not benched) | — | behind the fork at the time |
-| oMLX 0.8.3 | ✅ (MTP) | ✅ (MTP) | — | slower than Splash on both; uninstalled |
+| oMLX 0.8.3 | ✅ (MTP) | ✅ (MTP) | ✅ through Splash | its MLX engine is slower than Splash; with Splash as its external engine, the same speed as Splash |
 | dspine-hybrid-mlx 0.4.0 | — | — | ✅ 27B | most thorough 27B setup, slow at depth |
 | TensorSharp | ❌ on Mac | ✅ | — | no gain over llama.cpp |
 | Atomic Engine | ✅ | — | — | memory cap, not speed |
@@ -100,6 +102,21 @@ At 100K tokens of context ([long-context](long-context.md)):
     On llama.cpp the MTP head gives about PrismML's M4 Pro figure (29 tok/s).
 12. **TensorSharp** (C#/.NET on ggml) cannot run Unsloth's Inkling files on Mac (layer-count mismatch, then no NVFP4
     `MUL_MAT_ID` in ggml Metal) and was no faster on Tiel.
+13. **oMLX with Splash as its external engine costs nothing.** oMLX (0.7.1 and later) can start Splash for the Qwen
+    families and forward requests to it, keeping its dashboard, model list and agent integrations. On KAT-Ornith,
+    back to back with the same GGUF, drafter, 256K context and 8K thinking budget:
+
+    | | Splash direct | oMLX + Splash |
+    |---|---|---|
+    | Decode (wall-clock) | 206 (214) tok/s | 226 (229) tok/s |
+    | Mini-eval, long answer | 9/10, 10.0 s | 9/10, 10.3 s |
+    | Cline · pi (3-turn task) | 95 s · 37.5 s | 55 s · 38.7 s |
+    | Long session | 4/4, 566 s, 80 requests | 4/4, 754 s, 73 requests |
+    | Long session: prompt from cache, TTFT p50, decode at the largest prompt | 97%, 0.4 s, 109 tok/s at 128K | 99%, 0.5 s, 109 tok/s at 172K |
+
+    Prompt reuse and speed at depth match; the long-session difference is the model's own variance (one turn of 412 s
+    with 34 tool calls, 70K tokens written against 49K). oMLX passes `--kv-format int8` (Splash's default too),
+    `--activations bf16` and `--idle-release off`, and manages Splash's SSD cache. One run each.
 
 ## Setup
 

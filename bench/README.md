@@ -52,8 +52,10 @@ python3 bench/context/long_context.py --url http://127.0.0.1:8000 --label my-mod
 
 1. Pick a repo with uncommitted work; copy it to `.local/agent-bench/template/` and remove its git remote.
 2. Write a grader from `agents/grade_template.py` into `.local/agent-bench/grade.py`.
-3. Install the harness CLIs you want (`npm i cline @earendil-works/pi-coding-agent opencode-ai` in
-   `.local/tools/`; Claude Code from its installer).
+3. Install the harness CLIs you want (`npm i cline @earendil-works/pi-coding-agent opencode-ai`) **outside any
+   repo**, e.g. `~/.cache/agent-harness-tools`, and symlink that folder to `.local/tools/`. pi writes its install
+   path into the system prompt; a model once followed it into the benchmark folder and edited the template there.
+   Claude Code from its installer.
 4. Run:
    ```sh
    CLINE_BIN=.local/tools/node_modules/.bin/cline python3 -I bench/agents/cline_bench.py --label my-run \

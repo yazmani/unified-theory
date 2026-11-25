@@ -1,0 +1,42 @@
+{
+ "label": "omlx-splash-katornith-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 21:32:44",
+ "turns": 3,
+ "total_wall_s": 38.7,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 7.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 1295,
+   "prompt_tokens": 19675,
+   "cached_tokens": 9504
+  },
+  {
+   "turn": 2,
+   "wall_s": 1.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 142,
+   "prompt_tokens": 22266,
+   "cached_tokens": 20928
+  },
+  {
+   "turn": 3,
+   "wall_s": 29.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 10,
+   "answer_chars": 4204,
+   "prompt_tokens": 93746,
+   "cached_tokens": 63200
+  }
+ ]
+}

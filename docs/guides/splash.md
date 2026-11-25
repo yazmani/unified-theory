@@ -45,6 +45,18 @@ its drafter; `splash pi`, `splash opencode` and `splash claude` start a harness 
 | `--max-cache-disk 4G` | caps the SSD prompt cache |
 | `--max-context 256K` | default in the KAT-Ornith and Flash-Next scripts. Both read a 250K prompt in ~4 min and decode at 145 / 104 tok/s there, with swap flat ([long-context](../findings/long-context.md)). Agent sessions already reached 40–77K tokens per request on a 3-turn task |
 
+## Through oMLX
+
+oMLX 0.7.1+ can run Splash as its external engine: same speed ([runtimes](../findings/runtimes.md), finding 13),
+plus oMLX's dashboard, model manager and `omlx launch claude|codex`. Install both (`brew install incoai/tap/splash`,
+`brew install jundot/omlx/omlx`), then in oMLX's Model Settings → Advanced turn on **Use external engine** and pick
+Splash; the model needs its DFlash2 drafter in a model directory. Headless, the same in `model_settings.json`:
+
+```json
+{"version": 3, "models": {"MODEL": {"external_engine": "splash", "dflash_draft_model": "/path/to/Qwen3.6-35B-A3B-DFlash2",
+  "max_context_window": 262144, "thinking_budget_enabled": true, "thinking_budget_tokens": 8192}}}
+```
+
 ## Gotchas
 
 - **One model at a time.** Check `sysctl vm.swapusage` before and after; a second model next to a loaded one can
