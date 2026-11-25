@@ -1,0 +1,94 @@
+{
+ "label": "splash-fncoder-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-25 08:03:55",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 54.010769040323794,
+ "tokens_total": 10436,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 0.6738041250500828,
+   "completion_tokens": 80,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": false,
+   "wall_s": 34.41424729209393,
+   "completion_tokens": 8000,
+   "finish": "length",
+   "err": "  File \"roman.py\", line 1\n    ```python\n    ^\nSyntaxError: invalid syntax\n"
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.4943629999179393,
+   "completion_tokens": 189,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 2.1159566659480333,
+   "completion_tokens": 262,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 4.731296041049063,
+   "completion_tokens": 515,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 2.2861383750569075,
+   "completion_tokens": 313,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 1.4223984580021352,
+   "completion_tokens": 180,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.0285279580857605,
+   "completion_tokens": 300,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 1.8544416250661016,
+   "completion_tokens": 237,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 2.989595500053838,
+   "completion_tokens": 360,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

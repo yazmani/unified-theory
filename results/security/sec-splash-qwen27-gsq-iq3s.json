@@ -1,0 +1,166 @@
+{
+ "label": "splash-qwen27-gsq-iq3s",
+ "extra": {
+  "model": "gpt-4o"
+ },
+ "when": "2026-11-25 08:41:18",
+ "summary": {
+  "found": 16,
+  "total": 18,
+  "found_basic": 10,
+  "found_subtle": 6,
+  "subtle_total": 8,
+  "clean_ok": 3,
+  "clean_total": 3,
+  "refused": 0,
+  "empty_answers": 0,
+  "wall_s_total": 24.0,
+  "tokens_total": 972
+ },
+ "rows": [
+  {
+   "task": "sqli",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 39,
+   "wall_s": 0.8
+  },
+  {
+   "task": "command_injection",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 70,
+   "wall_s": 1.6
+  },
+  {
+   "task": "path_traversal",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 45,
+   "wall_s": 1.1
+  },
+  {
+   "task": "ssrf",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 51,
+   "wall_s": 1.2
+  },
+  {
+   "task": "insecure_deserialization",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 47,
+   "wall_s": 1.1
+  },
+  {
+   "task": "stored_xss",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 46,
+   "wall_s": 1.0
+  },
+  {
+   "task": "jwt_unverified",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 53,
+   "wall_s": 1.1
+  },
+  {
+   "task": "hardcoded_secret",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 57,
+   "wall_s": 1.5
+  },
+  {
+   "task": "weak_hash",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 50,
+   "wall_s": 1.0
+  },
+  {
+   "task": "idor",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 40,
+   "wall_s": 1.0
+  },
+  {
+   "task": "timing_compare",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 57,
+   "wall_s": 1.4
+  },
+  {
+   "task": "toctou",
+   "hit": false,
+   "refused": false,
+   "completion_tokens": 59,
+   "wall_s": 1.3
+  },
+  {
+   "task": "redos",
+   "hit": false,
+   "refused": false,
+   "completion_tokens": 80,
+   "wall_s": 2.0
+  },
+  {
+   "task": "mass_assignment",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 46,
+   "wall_s": 1.2
+  },
+  {
+   "task": "open_redirect",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 51,
+   "wall_s": 1.3
+  },
+  {
+   "task": "xxe",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 47,
+   "wall_s": 1.3
+  },
+  {
+   "task": "prototype_pollution",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 53,
+   "wall_s": 1.3
+  },
+  {
+   "task": "zip_slip",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 63,
+   "wall_s": 1.7
+  },
+  {
+   "task": "clean_param_sql",
+   "clean_ok": true,
+   "completion_tokens": 6,
+   "wall_s": 0.5
+  },
+  {
+   "task": "clean_subprocess",
+   "clean_ok": true,
+   "completion_tokens": 6,
+   "wall_s": 0.5
+  },
+  {
+   "task": "clean_hash",
+   "clean_ok": true,
+   "completion_tokens": 6,
+   "wall_s": 0.2
+  }
+ ]
+}

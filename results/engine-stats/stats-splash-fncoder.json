@@ -1,0 +1,22 @@
+{
+ "label": "splash-fncoder",
+ "requests": 77,
+ "generated_tokens": 132905,
+ "decode_peak_tps": 256.4,
+ "decode_median_tps": 85.0,
+ "decode_weighted_tps": 146.6,
+ "decode_share_over_100": 0.31,
+ "prefill_peak_tps": 1338,
+ "prefill_mean_tps": 1153,
+ "prefill_mean_tps_2k_plus": 1188,
+ "prefix_cache_hit": 0.85,
+ "ttft_p50_s": 0.6,
+ "ttft_p95_s": 3.7,
+ "largest_prompt": {
+  "input": 99104,
+  "cached": 0,
+  "ttft_s": 81.9,
+  "decode_tps": 119.2
+ },
+ "accept_tokens_per_cycle": 4.75
+}

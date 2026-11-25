@@ -1,0 +1,42 @@
+{
+ "label": "splash-fncoder-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 08:13:41",
+ "turns": 3,
+ "total_wall_s": 171.1,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 18.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 2042,
+   "prompt_tokens": 23953,
+   "cached_tokens": 16416
+  },
+  {
+   "turn": 2,
+   "wall_s": 33.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 9,
+   "answer_chars": 1022,
+   "prompt_tokens": 98811,
+   "cached_tokens": 93984
+  },
+  {
+   "turn": 3,
+   "wall_s": 119.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 12,
+   "answer_chars": 5987,
+   "prompt_tokens": 287838,
+   "cached_tokens": 271392
+  }
+ ]
+}

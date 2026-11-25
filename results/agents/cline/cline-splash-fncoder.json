@@ -1,0 +1,32 @@
+{
+ "label": "splash-fncoder",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-25 08:10:49",
+ "turns": 3,
+ "total_wall_s": 327.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 51.0,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 3993
+  },
+  {
+   "turn": 2,
+   "wall_s": 99.6,
+   "stop": "end_turn",
+   "tool_calls": 8,
+   "answer_chars": 2477
+  },
+  {
+   "turn": 3,
+   "wall_s": 176.8,
+   "stop": "end_turn",
+   "tool_calls": 9,
+   "answer_chars": 8960
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{
+ "label": "splash-fncoder",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 08:04:12",
+ "wall_tps_best": 130.2,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1099,
+   "wall_s": 8.44,
+   "wall_tps": 130.2,
+   "visible_chars": 4126,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1099,
+   "wall_s": 8.49,
+   "wall_tps": 129.5,
+   "visible_chars": 4126,
+   "reasoning_chars": 0
+  }
+ ]
+}

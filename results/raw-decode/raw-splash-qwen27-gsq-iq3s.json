@@ -1,0 +1,24 @@
+{
+ "label": "splash-qwen27-gsq-iq3s",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 08:37:08",
+ "wall_tps_best": 106.8,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1196,
+   "wall_s": 11.34,
+   "wall_tps": 105.4,
+   "visible_chars": 4370,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1196,
+   "wall_s": 11.2,
+   "wall_tps": 106.8,
+   "visible_chars": 4370,
+   "reasoning_chars": 0
+  }
+ ]
+}
