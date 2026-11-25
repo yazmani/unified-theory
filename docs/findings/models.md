@@ -6,6 +6,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 | Use | Pick | Why |
 |---|---|---|
 | Long agent sessions and thorough review | **Qwen3.8-Flash-Next**: Swift-1.5 Q2_0 (66.5 GB), ISTA Q2_0 (66 GB) or Coder (58 GB) | All 4 bugs fixed in the 213K-token long session (Swift-1.5 and ISTA Q2_0). Swift-1.5: 20 min for it, 120 tok/s at a 250K prompt. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs. Coder: 7 of 8, 18/18 on security |
+| Long sessions in the pi harness, fastest | **Qwen3.8-27B-pi-adapted** (Q4_K_M, 15 GB), thinking off | All 4 long-session bugs in 8.6 min, less than half Flash-Next's 20–23 min: far fewer steps (57 requests, 15K tokens written; Swift-1.5: 169, 106K). Trained for pi. Reviews weaker: 4–5 of 8 issues. One run |
 | Fast agent for short tasks | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s). 145 tok/s at a 250K prompt |
 | Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
@@ -53,6 +54,7 @@ Two values in a cell are two runs. — means not run.
 | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB), thinking off | 96 (107) | 9/10 | 154 s · 9/9 · 5 | 54 s · 8/9 · 5 | 16/18 · 3/3 | 512 / 75 · 8/8 |
 | Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB), thinking budget 8K | 145 (160) | 9/10 | 268 s · 9/9 · 5 | 176 s · 9/9 · 4 | 16/18 · 3/3 | 400 / 99 · 8/8 |
 | Qwen3.8-27B-pi-adapted Q4_K_M, thinking off | 90 | 10/10 | 228 / 169 s · 7/9, 8/9 · 4, 5 | 57 / 143 s · 7/9, 7/9 · 5, 5 | — | — |
+| Qwen3.8-27B-think-pi-adapted Q4_K_M, thinking budget 8K | 89 (99) | 10/10 | 245 s · 9/9 · 5 | 128 s · 9/9 · 4 | — | — |
 | Qwen3.8-27B TURBO-Fable (DavidAU) Q4_K_M, thinking off | 21 | 10/10 | — | — | — | — |
 | Ornith-1.5-122B UD-IQ3_XXS (49.5 GB), 24 GB expert store | 44 | 7/10 | 249 s · 9/9 · 4 | 141 s · 8/9 · 4 | — | — |
 
@@ -117,7 +119,8 @@ Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mea
    tasks, 4 of 8 issues in both harnesses.
 9. **pi-adapted beats DavidAU's TURBO-Fable** among the Qwen3.8-27B fine-tunes: 90 vs 21–24 tok/s, more checks and
    issues. TURBO-Fable is slow on Splash because it no longer matches the drafter ([runtimes](runtimes.md),
-   finding 2). pi-adapted committed the local config folder in 3 of 4 sessions.
+   finding 2). pi-adapted committed the local config folder in 3 of 4 sessions. Its thinking counterpart, think-pi-adapted
+   (released 2026-11-23), passed 9/9 checks in both harnesses but found no more issues (4–5 of 8).
 10. **Uncensored and security-tuned builds review no better** ([security-review](security-review.md)). RavenX found 0
    issues in the Cline review.
 11. **Every model committed without asking** under auto-approve, and several committed a local config folder. Turn off
@@ -129,19 +132,28 @@ Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mea
     tok/s) and KAT-Ornith 62% (145 tok/s); the 27B models take 13–15 min to read the prompt. Flash-Next's
     full-attention layers attend to ~2,048 indexer-picked tokens instead of all of them
     ([long-context](long-context.md#why-flash-next-holds-up-model-structure)).
-14. **Flash-Next keeps working at 213K tokens.** In the [long session](../../bench/long_session/README.md) (Rich
-    14.3.4: read 9 modules, fix 4 real bugs, commit; pi on Splash, 256K context), both Flash-Next files fixed all 4
-    bugs as judged by upstream's own regression tests, added tests, broke none, and committed cleanly:
+14. **Every model tested fixed all 4 long-session bugs; the pi-trained 27B models were fastest.** In the [long session](../../bench/long_session/README.md) (Rich
+    14.3.4: read 9 modules, fix 4 real bugs, commit; pi on Splash, 256K context), all four models fixed all 4 bugs as
+    judged by upstream's own regression tests, added tests, broke none, and committed only source and test files:
 
     | Model | Session | Bugs fixed | Tests added | Largest prompt | Prompt from cache | Decode mean |
     |---|---|---|---|---|---|---|
-    | Swift-1.5 Flash-Next Q2_0 | **1,202 s** | **4/4** | 23 | — | 97% | 86 tok/s |
+    | Qwen3.8-27B-pi-adapted Q4_K_M, thinking off | **515 s** | **4/4** | 4 | 107K (TTFT 0.8 s, 46 tok/s) | 98% | 53 tok/s |
+    | Qwen3.8-27B-think-pi-adapted Q4_K_M, thinking budget 8K | 1,037 s | **4/4** | 5 | 128K (TTFT 1.0 s, 43 tok/s) | 98% | 46 tok/s |
+    | Swift-1.5 Flash-Next Q2_0 | 1,202 s | **4/4** | 7 | — | 97% | 86 tok/s |
     | ISTA Flash-Next Q2_0 | 1,367 s | **4/4** | 23 | 213K (TTFT 0.9 s, 90 tok/s) | 99% | 79 tok/s |
+
+    The 27B models decode at half Flash-Next's speed at depth, yet finished first because they did less: pi-adapted
+    made 57 requests and wrote 15K tokens, Swift-1.5 169 requests and 106K tokens. Both read all 9 modules in full;
+    Flash-Next also read three related modules, which is why its context reached 213K. With 98% of each prompt
+    reused, the 27B's slow prompt read (13 min at 250K) never came into play. pi-adapted was trained in pi, the
+    harness used here; in Cline it took 169–228 s for the 3-turn task.
 
     Swift-1.5 (ukisai's coding- and agent-tuned Flash-Next, card: 63% fewer thinking tokens) was 12% faster here and
     decodes 15% faster at a 250K prompt (120 vs 104 tok/s); in Cline it found 7 of 8 issues with 9/9 checks. One run
     each. Its card calls Q2_0 experimental and recommends IQ2_XS (68 GB) for quality. Swift's largest prompt is not
-    separable from its 250K test in the shared server log.
+    separable from its 250K test in the shared server log. The task no longer separates models on quality: all four
+    scored 4/4.
 15. **LiveCodeBench (partial): the 32K answer limit is binding.** KAT-Ornith on the 51 problems of February 2025
     (release_v6, EvalScope 1.15.0, thinking on, temperature 0.6), stopped at 44: 22 passed. All 18 answers that hit
     the 32K limit failed, 13 of them hard problems; of the 26 that finished, 22 passed. A fair run needs a 64–96K
@@ -171,6 +183,7 @@ that mattered (MTP n-max 1, a reasoning budget) are on the [archived agent-model
 | Ternary Bonsai 2.5 27B | `prism-ml/Ternary-Bonsai-2.5-27B-GGUF` (`PQ2_0-mtp` for Splash, `Q2_0-mtp` for llama.cpp), drafter `incoai/Qwen3.8-27B-DFlash2` |
 | Kolibri 1.1 | `Aleph-Alpha/Kolibri-1.1-GGUF` (Q3_K_M, IQ2_XS-GSQ-RCO-2.25bpw); needs llama.cpp PR #32891 |
 | Qwen3.8-27B-pi-adapted | requantized here from its published Q8_0 merge to Q4_K_M (no imatrix) |
+| Qwen3.8-27B-think-pi-adapted | `harness-hub/Qwen3.8-27B-think-pi-adapted-GGUF`, requantized here from its Q8_0 merge to Q4_K_M (no imatrix); the card recommends Q8_0 |
 | TURBO-Fable | DavidAU (Q4_K_M; the card recommends Q6 and calls Q4_K_M the minimum) |
 
 Raw data: [results/](../../results/). First write-ups: [splash](../archive/2026-11-24-splash.md),

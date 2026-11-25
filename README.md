@@ -13,7 +13,7 @@ fast it runs.
 
 | Question | Answer (2026-11-25) | Details |
 |---|---|---|
-| Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context. In a 6-turn session that grew to 213K tokens, it fixed all 4 real bugs (graded with upstream's tests). Swift-1.5 Q2_0: 20 min, 120 tok/s at 250K. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs | [models](docs/findings/models.md) |
+| Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context for thorough work: in a 6-turn session that grew to 213K tokens it fixed all 4 real bugs (graded with upstream's tests), and it finds 7–8 of 8 issues in review. Swift-1.5 Q2_0: 20 min. **Fastest in pi: Qwen3.8-27B-pi-adapted**, the same 4 bugs in 8.6 min with far fewer steps, but 4–5 of 8 issues in review | [models](docs/findings/models.md) |
 | Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
 | Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K. Slow past ~64K: 13 min to read 250K | [models](docs/findings/models.md) |
 | Fastest runtime? | **Splash**: ~2× llama.cpp and Strata on the same model, when a matching drafter exists. oMLX and DSpine were slower | [runtimes](docs/findings/runtimes.md) |
@@ -43,6 +43,7 @@ fast it runs.
 | Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB) | Splash 1.7.2 | 145 | 10 s | 9/10 |
 | Qwen3.8-27B GSQ-RCO IQ3_S (11.8 GB) | Splash 1.7.2 | 96 | 14 s | 9/10 |
 | Qwen3.8-27B-pi-adapted Q4_K_M | Splash 1.7.2 | 90 | 22 s | 10/10 |
+| Qwen3.8-27B-think-pi-adapted Q4_K_M | Splash 1.7.2 | 89 | 15 s | 10/10 |
 | Ornith-1.5-122B UD-IQ3_XXS (24 GB expert store) | Splash 1.7.2 | 44 | 41 s | 7/10 |
 | Tiel-Coder-35B-A3B UD-IQ4_XS + MTP | Unsloth llama.cpp | 98 | 26 s | 10/10 |
 | Kolibri 1.1 Q3_K_M (36 GB) | llama.cpp PR #32891 | 69 | 11 s | 10/10 |

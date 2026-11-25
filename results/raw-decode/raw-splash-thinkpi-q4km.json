@@ -1,0 +1,24 @@
+{
+ "label": "splash-thinkpi-q4km",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 19:17:01",
+ "wall_tps_best": 98.6,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1183,
+   "wall_s": 11.99,
+   "wall_tps": 98.6,
+   "visible_chars": 4272,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1182,
+   "wall_s": 11.99,
+   "wall_tps": 98.6,
+   "visible_chars": 4266,
+   "reasoning_chars": 0
+  }
+ ]
+}

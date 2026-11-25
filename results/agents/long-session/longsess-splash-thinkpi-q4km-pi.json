@@ -1,0 +1,72 @@
+{
+ "label": "splash-thinkpi-q4km-longsess-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 262144,
+ "when": "2026-11-25 19:41:01",
+ "turns": 6,
+ "total_wall_s": 1036.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 333.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 15,
+   "answer_chars": 11311,
+   "prompt_tokens": 431560,
+   "cached_tokens": 351744
+  },
+  {
+   "turn": 2,
+   "wall_s": 89.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 1061,
+   "prompt_tokens": 722096,
+   "cached_tokens": 720544
+  },
+  {
+   "turn": 3,
+   "wall_s": 222.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 10,
+   "answer_chars": 1415,
+   "prompt_tokens": 999579,
+   "cached_tokens": 996768
+  },
+  {
+   "turn": 4,
+   "wall_s": 57.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 1213,
+   "prompt_tokens": 637054,
+   "cached_tokens": 636512
+  },
+  {
+   "turn": 5,
+   "wall_s": 295.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 12,
+   "answer_chars": 1751,
+   "prompt_tokens": 1545040,
+   "cached_tokens": 1537632
+  },
+  {
+   "turn": 6,
+   "wall_s": 39.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 700,
+   "prompt_tokens": 636256,
+   "cached_tokens": 635648
+  }
+ ]
+}

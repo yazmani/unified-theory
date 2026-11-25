@@ -1,0 +1,42 @@
+{
+ "label": "splash-thinkpi-q4km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 19:23:32",
+ "turns": 3,
+ "total_wall_s": 128.4,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 23.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 1433,
+   "prompt_tokens": 13497,
+   "cached_tokens": 8192
+  },
+  {
+   "turn": 2,
+   "wall_s": 13.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 438,
+   "prompt_tokens": 27522,
+   "cached_tokens": 26080
+  },
+  {
+   "turn": 3,
+   "wall_s": 91.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 4353,
+   "prompt_tokens": 100183,
+   "cached_tokens": 91936
+  }
+ ]
+}

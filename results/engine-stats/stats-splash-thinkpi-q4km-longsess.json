@@ -1,0 +1,22 @@
+{
+ "label": "splash-thinkpi-q4km",
+ "requests": 54,
+ "generated_tokens": 36497,
+ "decode_peak_tps": 88.5,
+ "decode_median_tps": 52.6,
+ "decode_weighted_tps": 46.1,
+ "decode_share_over_100": 0.0,
+ "prefill_peak_tps": 741,
+ "prefill_mean_tps": 474,
+ "prefill_mean_tps_2k_plus": 508,
+ "prefix_cache_hit": 0.981,
+ "ttft_p50_s": 0.5,
+ "ttft_p95_s": 20.5,
+ "largest_prompt": {
+  "input": 128106,
+  "cached": 127872,
+  "ttft_s": 1.0,
+  "decode_tps": 43.2
+ },
+ "accept_tokens_per_cycle": 5.26
+}

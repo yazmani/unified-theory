@@ -94,12 +94,20 @@ page under [findings/](findings/).
   1,115 / 120 tok/s, long session 4/4 in 1,202 s. Hugging Face search for similar long-context designs that fit 48 GB:
   LongCat-Flash-Lite-Sparse, Ling-3.2-air, Kimi-Linear-48B, Nemotron-3.5-Lightning (not tested; no Splash support).
   → [long-context](findings/long-context.md)
+- harness-hub's Qwen3.8-27B pi adapters (trained with RL to drive pi) on the long session, Q4_K_M requantized from
+  their Q8_0 merges: pi-adapted (thinking off) 4/4 in 515 s, think-pi-adapted (released 2026-11-23, thinking budget
+  8K) 4/4 in 1,037 s, against 1,202–1,367 s for Flash-Next. They took far fewer steps (57 requests and 15K tokens
+  written vs 169 and 106K for Swift-1.5), so the 27B's slow prompt read didn't matter at 98% cache hit. think-pi:
+  89 tok/s, 10/10, Cline 245 s · 9/9 · 5, pi 128 s · 9/9 · 4. All four models scored 4/4: the long session needs
+  harder bugs to rank quality. → [models](findings/models.md)
 
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
 - [x] A long agent session (150K+ tokens of context) on Flash-Next ([models](findings/models.md), finding 14).
-- [ ] Long session on KAT-Ornith and the 27B GSQ, and a second run of each Flash-Next file.
+- [ ] Long session on KAT-Ornith and the 27B GSQ, and a second run of each model (pi adapters done, one run each).
+- [ ] Harder long session: every model so far fixed 4/4. Bugs that need several modules, or a hidden-test feature.
+- [ ] pi-adapted in Cline or OpenCode on the long session, to separate harness training from model quality.
 - [ ] Swift-1.5 IQ2_XS (the card's recommended file at this size); LongCat-Flash-Lite-Sparse and Kimi-Linear on MLX or llama.cpp.
 - [ ] LiveCodeBench with a 64–96K answer limit for Flash-Next, KAT-Ornith, the 27B GSQ and Bonsai.
 - [ ] Harder security set: every model scores 16–18/18 on the current one.
