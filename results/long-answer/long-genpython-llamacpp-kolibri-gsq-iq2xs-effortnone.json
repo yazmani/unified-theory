@@ -1,0 +1,17 @@
+{
+ "label": "llamacpp-kolibri-gsq-iq2xs-effortnone",
+ "wall_s": 9.732730041956529,
+ "usage": {
+  "completion_tokens": 644,
+  "prompt_tokens": 70,
+  "total_tokens": 714,
+  "prompt_tokens_details": {
+   "cached_tokens": 24
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 67.17924184412139,
+ "content_chars": 2777,
+ "reasoning_chars": 0,
+ "content": "```python\nfrom __future__ import annotations\n\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Generic, TypeVar\n\nT = TypeVar(\"T\")\n\n\nclass LRUCache(Generic[T]):\n    \"\"\"Thread-safe LRU cache with TTL expiry.\n\n    Uses an OrderedDict to maintain LRU ordering and a lock for thread safety.\n    Entries expire after a configurable TTL (seconds).\n    \"\"\"\n\n    def __init__(self, capacity: int, ttl: float) -> None:\n        if capacity <= 0:\n            raise ValueError(\"capacity must be positive\")\n        if ttl <= 0:\n            raise ValueError(\"ttl must be positive\")\n        self._capacity: int = capacity\n        self._ttl: float = ttl\n        self._cache: OrderedDict[Any, tuple[float, T]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Any) -> T | None:\n        \"\"\"Return cached value for key, or None if missing/expired.\"\"\"\n        with self._lock:\n            entry = self._cache.get(key)\n            if entry is None:\n                return None\n            expires_at, value = entry\n            if time.monotonic() > expires_at:\n                del self._cache[key]\n                return None\n            self._cache.move_to_end(key)\n            return value\n\n    def put(self, key: Any, value: T) -> None:\n        \"\"\"Store value under key, evicting LRU entries as needed.\"\"\"\n        with self._lock:\n            now = time.monotonic()\n            if key in self._cache:\n                del self._cache[key]\n            self._cache[key] = (now + self._ttl, value)\n            self._cache.move_to_end(key)\n            while len(self._cache) > self._capacity:\n                self._cache.popitem(last=False)\n\n    def __contains__(self, key: Any) -> bool:\n        return self.get(key) is not None\n\n    def clear(self) -> None:\n        with self._lock:\n            self._cache.clear()\n\n\ndef lru_ttl_cache(capacity: int, ttl: float) -> Callable[[Callable[..., T]], Callable[..., T]]:\n    \"\"\"Decorator factory creating a memoized function backed by an LRU+TTL cache.\n\n    Args:\n        capacity: maximum number of cached results.\n        ttl: expiry time in seconds.\n\n    Returns:\n        A decorator that wraps a function with caching.\n    \"\"\"\n\n    def decorator(func: Callable[..., T]) -> Callable[..., T]:\n        cache = LRUCache(capacity, ttl)\n\n        def wrapper(*args: Any, **kwargs: Any) -> T:\n            key = (args, tuple(sorted(kwargs.items())))\n            cached = cache.get(key)\n            if cached is not None:\n                return cached\n            result = func(*args, **kwargs)\n            cache.put(key, result)\n            return result\n\n        wrapper.__name__ = func.__name__\n        wrapper.__doc__ = func.__doc__\n        return wrapper\n\n    return decorator\n```"
+}

@@ -1,0 +1,24 @@
+{
+ "label": "llamacpp-kolibri-q3km",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 11:15:39",
+ "wall_tps_best": 68.9,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1071,
+   "wall_s": 15.8,
+   "wall_tps": 67.8,
+   "visible_chars": 4198,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1069,
+   "wall_s": 15.52,
+   "wall_tps": 68.9,
+   "visible_chars": 4142,
+   "reasoning_chars": 0
+  }
+ ]
+}

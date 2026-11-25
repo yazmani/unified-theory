@@ -1,0 +1,22 @@
+{
+ "label": "splash-bonsai25-pq2",
+ "requests": 52,
+ "generated_tokens": 74790,
+ "decode_peak_tps": 161.0,
+ "decode_median_tps": 85.2,
+ "decode_weighted_tps": 111.1,
+ "decode_share_over_100": 0.19,
+ "prefill_peak_tps": 570,
+ "prefill_mean_tps": 481,
+ "prefill_mean_tps_2k_plus": 489,
+ "prefix_cache_hit": 0.884,
+ "ttft_p50_s": 0.4,
+ "ttft_p95_s": 6.6,
+ "largest_prompt": {
+  "input": 43662,
+  "cached": 43424,
+  "ttft_s": 0.6,
+  "decode_tps": 53.2
+ },
+ "accept_tokens_per_cycle": 4.12
+}

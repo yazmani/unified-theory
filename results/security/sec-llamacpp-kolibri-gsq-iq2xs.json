@@ -1,0 +1,166 @@
+{
+ "label": "llamacpp-kolibri-gsq-iq2xs",
+ "extra": {
+  "model": "gpt-4o"
+ },
+ "when": "2026-11-25 11:09:33",
+ "summary": {
+  "found": 16,
+  "total": 18,
+  "found_basic": 10,
+  "found_subtle": 6,
+  "subtle_total": 8,
+  "clean_ok": 3,
+  "clean_total": 3,
+  "refused": 0,
+  "empty_answers": 0,
+  "wall_s_total": 133.4,
+  "tokens_total": 8724
+ },
+ "rows": [
+  {
+   "task": "sqli",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 144,
+   "wall_s": 2.3
+  },
+  {
+   "task": "command_injection",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 175,
+   "wall_s": 2.7
+  },
+  {
+   "task": "path_traversal",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 113,
+   "wall_s": 1.8
+  },
+  {
+   "task": "ssrf",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 238,
+   "wall_s": 3.7
+  },
+  {
+   "task": "insecure_deserialization",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 187,
+   "wall_s": 2.9
+  },
+  {
+   "task": "stored_xss",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 134,
+   "wall_s": 2.1
+  },
+  {
+   "task": "jwt_unverified",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 201,
+   "wall_s": 3.1
+  },
+  {
+   "task": "hardcoded_secret",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 214,
+   "wall_s": 3.3
+  },
+  {
+   "task": "weak_hash",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 161,
+   "wall_s": 2.5
+  },
+  {
+   "task": "idor",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 164,
+   "wall_s": 2.6
+  },
+  {
+   "task": "timing_compare",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 352,
+   "wall_s": 5.4
+  },
+  {
+   "task": "toctou",
+   "hit": false,
+   "refused": false,
+   "completion_tokens": 328,
+   "wall_s": 5.0
+  },
+  {
+   "task": "redos",
+   "hit": false,
+   "refused": false,
+   "completion_tokens": 1931,
+   "wall_s": 29.3
+  },
+  {
+   "task": "mass_assignment",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 472,
+   "wall_s": 7.2
+  },
+  {
+   "task": "open_redirect",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 185,
+   "wall_s": 2.8
+  },
+  {
+   "task": "xxe",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 380,
+   "wall_s": 5.8
+  },
+  {
+   "task": "prototype_pollution",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 1043,
+   "wall_s": 15.8
+  },
+  {
+   "task": "zip_slip",
+   "hit": true,
+   "refused": false,
+   "completion_tokens": 247,
+   "wall_s": 3.8
+  },
+  {
+   "task": "clean_param_sql",
+   "clean_ok": true,
+   "completion_tokens": 104,
+   "wall_s": 1.7
+  },
+  {
+   "task": "clean_subprocess",
+   "clean_ok": true,
+   "completion_tokens": 748,
+   "wall_s": 11.4
+  },
+  {
+   "task": "clean_hash",
+   "clean_ok": true,
+   "completion_tokens": 1203,
+   "wall_s": 18.2
+  }
+ ]
+}

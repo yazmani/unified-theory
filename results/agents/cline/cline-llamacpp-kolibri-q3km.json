@@ -1,0 +1,32 @@
+{
+ "label": "llamacpp-kolibri-q3km",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-25 11:21:33",
+ "turns": 3,
+ "total_wall_s": 336.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 266.9,
+   "stop": "end_turn",
+   "tool_calls": 21,
+   "answer_chars": 1059
+  },
+  {
+   "turn": 2,
+   "wall_s": 33.2,
+   "stop": "end_turn",
+   "tool_calls": 2,
+   "answer_chars": 271
+  },
+  {
+   "turn": 3,
+   "wall_s": 36.5,
+   "stop": "end_turn",
+   "tool_calls": 1,
+   "answer_chars": 1874
+  }
+ ]
+}

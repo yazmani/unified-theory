@@ -1,0 +1,42 @@
+{
+ "label": "llamacpp-bonsai25-q2-mtp-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 10:13:47",
+ "turns": 3,
+ "total_wall_s": 243.7,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 66.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 1767,
+   "prompt_tokens": 17394,
+   "cached_tokens": 9860
+  },
+  {
+   "turn": 2,
+   "wall_s": 24.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 236,
+   "prompt_tokens": 28329,
+   "cached_tokens": 26958
+  },
+  {
+   "turn": 3,
+   "wall_s": 152.6,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 3665,
+   "prompt_tokens": 78053,
+   "cached_tokens": 68986
+  }
+ ]
+}

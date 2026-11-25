@@ -7,7 +7,7 @@ Qwen3.6-35B-A3B models read 100K tokens in ~56 s and decode at 160–223 tok/s a
 Script: `bench/long_context.py`: a haystack of real source code sized with the model's tokenizer, with 8 constants
 hidden at 5–95% depth. Raw data: [results/long-context](../../results/long-context/).
 
-## 100K on Splash, oMLX and DSpine (2026-11-24)
+## 100K on Splash, oMLX, DSpine and llama.cpp (2026-11-24/25)
 
 | Model | Runtime | Prefill tok/s (time) | Decode tok/s at depth | Recall |
 |---|---|---|---|---|
@@ -25,6 +25,10 @@ hidden at 5–95% depth. Raw data: [results/long-context](../../results/long-con
 | Tiel-Coder oQ4e-MTP | oMLX | 1,451 | 112 | 8/8 |
 | Inkling-2-Mini oQ4e-mtp | oMLX | 682 | 24 | 8/8 |
 | Qwen3.8-27B GSQ-RCO IQ3_S | Splash | 512 (194 s) | 75 | 8/8 |
+| Ternary Bonsai 2.5 27B PQ2_0 | Splash | 400 (248 s) | 99 | 8/8 |
+| Ternary Bonsai 2.5 27B Q2_0 + MTP | llama.cpp | 217 (455 s) | 15 | 8/8 |
+| Kolibri 1.1 GSQ-RCO IQ2_XS | llama.cpp | 614 (162 s) | 48 | 8/8 |
+| Kolibri 1.1 Q3_K_M | llama.cpp | 584 (170 s) | 49 | 8/8 |
 | Qwen3.8-27B 4-bit + DSpine | dspine-hybrid-mlx | 416 (238 s) | 18 | 8/8 |
 
 - **The Qwen3.6-35B-A3B models barely slow down at depth**: 160–223 tok/s at 99K, likely because most of their layers
@@ -32,6 +36,8 @@ hidden at 5–95% depth. Raw data: [results/long-context](../../results/long-con
   Basalt: about 3× our prefill (memory bandwidth), the same decode.
 - **Dense and looped models slow down more.** Inkling drops to ~97 tok/s; Qwen3.8-27B to 75 tok/s on Splash and 18 on
   DSpine (~37 GB peak memory). The 27B also reads a 100K prompt 3× slower than the MoEs.
+- **Thinking models need a larger answer limit.** Kolibri GSQ-RCO and Bonsai spent the default 3,000 tokens thinking
+  and returned no answer; with 12,000 they recalled 8/8 (Kolibri used 6,911 tokens).
 - **Flash-Next holds 119–127 tok/s at 100K**, with experts streamed from the SSD (Q2_0) or all in memory (Coder).
 
 ## Inkling-2-Mini to 240K on Strata and llama.cpp (2026-11-22)

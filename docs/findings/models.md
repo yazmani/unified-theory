@@ -7,7 +7,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 |---|---|---|
 | Everyday coding agent | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s) |
 | Thorough review | **Qwen3.8-Flash-Next GSQ-RCO**, Q2_0 (66 GB) or Coder (58 GB) | Q2_0: 8 of 8 issues in both Cline runs. Coder: 7 of 8 in Cline and pi, 18/18 on security. Both 130 tok/s, 170–350 s per session |
-| Dense model | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K |
+| Dense model | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
 | Fewer refusals | **HauhauCS Qwen3.6-35B-A3B Aggressive** | 242 tok/s, security score equal to the best coders |
 | Inkling-2-Mini | **UD-Q4_K_M** | Same speed as UD-IQ4_XS (109 tok/s wall-clock), higher precision |
@@ -50,6 +50,7 @@ Two values in a cell are two runs. — means not run.
 | Inkling-2-Mini UD-IQ4_XS, thinking off | 101 (109–116) | 10/10 | 94 / 75 s · 9/9, 3/9† · 6, 6 | 60 s · 3/9‡ · 4 | — | 1,213 / 99 · 8/8 |
 | Inkling-2-Mini UD-Q4_K_M, thinking off | 92 (109) | 10/10 | 72 s · 9/9 · 4 | 70 s · 9/9 · 6 | — | 1,218 / 96 · 8/8 |
 | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB), thinking off | 96 (107) | 9/10 | 154 s · 9/9 · 5 | 54 s · 8/9 · 5 | 16/18 · 3/3 | 512 / 75 · 8/8 |
+| Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB), thinking budget 8K | 145 (160) | 9/10 | 268 s · 9/9 · 5 | 176 s · 9/9 · 4 | 16/18 · 3/3 | 400 / 99 · 8/8 |
 | Qwen3.8-27B-pi-adapted Q4_K_M, thinking off | 90 | 10/10 | 228 / 169 s · 7/9, 8/9 · 4, 5 | 57 / 143 s · 7/9, 7/9 · 5, 5 | — | — |
 | Qwen3.8-27B TURBO-Fable (DavidAU) Q4_K_M, thinking off | 21 | 10/10 | — | — | — | — |
 | Ornith-1.5-122B UD-IQ3_XXS (49.5 GB), 24 GB expert store | 44 | 7/10 | 249 s · 9/9 · 4 | 141 s · 8/9 · 4 | — | — |
@@ -59,6 +60,14 @@ Two values in a cell are two runs. — means not run.
 
 Outside Splash, Qwen3.8-27B 4-bit with Tencent's DSpine drafter found the most issues at short context (Cline 166 s ·
 9/9 · 7, pi 115 s · 8) but decoded at 18 tok/s at 100K ([runtimes](runtimes.md)).
+
+Models Splash doesn't serve, on llama.cpp (thinking budget 8K, the model cards' sampling, `--min-p 0`):
+
+| Model | Decode | Mini-eval | Cline | pi | Security | 100K |
+|---|---:|---|---|---|---|---|
+| Kolibri 1.1 (75B MoE, 3.4B active) Q3_K_M (36 GB), llama.cpp PR #32891 | 69 (69) | 10/10 | 337 s · 8/9 · 3 | 211 s · 8/9 · 4 | 16/18 · 3/3 | 584 / 49 · 8/8 |
+| Kolibri 1.1 GSQ-RCO IQ2_XS (2.25 bpw, 21 GB), llama.cpp PR #32891 | 68 (67) | 10/10 | 309 s · 7/9 · 1 | 307 s · 9/9 · 2 | 16/18 · 3/3 | 614 / 48 · 8/8 |
+| Ternary Bonsai 2.5 27B Q2_0 + MTP head (7.9 GB) | 31 (31) | 9/10 | 650 s · 9/9 · 4 | 244 s · 7/9 · 5 | 16/18 · 3/3 | 217 / 15 · 8/8 |
 
 Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mean tok/s, prefix-cache hit):
 
@@ -94,16 +103,25 @@ Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mea
 5. **Flint is the fastest model in an agent, and the shallowest.** Cline in 63 s, 0.5 s to first token, but 4 and 1
    issues. It committed the local config folder and ignores `reasoning_effort: none` (5,665 thinking tokens on the
    long answer).
-6. **Ornith-1.5-122B is not worth it on 48 GB.** 44 tok/s with 58% of its experts in memory, 3 failed mini-eval
+6. **Ternary Bonsai 2.5 27B is fast on Splash, but no better than the 27B GSQ file.** On Splash its 7.5 GB `PQ2_0`
+   file decodes at 145 tok/s (160 wall-clock; llama.cpp: 31). It found 5 and 4 issues, as many as the 27B GSQ, but
+   thinks at `xhigh` effort by default (the card says `low` is ignored), so its sessions take longer: Cline 268 s
+   (GSQ: 154 s). Splash rejects the `Q2_0` file ("the rotation's one token table must be token_embd.weight in
+   PQ2_0"); use `PQ2_0`.
+7. **Kolibri 1.1 is not a coding-agent pick.** 69 tok/s on llama.cpp (no drafter), a perfect mini-eval with few
+   tokens, and 16/18 on security, but 1–4 of 8 issues in the agent review, and it committed the local config folder
+   in 3 of 4 sessions. The 36 GB Q3_K_M pushed swap to 5.9 GB; the 21 GB GSQ-RCO file fits easily but found 1–2
+   issues.
+8. **Ornith-1.5-122B is not worth it on 48 GB.** 44 tok/s with 58% of its experts in memory, 3 failed mini-eval
    tasks, 4 of 8 issues in both harnesses.
-7. **pi-adapted beats DavidAU's TURBO-Fable** among the Qwen3.8-27B fine-tunes: 90 vs 21–24 tok/s, more checks and
+9. **pi-adapted beats DavidAU's TURBO-Fable** among the Qwen3.8-27B fine-tunes: 90 vs 21–24 tok/s, more checks and
    issues. TURBO-Fable is slow on Splash because it no longer matches the drafter ([runtimes](runtimes.md),
    finding 2). pi-adapted committed the local config folder in 3 of 4 sessions.
-8. **Uncensored and security-tuned builds review no better** ([security-review](security-review.md)). RavenX found 0
+10. **Uncensored and security-tuned builds review no better** ([security-review](security-review.md)). RavenX found 0
    issues in the Cline review.
-9. **Every model committed without asking** under auto-approve, and several committed a local config folder. Turn off
+11. **Every model committed without asking** under auto-approve, and several committed a local config folder. Turn off
    command auto-approval on real projects, especially with abliterated models.
-10. **The mini-eval does not rank models.** Nearly all score 9–10/10. It only shows that a fast setting doesn't
+12. **The mini-eval does not rank models.** Nearly all score 9–10/10. It only shows that a fast setting doesn't
     break code; the agent session separates models.
 
 Before Splash (2026-11-23), the best agent setups were Inkling-2-Mini on a patched Strata (105–119 s per Cline
@@ -127,6 +145,8 @@ that mattered (MTP n-max 1, a reasoning budget) are on the [archived agent-model
 | Qwen3.8-Flash-Next Coder | `ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF`, folder `IQ1_M` (29.6 + 28.8 GB) |
 | Qwen3.8-27B GSQ-RCO | `ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF` (IQ3_S, 11.8 GB), drafter `incoai/Qwen3.8-27B-DFlash2` |
 | Inkling-2-Mini | Unsloth's Inkling-2-Mini GGUF (UD-Q4_K_M, UD-IQ4_XS) |
+| Ternary Bonsai 2.5 27B | `prism-ml/Ternary-Bonsai-2.5-27B-GGUF` (`PQ2_0-mtp` for Splash, `Q2_0-mtp` for llama.cpp), drafter `incoai/Qwen3.8-27B-DFlash2` |
+| Kolibri 1.1 | `Aleph-Alpha/Kolibri-1.1-GGUF` (Q3_K_M, IQ2_XS-GSQ-RCO-2.25bpw); needs llama.cpp PR #32891 |
 | Qwen3.8-27B-pi-adapted | requantized here from its published Q8_0 merge to Q4_K_M (no imatrix) |
 | TURBO-Fable | DavidAU (Q4_K_M; the card recommends Q6 and calls Q4_K_M the minimum) |
 

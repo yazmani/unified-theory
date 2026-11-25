@@ -1,0 +1,24 @@
+{
+ "label": "llamacpp-bonsai25-q2-mtp",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 09:58:35",
+ "wall_tps_best": 31.3,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1241,
+   "wall_s": 39.94,
+   "wall_tps": 31.1,
+   "visible_chars": 4520,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1241,
+   "wall_s": 39.68,
+   "wall_tps": 31.3,
+   "visible_chars": 4520,
+   "reasoning_chars": 0
+  }
+ ]
+}

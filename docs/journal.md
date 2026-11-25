@@ -76,6 +76,10 @@ page under [findings/](findings/).
   wall-clock like Q2_0, Cline 327 s · 7 issues, pi 171 s · 7, security 18/18, 100K at 1,210 / 119 tok/s; a tie with
   Q2_0 (17/18, 1,196 / 127 at 100K). Qwen3.8-27B IQ3_S (11.8 GB): 96 tok/s, Cline 154 s · 9/9 · 5, pi 54 s, 75 tok/s
   at 100K: the best 27B setup here. → [models](findings/models.md)
+- Ternary Bonsai 2.5 27B and Kolibri 1.1 (both released 2026-11-24). Bonsai on Splash (`PQ2_0`, 7.5 GB): 160 tok/s
+  wall-clock, Cline 268 s · 5 issues, 100K at 400 / 99 tok/s; on llama.cpp with its MTP head: 31 tok/s, 650 s.
+  Splash rejects the `Q2_0` file. Kolibri on llama.cpp PR #32891: 69 tok/s, 10/10 mini-eval, but 1–4 of 8 issues in
+  agents. Neither beats KAT-Ornith or the 27B GSQ. → [models](findings/models.md)
 
 ## Open threads
 

@@ -35,6 +35,8 @@ off long thinking; both were fixed before the results below.
 | Qwen3.8-27B 4-bit + DSpine | dspine-hybrid-mlx | 17 | 3 |
 | Qwen3.8-Flash-Next GSQ-RCO Q2_0 | Splash | 17 | 3 |
 | Qwen3.8-27B GSQ-RCO IQ3_S | Splash | 16 | 3 |
+| Ternary Bonsai 2.5 27B (PQ2_0 / Q2_0) | Splash, llama.cpp | 16 | 3 |
+| Kolibri 1.1 (Q3_K_M, GSQ-RCO IQ2_XS) | llama.cpp | 16 | 3 |
 | Qwopus3.6-35B-A3B-Coder | Splash | 16 | 3 |
 | Qwen3.8-35B-A3B-Distill | Splash | 16 | 2 |
 

@@ -1,0 +1,24 @@
+{
+ "label": "llamacpp-kolibri-gsq-iq2xs",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 10:56:47",
+ "wall_tps_best": 66.7,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 956,
+   "wall_s": 14.43,
+   "wall_tps": 66.2,
+   "visible_chars": 3698,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 938,
+   "wall_s": 14.06,
+   "wall_tps": 66.7,
+   "visible_chars": 3693,
+   "reasoning_chars": 0
+  }
+ ]
+}

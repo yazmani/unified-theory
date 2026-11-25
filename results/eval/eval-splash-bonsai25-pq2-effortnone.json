@@ -1,0 +1,94 @@
+{
+ "label": "splash-bonsai25-pq2-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-25 11:32:08",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 18.24400291661732,
+ "tokens_total": 2639,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 0.7445091670379043,
+   "completion_tokens": 112,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 1.3700098749250174,
+   "completion_tokens": 219,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.3666248749941587,
+   "completion_tokens": 194,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 2.145214249845594,
+   "completion_tokens": 329,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 1.8589644581079483,
+   "completion_tokens": 260,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 2.5715732499957085,
+   "completion_tokens": 351,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 1.04902745783329,
+   "completion_tokens": 155,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.5324116670526564,
+   "completion_tokens": 364,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 1.878835208946839,
+   "completion_tokens": 312,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": false,
+   "wall_s": 2.726832707878202,
+   "completion_tokens": 343,
+   "finish": "stop",
+   "err": "Traceback (most recent call last):\n  File \"median_stream.py\", line 39, in <module>\n    m.add(x); assert m.median()==e, (x, m.median())\n    ^^^^^\nAttributeError: 'MedianFinder' object has no attribute 'add'\n"
+  }
+ ]
+}

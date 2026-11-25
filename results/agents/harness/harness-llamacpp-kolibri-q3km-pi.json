@@ -1,0 +1,42 @@
+{
+ "label": "llamacpp-kolibri-q3km-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 11:25:04",
+ "turns": 3,
+ "total_wall_s": 211.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 60.5,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 11,
+   "answer_chars": 1384,
+   "prompt_tokens": 79814,
+   "cached_tokens": 64847
+  },
+  {
+   "turn": 2,
+   "wall_s": 41.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 8,
+   "answer_chars": 382,
+   "prompt_tokens": 180484,
+   "cached_tokens": 178502
+  },
+  {
+   "turn": 3,
+   "wall_s": 109.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 14,
+   "answer_chars": 2833,
+   "prompt_tokens": 321098,
+   "cached_tokens": 292026
+  }
+ ]
+}

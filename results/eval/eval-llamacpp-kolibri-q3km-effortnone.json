@@ -1,0 +1,94 @@
+{
+ "label": "llamacpp-kolibri-q3km-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-25 11:15:08",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 29.069360040826723,
+ "tokens_total": 1936,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.2355858338996768,
+   "completion_tokens": 74,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 3.0163322498556226,
+   "completion_tokens": 203,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.7041565841063857,
+   "completion_tokens": 110,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 5.3333514160476625,
+   "completion_tokens": 362,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 2.973745125113055,
+   "completion_tokens": 197,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 2.8484410000965,
+   "completion_tokens": 191,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 1.7644141658674926,
+   "completion_tokens": 112,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 3.7721351669169962,
+   "completion_tokens": 254,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 3.2182877080049366,
+   "completion_tokens": 216,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 3.202910790918395,
+   "completion_tokens": 217,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

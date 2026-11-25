@@ -1,0 +1,24 @@
+{
+ "label": "splash-bonsai25-pq2",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-25 11:32:24",
+ "wall_tps_best": 160.5,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1241,
+   "wall_s": 7.9,
+   "wall_tps": 157.0,
+   "visible_chars": 4520,
+   "reasoning_chars": 0
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1241,
+   "wall_s": 7.73,
+   "wall_tps": 160.5,
+   "visible_chars": 4520,
+   "reasoning_chars": 0
+  }
+ ]
+}

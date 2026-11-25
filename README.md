@@ -39,10 +39,14 @@ fast it runs.
 | Qwen3.8-Flash-Next GSQ-RCO Q2_0 (66 GB, 20 GB expert store) | Splash 1.7.2 | 129 | 10 s | 8/10 |
 | Qwen3.8-Flash-Next GSQ-RCO Coder (58 GB, all in memory) | Splash 1.7.2 | 124 | 9 s | 9/10 |
 | Inkling-2-Mini UD-IQ4_XS | Splash 1.7.2 | 101 | 24 s | 10/10 |
+| Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB) | Splash 1.7.2 | 145 | 10 s | 9/10 |
 | Qwen3.8-27B GSQ-RCO IQ3_S (11.8 GB) | Splash 1.7.2 | 96 | 14 s | 9/10 |
 | Qwen3.8-27B-pi-adapted Q4_K_M | Splash 1.7.2 | 90 | 22 s | 10/10 |
 | Ornith-1.5-122B UD-IQ3_XXS (24 GB expert store) | Splash 1.7.2 | 44 | 41 s | 7/10 |
 | Tiel-Coder-35B-A3B UD-IQ4_XS + MTP | Unsloth llama.cpp | 98 | 26 s | 10/10 |
+| Kolibri 1.1 Q3_K_M (36 GB) | llama.cpp PR #32891 | 69 | 11 s | 10/10 |
+| Kolibri 1.1 GSQ-RCO IQ2_XS (21 GB) | llama.cpp PR #32891 | 68 | 10 s | 10/10 |
+| Ternary Bonsai 2.5 27B Q2_0 + MTP | llama.cpp | 31 | 44 s | 9/10 |
 | Tiel-Coder-35B-A3B UD-IQ4_XS, no speculative decoding | Unsloth llama.cpp | 70 | 42 s | — |
 | Inkling-2-Mini SQ-15 (thinking off) | Strata 0.2.20 | 66 | — | 9/10 |
 | Inkling-2-Mini SQ-15 + DSpark | Strata 0.2.19 | 58 | 54 s | 10/10 |

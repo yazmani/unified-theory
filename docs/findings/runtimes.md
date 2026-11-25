@@ -26,6 +26,8 @@ client: "streamed" from first to last token, "wall-clock" and "end-to-end" as co
 | | Unsloth llama.cpp b12588 + DSpark n=3, UD-IQ4_XS | 36 | — |
 | | Unsloth llama.cpp b12588, UD-IQ4_XS | 30 | — |
 | **Qwen3.8-27B** | **Splash 1.7.2**, GSQ-RCO IQ3_S (11.8 GB) | **96** (107 wall-clock) | 154 s |
+| | Splash 1.7.2, Ternary Bonsai 2.5 PQ2_0 (7.5 GB) | 145 (160 wall-clock) | 268 s |
+| | llama.cpp (upstream + PR #32891) + MTP head, Ternary Bonsai 2.5 Q2_0 | 31 | 650 s |
 | | Splash 1.7.2, pi-adapted Q4_K_M | 90 | 169–228 s |
 | | dspine-hybrid-mlx 0.4.0 (Tencent DSpine drafter), 4-bit MLX | 90 streamed (87 end-to-end) | 166 s |
 | | Splash 1.7.2, DavidAU TURBO-Fable Q4_K_M | 21 | — |
@@ -38,6 +40,7 @@ At 100K tokens of context ([long-context](long-context.md)):
 | Tiel-Coder | Splash / oMLX | 1,756 / 187 · 1,451 / 112 |
 | Inkling-2-Mini | Splash / oMLX | 1,213–1,218 / 96–99 · 682 / 24 |
 | Qwen3.8-27B | Splash (GSQ IQ3_S) / DSpine (4-bit) | 512 / 75 · 416 / 18 |
+| Ternary Bonsai 2.5 27B | Splash (PQ2_0) / llama.cpp (Q2_0 + MTP) | 400 / 99 · 217 / 15 |
 
 ## What runs where
 
@@ -92,7 +95,10 @@ At 100K tokens of context ([long-context](long-context.md)):
 10. **Atomic Engine's README figure (77 tok/s) did not reproduce on real prompts** (45 here; the README measures a
     64-token answer on a repetitive fixture). Its published profiles (4K context, prompt reuse off) cannot run an
     agent. AtomicChat's AD-Q4_K quant is the fastest llama.cpp option for Inkling (42 tok/s; UD-IQ4_XS: 36).
-11. **TensorSharp** (C#/.NET on ggml) cannot run Unsloth's Inkling files on Mac (layer-count mismatch, then no NVFP4
+11. **Splash runs ternary Bonsai 2.5 5× faster than llama.cpp** (160 vs 31 tok/s wall-clock, Cline 268 vs 650 s),
+    from PrismML's `PQ2_0` file with the stock Qwen3.8-27B drafter (4.1 tokens per cycle). It refuses the `Q2_0` file.
+    On llama.cpp the MTP head gives about PrismML's M4 Pro figure (29 tok/s).
+12. **TensorSharp** (C#/.NET on ggml) cannot run Unsloth's Inkling files on Mac (layer-count mismatch, then no NVFP4
     `MUL_MAT_ID` in ggml Metal) and was no faster on Tiel.
 
 ## Setup

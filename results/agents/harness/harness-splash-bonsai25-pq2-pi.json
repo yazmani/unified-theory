@@ -1,0 +1,42 @@
+{
+ "label": "splash-bonsai25-pq2-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 11:40:12",
+ "turns": 3,
+ "total_wall_s": 175.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 25.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 1555,
+   "prompt_tokens": 21096,
+   "cached_tokens": 13984
+  },
+  {
+   "turn": 2,
+   "wall_s": 7.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 2,
+   "answer_chars": 355,
+   "prompt_tokens": 25366,
+   "cached_tokens": 24800
+  },
+  {
+   "turn": 3,
+   "wall_s": 143.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 10,
+   "answer_chars": 5015,
+   "prompt_tokens": 119374,
+   "cached_tokens": 107232
+  }
+ ]
+}
