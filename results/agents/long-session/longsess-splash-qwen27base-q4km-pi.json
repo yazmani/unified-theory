@@ -1,0 +1,72 @@
+{
+ "label": "splash-qwen27base-q4km-longsess-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 262144,
+ "when": "2026-11-25 21:02:38",
+ "turns": 6,
+ "total_wall_s": 871.8,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 201.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 11,
+   "answer_chars": 7491,
+   "prompt_tokens": 304163,
+   "cached_tokens": 226784
+  },
+  {
+   "turn": 2,
+   "wall_s": 100.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 21,
+   "answer_chars": 965,
+   "prompt_tokens": 1832845,
+   "cached_tokens": 1823008
+  },
+  {
+   "turn": 3,
+   "wall_s": 174.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 32,
+   "answer_chars": 1727,
+   "prompt_tokens": 3081374,
+   "cached_tokens": 3068160
+  },
+  {
+   "turn": 4,
+   "wall_s": 71.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 10,
+   "answer_chars": 1376,
+   "prompt_tokens": 1118749,
+   "cached_tokens": 1114656
+  },
+  {
+   "turn": 5,
+   "wall_s": 285.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 41,
+   "answer_chars": 1953,
+   "prompt_tokens": 4944237,
+   "cached_tokens": 4916736
+  },
+  {
+   "turn": 6,
+   "wall_s": 38.1,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 6,
+   "answer_chars": 987,
+   "prompt_tokens": 946539,
+   "cached_tokens": 943456
+  }
+ ]
+}

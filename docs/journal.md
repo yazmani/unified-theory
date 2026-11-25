@@ -100,6 +100,10 @@ page under [findings/](findings/).
   written vs 169 and 106K for Swift-1.5), so the 27B's slow prompt read didn't matter at 98% cache hit. think-pi:
   89 tok/s, 10/10, Cline 245 s · 9/9 · 5, pi 128 s · 9/9 · 4. All four models scored 4/4: the long session needs
   harder bugs to rank quality. → [models](findings/models.md)
+- Control: base Qwen3.8-27B (ggml-org Q8_0 requantized to Q4_K_M, as the adapters), thinking off. Long session 4/4
+  in 872 s with 122 requests (pi-adapted: 515 s, 57), same decode speed. The pi adapter halves the steps; it doesn't
+  change the result. pi-adapted at Q8_0: 57 tok/s, 10/10; its agent runs pushed swap to 10 GB with Xcode building
+  at the same time and were stopped; to rerun on a quiet machine.
 
 ## Open threads
 
@@ -107,6 +111,7 @@ page under [findings/](findings/).
 - [x] A long agent session (150K+ tokens of context) on Flash-Next ([models](findings/models.md), finding 14).
 - [ ] Long session on KAT-Ornith and the 27B GSQ, and a second run of each model (pi adapters done, one run each).
 - [ ] Harder long session: every model so far fixed 4/4. Bugs that need several modules, or a hidden-test feature.
+- [ ] pi-adapted at Q8_0 (or Q6_K) on a quiet machine: does the full-precision merge review better than Q4_K_M?
 - [ ] pi-adapted in Cline or OpenCode on the long session, to separate harness training from model quality.
 - [ ] Swift-1.5 IQ2_XS (the card's recommended file at this size); LongCat-Flash-Lite-Sparse and Kimi-Linear on MLX or llama.cpp.
 - [ ] LiveCodeBench with a 64–96K answer limit for Flash-Next, KAT-Ornith, the 27B GSQ and Bonsai.

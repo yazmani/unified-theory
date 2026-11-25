@@ -1,0 +1,22 @@
+{
+ "label": "splash-qwen27base-q4km",
+ "requests": 31,
+ "generated_tokens": 10104,
+ "decode_peak_tps": 122.7,
+ "decode_median_tps": 78.2,
+ "decode_weighted_tps": 80.8,
+ "decode_share_over_100": 0.23,
+ "prefill_peak_tps": 660,
+ "prefill_mean_tps": 556,
+ "prefill_mean_tps_2k_plus": 658,
+ "prefix_cache_hit": 0.843,
+ "ttft_p50_s": 0.3,
+ "ttft_p95_s": 2.4,
+ "largest_prompt": {
+  "input": 12737,
+  "cached": 11296,
+  "ttft_s": 2.3,
+  "decode_tps": 38.3
+ },
+ "accept_tokens_per_cycle": 6.33
+}
