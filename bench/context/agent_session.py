@@ -2,7 +2,7 @@
 """A coding-assistant style session: real source files pasted once (~N tokens), then follow-up requests on the same
 conversation. Records each turn's wall time, prompt read time, cached tokens and answer length.
 
-  python3 -I bench/agent_session.py URL LABEL [TARGET_TOKENS]
+  python3 -I bench/context/agent_session.py URL LABEL [TARGET_TOKENS]
 
 Source files come from a TensorSharp checkout (https://github.com/zhongkaifu/TensorSharp): set TENSORSHARP_DIR,
 default ../../TensorSharp next to this repo.
@@ -14,7 +14,7 @@ url, label = sys.argv[1], sys.argv[2]
 target_chars = int(sys.argv[3] if len(sys.argv) > 3 else 30000) * 3     # ~3 chars per token for code
 # Neutral code (C# from the TensorSharp checkout next to this repo). Code about a model's own control tokens is avoided:
 # Strata's Inkling output parser mangles answers that quote Inkling's <|...|> tokens (see INSIGHTS.md).
-root = Path(os.environ.get("TENSORSHARP_DIR") or Path(__file__).resolve().parent.parent.parent / "TensorSharp")
+root = Path(os.environ.get("TENSORSHARP_DIR") or Path(__file__).resolve().parents[3] / "TensorSharp")
 files = ["TensorSharp.Chat/ConversationTranscriptStore.cs", "TensorSharp.Chat/ModelLifecycleService.cs",
          "TensorSharp.Chat/ChatHistoryPreparer.cs", "TensorSharp.Runtime/ChatProtocol.cs"]
 dump, used = "", []

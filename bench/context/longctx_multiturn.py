@@ -2,7 +2,7 @@
 """Three-turn chat over a ~120K-token code dump: turn 1 lists the hidden constants, turns 2-3 ask follow-ups.
 Saves every turn's timing, usage and full answer.  Used to A/B Strata's Inkling prefix reuse (STRATA_INKLING_REUSE).
 
-  .venv/bin/python -I bench/longctx_multiturn.py URL LABEL [TOKENS]
+  .venv/bin/python -I bench/context/longctx_multiturn.py URL LABEL [TOKENS]
 
 Haystack: a source checkout (STRATA_DIR, default ../../strata next to this repo). Tokenizer: INKLING_TOKENIZER
 (default ~/Documents/Strata/Models/inkling-2-mini/tokenizer.json).
@@ -16,7 +16,7 @@ from tokenizers import Tokenizer
 url, label = sys.argv[1], sys.argv[2]
 n = int(sys.argv[3]) if len(sys.argv) > 3 else 120000
 tok = Tokenizer.from_file(str(Path(os.environ.get("INKLING_TOKENIZER", "~/Documents/Strata/Models/inkling-2-mini/tokenizer.json")).expanduser()))
-root = Path(os.environ.get("STRATA_DIR") or Path(__file__).resolve().parent.parent.parent / "strata")
+root = Path(os.environ.get("STRATA_DIR") or Path(__file__).resolve().parents[3] / "strata")
 hay, needles = lc.build(root, tok, n, 8, n)
 truth = {"after03": re.search(r"# ===== file: (\S+)", hay[hay.index("KINTSUGI_PROBE_03"):]).group(1),
          "before06": re.findall(r"# ===== file: (\S+)", hay[:hay.index("KINTSUGI_PROBE_06")])[-1]}

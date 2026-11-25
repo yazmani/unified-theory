@@ -5,7 +5,7 @@ higher. Every model found 16–18 of 18 planted flaws, and none refused.
 
 ## The check
 
-`bench/security_review_eval.py` asks the model to review 21 short snippets:
+`bench/security/security_review_eval.py` asks the model to review 21 short snippets:
 
 - **10 common flaws:** SQL injection, command injection, path traversal, SSRF, insecure deserialization (pickle),
   stored XSS, unverified JWT, hard-coded secret, unsalted MD5 passwords, IDOR.

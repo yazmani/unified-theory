@@ -3,7 +3,7 @@
 
 Records wall time, finish reason, the engine's decode rate and how much of the output was hidden reasoning.
 
-  python3 -I bench/long_answer.py --url http://127.0.0.1:8092 --label NAME [--extra JSON] [--max-tokens 8000]
+  python3 -I bench/speed/long_answer.py --url http://127.0.0.1:8092 --label NAME [--extra JSON] [--max-tokens 8000]
 """
 import argparse, json, time, urllib.request
 from pathlib import Path

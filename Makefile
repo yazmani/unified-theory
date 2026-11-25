@@ -22,10 +22,10 @@ summary:  ## print Markdown tables from results/
 	@$(PY) tools/summarize.py
 
 bench-speed:  ## decode + long answer + mini-eval against URL (model MODEL), saved under LABEL
-	$(PY) -I bench/oai_bench.py --url $(URL) --model $(MODEL) --label $(LABEL) --runs 2
-	$(PY) -I bench/long_answer.py --url $(URL) --label $(LABEL) --extra '{"model":"$(MODEL)"}'
-	$(PY) -I bench/mini_eval.py --url $(URL) --label $(LABEL) --extra '{"model":"$(MODEL)"}'
-	$(PY) -I bench/raw_decode.py --url $(URL) --model $(MODEL) --label $(LABEL)
+	$(PY) -I bench/speed/oai_bench.py --url $(URL) --model $(MODEL) --label $(LABEL) --runs 2
+	$(PY) -I bench/speed/long_answer.py --url $(URL) --label $(LABEL) --extra '{"model":"$(MODEL)"}'
+	$(PY) -I bench/speed/mini_eval.py --url $(URL) --label $(LABEL) --extra '{"model":"$(MODEL)"}'
+	$(PY) -I bench/speed/raw_decode.py --url $(URL) --model $(MODEL) --label $(LABEL)
 
 hooks:  ## run the privacy check before every commit
 	@git config core.hooksPath .githooks && echo "hooks: pre-commit privacy check enabled"

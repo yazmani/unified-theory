@@ -6,7 +6,7 @@ first / time from first to last token), and end-to-end tok/s. Token counts come 
 server's `usage` (stream_options.include_usage), falling back to counting stream chunks.
 
 Usage:
-  python bench/oai_bench.py --url http://127.0.0.1:8080 --label strata-sq20 \
+  python bench/speed/oai_bench.py --url http://127.0.0.1:8080 --label strata-sq20 \
       [--model NAME] [--max-tokens 512] [--runs 3] [--api-key KEY] [--out results/decode/x.json]
 """
 import argparse, json, os, statistics, sys, time, urllib.request

@@ -4,7 +4,7 @@
 Streamed tok/s (first token -> last token) can be badly wrong when a server buffers tokens and releases them in a
 burst; this number can't be. Prompt is tiny, so wall time is ~all decode. Reports visible vs reasoning size too.
 
-  python3 -I bench/raw_decode.py --url http://127.0.0.1:8000 --label NAME [--model M] [--extra JSON] [--max-tokens 1500]
+  python3 -I bench/speed/raw_decode.py --url http://127.0.0.1:8000 --label NAME [--model M] [--extra JSON] [--max-tokens 1500]
 """
 import argparse, json, time, urllib.request
 from pathlib import Path

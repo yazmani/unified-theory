@@ -29,19 +29,19 @@ def decode():
     rows = [(d["label"], d.get("decode_tps_median"), round(d.get("wall_s_total", 0), 1), d.get("when", "")[:10],
              (d.get("notes") or "")[:60]) for _, d in load("decode/*.json")]
     rows.sort(key=lambda r: -(r[1] or 0))
-    return "## Decode (bench/oai_bench.py)\n\n" + table(["label", "decode tok/s (median)", "wall s", "date", "notes"], rows)
+    return "## Decode (bench/speed/oai_bench.py)\n\n" + table(["label", "decode tok/s (median)", "wall s", "date", "notes"], rows)
 
 
 def evals():
     rows = [(d["label"], f'{d["passed"]}/{d["total"]}', round(d["wall_s_total"], 1), d.get("tokens_total"))
             for _, d in load("eval/*.json")]
-    return "## Mini-eval (bench/mini_eval.py)\n\n" + table(["label", "passed", "wall s", "tokens"], rows)
+    return "## Mini-eval (bench/speed/mini_eval.py)\n\n" + table(["label", "passed", "wall s", "tokens"], rows)
 
 
 def long_answer():
     rows = [(d["label"], round(d["wall_s"], 1), d.get("finish"), d.get("engine_tps"), d.get("reasoning_chars"))
             for _, d in load("long-answer/*.json")]
-    return "## Long answer (bench/long_answer.py)\n\n" + table(["label", "wall s", "finish", "engine tok/s", "reasoning chars"], rows)
+    return "## Long answer (bench/speed/long_answer.py)\n\n" + table(["label", "wall s", "finish", "engine tok/s", "reasoning chars"], rows)
 
 
 def agents():
@@ -54,7 +54,7 @@ def agents():
                      sum(x.get("tool_calls") or 0 for x in r) or None,
                      f"{100 * cached // prompt}%" if prompt else None))
     rows.sort(key=lambda r: (r[0], r[2]))
-    return ("## Agent sessions (bench/cline_bench.py, bench/harness_bench.py)\n\n"
+    return ("## Agent sessions (bench/agents/cline_bench.py, bench/agents/harness_bench.py)\n\n"
             + table(["harness", "label", "total s", "per turn s", "tool calls", "prompt from cache"], rows)
             + "\n\nQuality scores come from a private grader; see results/agents/cline-session-summary.json and docs/findings/.")
 
@@ -62,7 +62,7 @@ def agents():
 def raw_decode():
     rows = [(d["label"], d.get("wall_tps_best"), d.get("when", "")[:10]) for _, d in load("raw-decode/*.json")]
     rows.sort(key=lambda r: -(r[1] or 0))
-    return "## Wall-clock decode (bench/raw_decode.py)\n\n" + table(["label", "wall tok/s (best)", "date"], rows)
+    return "## Wall-clock decode (bench/speed/raw_decode.py)\n\n" + table(["label", "wall tok/s (best)", "date"], rows)
 
 
 def security():
@@ -72,7 +72,7 @@ def security():
         rows.append((d["label"], f'{s.get("found")}/18', s.get("found_basic"), s.get("found_subtle"), f'{s.get("clean_ok")}/3',
                      s.get("refused")))
     rows.sort(key=lambda r: r[0])
-    return "## Security review (bench/security_review_eval.py)\n\n" + table(
+    return "## Security review (bench/security/security_review_eval.py)\n\n" + table(
         ["label", "found", "common (of 10)", "subtle (of 8)", "clean ok", "refused"], rows)
 
 
@@ -80,7 +80,7 @@ def engine_stats():
     rows = [(d["label"], d.get("requests"), d.get("decode_peak_tps"), d.get("decode_weighted_tps"),
              d.get("prefill_peak_tps"), f'{100 * (d.get("prefix_cache_hit") or 0):.0f}%', d.get("ttft_p50_s"),
              d.get("accept_tokens_per_cycle")) for _, d in load("engine-stats/*.json")]
-    return "## Engine stats per run (bench/session_stats.py)\n\n" + table(
+    return "## Engine stats per run (tools/session_stats.py)\n\n" + table(
         ["label", "requests", "decode peak", "decode weighted", "prefill peak", "cache hit", "TTFT p50 s", "tok/cycle"], rows)
 
 

@@ -87,7 +87,7 @@ Agent, long-context and security benchmarks: [bench/README.md](bench/README.md).
 ## Repository layout
 
 ```
-bench/        benchmark scripts; each writes one JSON per run to results/
+bench/        benchmark scripts, one JSON per run to results/: speed/, agents/, long_session/, context/, security/
 configs/      launch scripts (splash/, llama.cpp/, strata/) and agent configs (agents/)
 docs/
   findings/   one page per question, current answer first
@@ -95,7 +95,8 @@ docs/
   archive/    findings pages as written on the day (superseded)
   methodology.md, journal.md
 results/      raw JSON by benchmark (see results/README.md)
-tools/        summarize.py (tables from results/), check_private.py (leak check)
+tools/        summarize.py (tables from results/), session_stats.py (engine stats from a Splash log),
+              check_private.py (leak check)
 .local/       private files, gitignored: grader, sandbox project, transcripts
 ```
 

@@ -8,7 +8,7 @@ Setup: [guides/splash](../guides/splash.md).
 
 Decode is tok/s from the engine's counter with `reasoning_effort: none`. Engines without a counter are timed by the
 client: "streamed" from first to last token, "wall-clock" and "end-to-end" as completion tokens / total request time
-(`bench/raw_decode.py`).
+(`bench/speed/raw_decode.py`).
 
 | Model | Runtime | Decode tok/s | Cline session |
 |---|---|---:|---|

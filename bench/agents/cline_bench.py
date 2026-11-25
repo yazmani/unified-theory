@@ -8,7 +8,7 @@ tool calls and the final answer text. Note: over ACP Cline reports its model as 
 Raw transcripts may contain private project content: they go to --private-out (outside this repo). Only metrics
 (no answer text, no file paths) are written to --metrics-out.
 
-  python3 -I bench/cline_bench.py --label NAME --base-url http://127.0.0.1:8092/v1 --model MODEL_ID \
+  python3 -I bench/agents/cline_bench.py --label NAME --base-url http://127.0.0.1:8092/v1 --model MODEL_ID \
       --template DIR --private-out DIR --metrics-out results/agents/cline/cline-NAME.json [--context 131072] [--turns FILE]
 """
 import argparse, json, os, shutil, subprocess, sys, time

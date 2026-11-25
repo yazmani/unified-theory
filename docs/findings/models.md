@@ -17,7 +17,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 
 | Column | Meaning |
 |---|---|
-| Decode | tok/s from `bench/oai_bench.py`, 3 prompts × 2 runs, `reasoning_effort: none`. Wall-clock (`bench/raw_decode.py`) in brackets where measured |
+| Decode | tok/s from `bench/speed/oai_bench.py`, 3 prompts × 2 runs, `reasoning_effort: none`. Wall-clock (`bench/speed/raw_decode.py`) in brackets where measured |
 | Mini-eval | 10 small Python tasks passed |
 | Cline, pi | 3-turn agent session (explain the changes, commit them, suggest improvements): total time · commit checks passed of 9 · issues found of 8 |
 | Security | planted flaws found of 18 · clean snippets judged clean of 3 |
@@ -73,7 +73,7 @@ Models Splash doesn't serve, on llama.cpp (thinking budget 8K, the model cards' 
 | Kolibri 1.1 GSQ-RCO IQ2_XS (2.25 bpw, 21 GB), llama.cpp PR #32891 | 68 (67) | 10/10 | 309 s · 7/9 · 1 | 307 s · 9/9 · 2 | 16/18 · 3/3 | 614 / 48 · 8/8 |
 | Ternary Bonsai 2.5 27B Q2_0 + MTP head (7.9 GB) | 31 (31) | 9/10 | 650 s · 9/9 · 4 | 244 s · 7/9 · 5 | 16/18 · 3/3 | 217 / 15 · 8/8 |
 
-Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mean tok/s, prefix-cache hit):
+Engine stats per run (`tools/session_stats.py`; decode peak / token-weighted mean tok/s, prefix-cache hit):
 
 | Model | Decode peak / mean | Cache hit |
 |---|---|---|

@@ -15,14 +15,14 @@ How the numbers in this repo were produced, and their limits.
 
 | Metric | Source | Note |
 |---|---|---|
-| Decode tok/s | the engine's counter (`timings.predicted_per_second`) | Strata streams in large chunks, so client-side chunk timing is meaningless. Engines without a counter (oMLX, DSpine) are timed by the client and cross-checked with `bench/raw_decode.py` (one non-streamed request: tokens / wall time) |
+| Decode tok/s | the engine's counter (`timings.predicted_per_second`) | Strata streams in large chunks, so client-side chunk timing is meaningless. Engines without a counter (oMLX, DSpine) are timed by the client and cross-checked with `bench/speed/raw_decode.py` (one non-streamed request: tokens / wall time) |
 | TTFT | client clock, request to first content | includes hidden thinking on engines that hide it |
 | Wall time to a finished answer | client clock | **the main number**: a model that thinks 3× longer at the same tok/s takes 3× longer |
 | Cached tokens | `usage.prompt_tokens_details.cached_tokens`, or the harness's usage report | the agent benchmarks also read the server log to count full re-reads |
 | Mini-eval | 10 Python tasks with hidden asserts, pass@1, greedy | catches broken code; does not rank models |
-| Security review | `bench/security_review_eval.py`: 18 planted flaws (10 common, 8 subtle) and 3 clean snippets, regex-graded | review only; refusals and empty answers counted |
-| Engine stats | `bench/session_stats.py` over the Splash server log (`results/engine-stats/`): decode peak / median / token-weighted mean, prefill tok/s, prefix-cache hit, TTFT p50/p95, draft acceptance | covers every request of a run, harness turns included |
-| 100K / 250K context | `bench/long_context.py --tokens 100000` (or `250000`): prefill time and speed, decode at depth, recall of 8 hidden facts | timed by the client when the server sends no timings (oMLX, DSpine) |
+| Security review | `bench/security/security_review_eval.py`: 18 planted flaws (10 common, 8 subtle) and 3 clean snippets, regex-graded | review only; refusals and empty answers counted |
+| Engine stats | `tools/session_stats.py` over the Splash server log (`results/engine-stats/`): decode peak / median / token-weighted mean, prefill tok/s, prefix-cache hit, TTFT p50/p95, draft acceptance | covers every request of a run, harness turns included |
+| 100K / 250K context | `bench/context/long_context.py --tokens 100000` (or `250000`): prefill time and speed, decode at depth, recall of 8 hidden facts | timed by the client when the server sends no timings (oMLX, DSpine) |
 | LiveCodeBench | EvalScope 1.15.0 `live_code_bench`, `release_v6`, one month of contest problems, official prompt, code run locally with 6 s per test | `--limit` applies before the date filter, so a window is selected by dates only |
 
 Sampling: greedy (temperature 0) for speed, mini-eval and long-context runs. Agent runs use whatever the harness sends
@@ -47,7 +47,7 @@ The grader matches keywords and inspects the resulting commit. Disputed answers 
 claim" proved correct and moved to the issues list.
 
 **On your own project:** copy a repo with uncommitted work as the template, write a grader based on
-[`bench/examples/grade_template.py`](../bench/examples/grade_template.py), and keep both outside git (for example in
+[`bench/agents/grade_template.py`](../bench/agents/grade_template.py), and keep both outside git (for example in
 `.local/`). See [bench/README.md](../bench/README.md).
 
 ## Limits

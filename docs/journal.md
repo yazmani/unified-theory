@@ -58,7 +58,7 @@ page under [findings/](findings/).
   every Qwen3.6-35B 8/8 at ~160–223 tok/s decode. oMLX (Inkling 261 tok/s, slow in agents) and DSpine on Qwen3.8-27B
   (90 tok/s, 7–8 issues, 18 tok/s at 100K). → [model-sweep](archive/2026-11-24-model-sweep.md)
 - Correction: oMLX Inkling is 55 tok/s wall-clock, not 261 (bursty streaming fooled the streamed benchmark; new
-  `bench/raw_decode.py`). Harness comparison on Inkling: pi fastest on Splash (49 s) and oMLX (86 s); Splash faster
+  `bench/speed/raw_decode.py`). Harness comparison on Inkling: pi fastest on Splash (49 s) and oMLX (86 s); Splash faster
   in every harness. Deleted the models that lost (KAT-Coder, AgentWorld, Qwopus, Distill, RavenX, oMLX Tiel).
 - oMLX removed (no gain on this Mac). Splash 1.7.2 follow-ups: Inkling UD-Q4_K_M = UD-IQ4_XS in speed (109 tok/s);
   `--persistent-cache` restores the system prompt after a restart (TTFT 0.9 → 0.1 s) when the working directory is

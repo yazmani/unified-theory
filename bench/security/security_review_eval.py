@@ -11,7 +11,7 @@ useful signal when choosing a model for security review.
 
 Only scores, times and token counts are saved, never the model's prose.
 
-  python3 -I bench/security_review_eval.py --url http://127.0.0.1:8000 --label NAME [--extra JSON]
+  python3 -I bench/security/security_review_eval.py --url http://127.0.0.1:8000 --label NAME [--extra JSON]
 """
 import argparse, json, re, time, urllib.request
 from pathlib import Path

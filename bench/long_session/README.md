@@ -18,7 +18,7 @@ also runs the agent's final test suite (unmodified 14.3.4 passes all 952 tests) 
 
 ```sh
 sh bench/long_session/setup_rich.sh .local/agent-bench/long-session        # template + pinned test venv
-python3 -I bench/harness_bench.py --harness pi --bin PATH/TO/pi --label my-run --base-url http://127.0.0.1:8000 \
+python3 -I bench/agents/harness_bench.py --harness pi --bin PATH/TO/pi --label my-run --base-url http://127.0.0.1:8000 \
   --model local --template .local/agent-bench/long-session/template --private-out /tmp/agent-runs \
   --metrics-out results/agents/long-session/longsess-my-run.json --context 262144 \
   --turns bench/long_session/turns.json --timeout 3600

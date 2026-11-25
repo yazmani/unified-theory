@@ -13,7 +13,7 @@ From those it reports, over every request in the log (decode benchmark, Cline, p
   - TTFT p50 / p95, and the largest prompt seen with its TTFT and decode speed
   - speculative acceptance: mean tokens per cycle
 
-  python3 -I bench/session_stats.py LOG [--label NAME] [--out results/engine-stats/stats-NAME.json]
+  python3 -I tools/session_stats.py LOG [--label NAME] [--out results/engine-stats/stats-NAME.json]
 """
 import argparse, json, re, statistics, sys
 from pathlib import Path

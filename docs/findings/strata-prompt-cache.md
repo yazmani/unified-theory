@@ -24,7 +24,7 @@ it back and the engine never resumes. Measured: 0 resumes in every run; a 120K f
 
 ## 2. Two fixes, measured on the same 8-turn coding session
 
-`bench/agent_session.py`: 4 C# files (~24K tokens) pasted once, then 7 follow-ups. SQ-15, 64K context.
+`bench/context/agent_session.py`: 4 C# files (~24K tokens) pasted once, then 7 follow-ups. SQ-15, 64K context.
 
 | | Release engine | Unmodified source build | **Engine checkpoint (#6627)** | Server-side splice (ours) |
 |---|---|---|---|---|

@@ -4,7 +4,7 @@
 Builds a haystack of real source code (default: the Strata checkout next to this repo), sized with the model's own
 tokenizer, hides N needles (unique constants) at evenly spread depths, and asks for all of them.
 
-  .venv/bin/python -I bench/long_context.py --url http://127.0.0.1:8091 --label strata-sq15 \
+  .venv/bin/python -I bench/context/long_context.py --url http://127.0.0.1:8091 --label strata-sq15 \
       --tokens 120000 --tokenizer ~/Documents/Strata/Models/inkling-2-mini/tokenizer.json [--extra JSON]
 """
 import argparse, json, random, re, time, urllib.request
@@ -50,7 +50,7 @@ def main():
     ap.add_argument("--label", required=True)
     ap.add_argument("--tokens", type=int, required=True, help="target haystack size in model tokens")
     ap.add_argument("--tokenizer", required=True)
-    ap.add_argument("--root", default=str(HERE.parent.parent / "strata"))
+    ap.add_argument("--root", default=str(HERE.parents[2] / "strata"))
     ap.add_argument("--needles", type=int, default=8)
     ap.add_argument("--max-tokens", type=int, default=3000)
     ap.add_argument("--extra", default=None)

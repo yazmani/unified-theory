@@ -22,7 +22,7 @@ of 8.
 
 ## On Strata (2026-11-23)
 
-Inkling-2-Mini SQ-15, 128K context. Driver: `bench/harness_bench.py`. Raw metrics:
+Inkling-2-Mini SQ-15, 128K context. Driver: `bench/agents/harness_bench.py`. Raw metrics:
 [results/agents/harness](../../results/agents/harness/).
 
 | Harness | Version | API it uses | How the driver runs it |
@@ -30,7 +30,7 @@ Inkling-2-Mini SQ-15, 128K context. Driver: `bench/harness_bench.py`. Raw metric
 | Claude Code | 2.1.330 | Anthropic `/v1/messages` | `claude -p --output-format stream-json`, `--session-id` then `--resume` |
 | pi | 1.6.0 | OpenAI chat completions | `pi --mode json`, then `--continue` |
 | OpenCode | 1.19.6 | OpenAI chat completions | `opencode run --format json --auto --dir WS`, then `--session ID` |
-| Cline | 3.0.75 | OpenAI chat completions | ACP (`cline --acp`), one session (`bench/cline_bench.py`) |
+| Cline | 3.0.75 | OpenAI chat completions | ACP (`cline --acp`), one session (`bench/agents/cline_bench.py`) |
 
 Each turn is one headless call that continues the session, with tools auto-approved and an isolated HOME and config.
 

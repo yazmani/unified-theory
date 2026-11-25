@@ -7,7 +7,7 @@ tok/s) but has lost 38% of its short-prompt speed. The dense 27B models need 13â
 attention design ([below](#why-flash-next-holds-up-model-structure)). After the first read, agent speed depends on
 whether follow-up turns reuse the prompt.
 
-Script: `bench/long_context.py`: a haystack of real source code sized with the model's tokenizer, with 8 constants
+Script: `bench/context/long_context.py`: a haystack of real source code sized with the model's tokenizer, with 8 constants
 hidden at 5â€“95% depth. Raw data: [results/long-context](../../results/long-context/).
 
 ## 250K on Splash (2026-11-25)

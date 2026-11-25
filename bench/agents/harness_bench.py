@@ -11,7 +11,7 @@ the real project are never touched.
 Raw transcripts may contain private project content: they go to --private-out (outside this repo). Only metrics
 (no answer text, no file paths) go to --metrics-out.
 
-  python3 -I bench/harness_bench.py --harness pi --label NAME --base-url http://127.0.0.1:8091 --model MODEL_ID \
+  python3 -I bench/agents/harness_bench.py --harness pi --label NAME --base-url http://127.0.0.1:8091 --model MODEL_ID \
       --template DIR --private-out DIR --metrics-out results/agents/harness/harness-NAME.json [--context 131072] [--bin PATH]
 """
 import argparse, json, os, shutil, subprocess, time, uuid

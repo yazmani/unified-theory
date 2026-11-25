@@ -4,7 +4,7 @@
 Not a leaderboard: 10 hand-written Python tasks with hidden asserts, to catch a fast model that
 writes broken code. Also records wall time and completion tokens per task (the cost of thinking).
 
-  python3 -I bench/mini_eval.py --url http://127.0.0.1:8092 --label NAME [--extra JSON]
+  python3 -I bench/speed/mini_eval.py --url http://127.0.0.1:8092 --label NAME [--extra JSON]
 """
 import argparse, json, re, subprocess, sys, tempfile, time, urllib.request
 from pathlib import Path
