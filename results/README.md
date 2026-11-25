@@ -15,6 +15,7 @@ Raw output of the scripts in [bench/](../bench/), one JSON per run. Findings tha
 | `sessions/` | `agent_session.py` | `session-<label>.json`: the 8-turn pasted-source chat (Strata) |
 | `agents/cline/` | `cline_bench.py` | `cline-<label>.json` (timing and counts only) |
 | `agents/harness/` | `harness_bench.py` | `harness-<harness>-<label>.json` or `harness-<label>-<harness>.json` (timing, counts, cached tokens) |
+| `agents/long-session/` | `harness_bench.py` + `long_session/grade.py` | `longsess-<label>-<harness>.json` (timing, tokens per turn), `grade-<label>-<harness>.json` (bugs fixed, test failures, commit) |
 | `agents/cline-session-summary.json` | private grader | generic quality scores for the early Cline runs |
 | `livecodebench/` | EvalScope `live_code_bench`, graded with its `codegen_metrics` | `lcb-<label>-<window>.json`: settings, totals, and difficulty / pass / output tokens per problem (no code) |
 | `llama-bench/` | `llama-bench` | Markdown tables |

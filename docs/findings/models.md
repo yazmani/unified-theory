@@ -5,7 +5,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 
 | Use | Pick | Why |
 |---|---|---|
-| Long agent sessions and thorough review | **Qwen3.8-Flash-Next GSQ-RCO**, Q2_0 (66 GB) or Coder (58 GB) | Q2_0: 8 of 8 issues in both Cline runs. Coder: 7 of 8 in Cline and pi, 18/18 on security. Both 130 tok/s, 170–350 s per session. Q2_0 at a 250K prompt: 104 tok/s, 3.7 min to read it |
+| Long agent sessions and thorough review | **Qwen3.8-Flash-Next**: Swift-1.5 Q2_0 (66.5 GB), ISTA Q2_0 (66 GB) or Coder (58 GB) | All 4 bugs fixed in the 213K-token long session (Swift-1.5 and ISTA Q2_0). Swift-1.5: 20 min for it, 120 tok/s at a 250K prompt. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs. Coder: 7 of 8, 18/18 on security |
 | Fast agent for short tasks | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s). 145 tok/s at a 250K prompt |
 | Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
@@ -45,6 +45,7 @@ Two values in a cell are two runs. — means not run.
 |---|---:|---|---|---|---|---|
 | **Qwen3.8-Flash-Next GSQ-RCO Q2_0**, 20 GB expert store, thinking budget 8K | 129 (130) | 8/10 | 280 s · 7/9 · **8** | — | 17/18 · 3/3 | 1,196 / 127 · 8/8 |
 | same, 14 GB expert store | 96 | 9/10 | 348 s · 9/9 · **8** | 204 s · 9/9 · 7 | — | — |
+| **Swift-1.5 Qwen3.8-Flash-Next GSQ-RCO Q2_0** (ukisai, 66.5 GB), 20 GB expert store, thinking budget 8K | 125 (134) | 10/10 | 352 s · 9/9 · 7 | — | — | 250K: 1,115 / 120 · 8/8 |
 | **Qwen3.8-Flash-Next GSQ-RCO Coder** (256 of 512 experts, 58 GB, all in memory), thinking budget 8K | 124 (130) | 9/10 | 327 s · 8/9 · 7 | 171 s · 9/9 · 7 | **18/18** · 3/3 | 1,210 / 119 · 8/8 |
 | Flint UD-Q4_K_XL (40B MoE, ~2.5B active), thinking budget 8K | 139 | 10/10 | **63 s** · 8/9 · 4 | 88 s · 9/9 · 1 | — | — |
 | Inkling-2-Mini UD-IQ4_XS, thinking off | 101 (109–116) | 10/10 | 94 / 75 s · 9/9, 3/9† · 6, 6 | 60 s · 3/9‡ · 4 | — | 1,213 / 99 · 8/8 |
@@ -128,7 +129,20 @@ Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mea
     tok/s) and KAT-Ornith 62% (145 tok/s); the 27B models take 13–15 min to read the prompt. Flash-Next's
     full-attention layers attend to ~2,048 indexer-picked tokens instead of all of them
     ([long-context](long-context.md#why-flash-next-holds-up-model-structure)).
-14. **LiveCodeBench (partial): the 32K answer limit is binding.** KAT-Ornith on the 51 problems of February 2025
+14. **Flash-Next keeps working at 213K tokens.** In the [long session](../../bench/long_session/README.md) (Rich
+    14.3.4: read 9 modules, fix 4 real bugs, commit; pi on Splash, 256K context), both Flash-Next files fixed all 4
+    bugs as judged by upstream's own regression tests, added tests, broke none, and committed cleanly:
+
+    | Model | Session | Bugs fixed | Tests added | Largest prompt | Prompt from cache | Decode mean |
+    |---|---|---|---|---|---|---|
+    | Swift-1.5 Flash-Next Q2_0 | **1,202 s** | **4/4** | 23 | — | 97% | 86 tok/s |
+    | ISTA Flash-Next Q2_0 | 1,367 s | **4/4** | 23 | 213K (TTFT 0.9 s, 90 tok/s) | 99% | 79 tok/s |
+
+    Swift-1.5 (ukisai's coding- and agent-tuned Flash-Next, card: 63% fewer thinking tokens) was 12% faster here and
+    decodes 15% faster at a 250K prompt (120 vs 104 tok/s); in Cline it found 7 of 8 issues with 9/9 checks. One run
+    each. Its card calls Q2_0 experimental and recommends IQ2_XS (68 GB) for quality. Swift's largest prompt is not
+    separable from its 250K test in the shared server log.
+15. **LiveCodeBench (partial): the 32K answer limit is binding.** KAT-Ornith on the 51 problems of February 2025
     (release_v6, EvalScope 1.15.0, thinking on, temperature 0.6), stopped at 44: 22 passed. All 18 answers that hit
     the 32K limit failed, 13 of them hard problems; of the 26 that finished, 22 passed. A fair run needs a 64–96K
     answer limit. Raw data: [results/livecodebench](../../results/livecodebench/).

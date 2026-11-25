@@ -1,0 +1,32 @@
+{
+ "label": "splash-swift15-q2",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-25 17:26:03",
+ "turns": 3,
+ "total_wall_s": 352.1,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 53.9,
+   "stop": "end_turn",
+   "tool_calls": 6,
+   "answer_chars": 4119
+  },
+  {
+   "turn": 2,
+   "wall_s": 112.8,
+   "stop": "end_turn",
+   "tool_calls": 11,
+   "answer_chars": 2613
+  },
+  {
+   "turn": 3,
+   "wall_s": 185.4,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 11999
+  }
+ ]
+}

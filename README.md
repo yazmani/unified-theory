@@ -13,7 +13,7 @@ fast it runs.
 
 | Question | Answer (2026-11-25) | Details |
 |---|---|---|
-| Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context. Q2_0 (66 GB): 8 of 8 issues in both Cline runs, 104 tok/s at a 250K prompt. Coder (58 GB): 7 of 8, 18/18 on security. Sessions take 170–350 s | [models](docs/findings/models.md) |
+| Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context. In a 6-turn session that grew to 213K tokens, it fixed all 4 real bugs (graded with upstream's tests). Swift-1.5 Q2_0: 20 min, 120 tok/s at 250K. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs | [models](docs/findings/models.md) |
 | Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
 | Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K. Slow past ~64K: 13 min to read 250K | [models](docs/findings/models.md) |
 | Fastest runtime? | **Splash**: ~2× llama.cpp and Strata on the same model, when a matching drafter exists. oMLX and DSpine were slower | [runtimes](docs/findings/runtimes.md) |
@@ -36,6 +36,7 @@ fast it runs.
 | Ornith-1.5-35B-A3B Q4_K_M | Splash 1.7.2 | 219 | 8 s | 7/10 |
 | Tiel-Coder-35B-A3B UD-Q4_K_XL | Splash 1.7.2 | 191 | 8 s | 9/10 |
 | Flint UD-Q4_K_XL (thinks even with effort none) | Splash 1.7.2 | 139 | 42 s | 10/10 |
+| Swift-1.5 Qwen3.8-Flash-Next GSQ-RCO Q2_0 (66.5 GB, 20 GB expert store) | Splash 1.7.2 | 125 | 7 s | 10/10 |
 | Qwen3.8-Flash-Next GSQ-RCO Q2_0 (66 GB, 20 GB expert store) | Splash 1.7.2 | 129 | 10 s | 8/10 |
 | Qwen3.8-Flash-Next GSQ-RCO Coder (58 GB, all in memory) | Splash 1.7.2 | 124 | 9 s | 9/10 |
 | Inkling-2-Mini UD-IQ4_XS | Splash 1.7.2 | 101 | 24 s | 10/10 |

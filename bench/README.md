@@ -16,6 +16,7 @@ one JSON file under `results/`. Pure standard library except where noted. Run fr
 | `agent_session.py` | 8-turn coding chat over pasted source files: per-turn read time and cached tokens | `results/sessions/` |
 | `cline_bench.py` + `acp_client.py` | Cline CLI over ACP on a real multi-turn task, in a sandbox copy | `results/agents/cline/` |
 | `harness_bench.py` | the same task through Claude Code, pi or OpenCode | `results/agents/harness/` |
+| `long_session/` | a public 6-turn agent session on Rich 14.3.4 that grows past 100K tokens: four real bugs, graded with upstream's regression tests ([README](long_session/README.md)) | `results/agents/long-session/` |
 | `examples/grade_template.py` | template for your private agent-task grader | — |
 
 ## Quick start

@@ -87,11 +87,20 @@ page under [findings/](findings/).
   Flash-Next's full-attention layers attend to 2,048 indexer-picked tokens. Flash-Next becomes the pick for long agent
   sessions; the KAT-Ornith and Flash-Next scripts and agent configs now default to 256K.
   → [long-context](findings/long-context.md)
+- New public long-session benchmark ([bench/long_session](../bench/long_session/README.md)): Rich 14.3.4, read 9
+  modules, fix 4 bugs fixed upstream in v15.0.0, commit; graded with upstream's regression tests. Flash-Next Q2_0 on
+  pi: 4/4, 1,367 s, largest prompt 213K at 99% cache hit. → [models](findings/models.md)
+- Swift-1.5 Flash-Next Q2_0 (ukisai, coding/agent post-training): 125 tok/s, 10/10, Cline 352 s · 9/9 · 7, 250K at
+  1,115 / 120 tok/s, long session 4/4 in 1,202 s. Hugging Face search for similar long-context designs that fit 48 GB:
+  LongCat-Flash-Lite-Sparse, Ling-3.2-air, Kimi-Linear-48B, Nemotron-3.5-Lightning (not tested; no Splash support).
+  → [long-context](findings/long-context.md)
 
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
-- [ ] A long agent session (150K+ tokens of context) on Flash-Next: the 3-turn task stays under 77K.
+- [x] A long agent session (150K+ tokens of context) on Flash-Next ([models](findings/models.md), finding 14).
+- [ ] Long session on KAT-Ornith and the 27B GSQ, and a second run of each Flash-Next file.
+- [ ] Swift-1.5 IQ2_XS (the card's recommended file at this size); LongCat-Flash-Lite-Sparse and Kimi-Linear on MLX or llama.cpp.
 - [ ] LiveCodeBench with a 64–96K answer limit for Flash-Next, KAT-Ornith, the 27B GSQ and Bonsai.
 - [ ] Harder security set: every model scores 16–18/18 on the current one.
 - [ ] LM Studio (MLX engine) and mlx-lm on the same models (oMLX done: [runtimes](findings/runtimes.md)).

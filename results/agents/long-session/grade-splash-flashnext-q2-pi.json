@@ -1,0 +1,13 @@
+{
+ "bugs": {
+  "empty_print_end": true,
+  "from_ansi_newlines": true,
+  "file_proxy_isatty": true,
+  "markdown_table_inline_code": true
+ },
+ "new_failures": [],
+ "suite_summary": "975 passed, 25 skipped in 3.28s",
+ "commits_added": 1,
+ "tree_clean": true,
+ "bugs_fixed": 4
+}

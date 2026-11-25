@@ -1,0 +1,23 @@
+{
+ "label": "splash-swift15-q2-effortnone",
+ "wall_s": 6.991913083009422,
+ "usage": {
+  "prompt_tokens": 44,
+  "completion_tokens": 927,
+  "total_tokens": 971,
+  "prompt_tokens_details": {
+   "cached_tokens": 32,
+   "prefix_tokens": 32,
+   "state_source": "memory",
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 0
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 133.71555380477068,
+ "content_chars": 3949,
+ "reasoning_chars": 0,
+ "content": "```python\nimport threading\nimport time\nfrom functools import wraps\nfrom typing import Any, Callable, Optional, Dict, Tuple, List\nfrom collections import OrderedDict\n\n\nclass LRUCache:\n    \"\"\"\n    A thread-safe LRU cache with TTL (time-to-live) expiry.\n    \n    Attributes:\n        max_size: Maximum number of entries in the cache.\n        ttl: Time-to-live in seconds for each entry.\n        cache: OrderedDict storing key -> (value, expiry_time)\n        lock: Thread lock for thread safety.\n    \"\"\"\n    \n    def __init__(self, max_size: int = 128, ttl: float = 60.0):\n        \"\"\"\n        Initialize the LRU cache.\n        \n        Args:\n            max_size: Maximum number of entries in the cache.\n            ttl: Time-to-live in seconds for each entry.\n        \"\"\"\n        self.max_size = max_size\n        self.ttl = ttl\n        self.cache: OrderedDict[Any, Tuple[Any, float]] = OrderedDict()\n        self.lock = threading.Lock()\n    \n    def get(self, key: Any) -> Optional[Any]:\n        \"\"\"\n        Retrieve a value from the cache.\n        \n        Args:\n            key: The key to look up.\n        \n        Returns:\n            The cached value if present and not expired, None otherwise.\n        \"\"\"\n        with self.lock:\n            if key in self.cache:\n                value, expiry = self.cache[key]\n                if time.time() < expiry:\n                    # Move to end (most recently used)\n                    self.cache.move_to_end(key)\n                    return value\n                else:\n                    # Expired, remove it\n                    del self.cache[key]\n                    return None\n            return None\n    \n    def put(self, key: Any, value: Any) -> None:\n        \"\"\"\n        Insert a value into the cache.\n        \n        Args:\n            key: The key to store.\n            value: The value to store.\n        \"\"\"\n        with self.lock:\n            expiry = time.time() + self.ttl\n            if key in self.cache:\n                # Update existing entry\n                self.cache[key] = (value, expiry)\n                self.cache.move_to_end(key)\n            else:\n                # Add new entry\n                self.cache[key] = (value, expiry)\n                if len(self.cache) > self.max_size:\n                    # Remove least recently used (first item)\n                    self.cache.popitem(last=False)\n    \n    def remove(self, key: Any) -> None:\n        \"\"\"\n        Remove a key from the cache.\n        \n        Args:\n            key: The key to remove.\n        \"\"\"\n        with self.lock:\n            if key in self.cache:\n                del self.cache[key]\n    \n    def clear(self) -> None:\n        \"\"\"\n        Clear all entries from the cache.\n        \"\"\"\n        with self.lock:\n            self.cache.clear()\n    \n    def size(self) -> int:\n        \"\"\"\n        Return the current number of entries in the cache.\n        \n        Returns:\n            Number of entries in the cache.\n        \"\"\"\n        with self.lock:\n            return len(self.cache)\n\n\ndef lru_cache_with_ttl(max_size: int = 128, ttl: float = 60.0) -> Callable:\n    \"\"\"\n    Decorator that wraps a function with an LRU cache with TTL expiry.\n    \n    Args:\n        max_size: Maximum number of entries in the cache.\n        ttl: Time-to-live in seconds for each entry.\n    \n    Returns:\n        A decorator function that caches the decorated function's results.\n    \"\"\"\n    cache = LRUCache(max_size=max_size, ttl=ttl)\n    \n    def decorator(func: Callable) -> Callable:\n        @wraps(func)\n        def wrapper(*args: Any, **kwargs: Any) -> Any:\n            # Create a hashable key from args and kwargs\n            key = (args, tuple(sorted(kwargs.items())))\n            result = cache.get(key)\n            if result is not None:\n                return result\n            result = func(*args, **kwargs)\n            cache.put(key, result)\n            return result\n        return wrapper\n    return decorator\n```"
+}

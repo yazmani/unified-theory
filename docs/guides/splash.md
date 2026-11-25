@@ -22,7 +22,9 @@ MODEL=~/models/KAT-Ornith-HERO-35B-A3B-Fusion.i1-Q4_K_M.gguf DRAFT=~/models/draf
   ./configs/splash/kat-ornith-agent.sh
 ```
 
-The Flash-Next Coder (`ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF`, 58 GB) runs with the same review script:
+Swift-1.5 (`ukisai/Swift-1.5-Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder-less `Q2_0` shards, 66.5 GB) runs with the
+same script and drafter: set `MODEL` to its first shard. The Flash-Next Coder
+(`ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF`, 58 GB) does too:
 set `MODEL` to its first `IQ1_M` shard and `EXPERT_MEMORY=auto MAX_MEMORY=38G` (all its experts fit in memory).
 
 The server listens on `http://127.0.0.1:8000/v1` (OpenAI API) and serves the model as `local`. Connect an agent:

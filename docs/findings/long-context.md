@@ -17,6 +17,7 @@ Flash-Next ran with its 20 GB expert store and `--max-memory 36G`, as in the age
 
 | Model | Prompt read: tok/s (time) | Decode at 250K | at 100K | short prompt | Recall |
 |---|---|---:|---:|---:|---|
+| **Swift-1.5 Qwen3.8-Flash-Next Q2_0** | 1,115 (3.7 min) | 120 | — | 125 | 8/8 |
 | **Qwen3.8-Flash-Next GSQ-RCO Q2_0** | **1,118 (3.7 min)** | 104 | 127 | 129 | 8/8 |
 | KAT-Ornith-HERO fusion | 951 (4.4 min) | **145** | 160 | 235 | 8/8 |
 | Qwen3.8-27B GSQ-RCO IQ3_S | 320 (12.9 min) | 61 | 75 | 96 | 8/8 |
@@ -60,6 +61,24 @@ of 125K for a 250K prompt) matches the measured slowdown:
 Decode follows the same pattern. Each new token reads the keys and values of the full-attention layers: about
 64 KiB per context token for the 27B models at 16-bit (16 GB at 250K, more than the 11.8 GB of weights) and 20 KiB
 for KAT-Ornith (5 GB). Flash-Next reads 2,048 tokens' worth plus the indexer's 128-dim keys.
+
+### Other models built for long context (Hugging Face, 2026-11-25)
+
+Models that fit on 48 GB and use the same tricks: few parameters per token, and linear or sparse attention. Facts
+are from each repo's `config.json` and model card. Only Swift-1.5 has been tested ([models](models.md), finding 14).
+
+| Model | Total / per token | Attention | Fits 48 GB as | Runtime |
+|---|---|---|---|---|
+| ukisai Swift1.5-Qwen3.8-Flash-Next (**tested**: 120 tok/s at 250K) | Flash-Next | same as Flash-Next; trained further for coding and agent work | GSQ-RCO Q2_0, 66.5 GB, with expert streaming | Splash, with the Flash-Next drafter |
+| Meituan LongCat-Flash-Lite-Sparse | 69B / ~3B | indexer on every layer (top 2,048 tokens), plus an n-gram embedding | MLX 4-bit, 38.6 GB | mlx-vlm; llama.cpp PR #19167 open |
+| inclusionAI Ling-3.2-air | 124B / 5.5B | linear (KDA) and MLA layers, 5:1; no indexer | GGUF IQ2_XXS, 38.4 GB | llama.cpp |
+| Moonshot Kimi-Linear-48B-A3B | 48B / 3B | linear (KDA) and MLA layers, 20 / 7 | GGUF Q4_K_M, 30.1 GB | llama.cpp, MLX |
+| NVIDIA Nemotron-3.5-Lightning-30B-A3B | 31.6B / 3B | Mamba-2 plus 6 attention layers | GGUF Q4_K_XL, 25.5 GB | llama.cpp |
+
+Splash serves only the families it has kernels and a drafter for. The non-Qwen models above would run on llama.cpp or
+MLX, about half Splash's speed on the same model ([runtimes](runtimes.md)). The closest designs to Flash-Next, with an
+indexer and linear attention, are too large for 48 GB: GLM-5.3-Flash (321B), DeepSeek-V4-Flash (291B),
+MiniMax-M3.1-Flash (220B).
 
 ## 100K on Splash, oMLX, DSpine and llama.cpp (2026-11-24/25)
 

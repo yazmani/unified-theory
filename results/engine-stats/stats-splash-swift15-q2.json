@@ -1,0 +1,22 @@
+{
+ "label": "splash-swift15-q2",
+ "requests": 169,
+ "generated_tokens": 106164,
+ "decode_peak_tps": 154.7,
+ "decode_median_tps": 88.8,
+ "decode_weighted_tps": 85.7,
+ "decode_share_over_100": 0.3,
+ "prefill_peak_tps": 1278,
+ "prefill_mean_tps": 1018,
+ "prefill_mean_tps_2k_plus": 1107,
+ "prefix_cache_hit": 0.97,
+ "ttft_p50_s": 1.2,
+ "ttft_p95_s": 5.4,
+ "largest_prompt": {
+  "input": 248058,
+  "cached": 32,
+  "ttft_s": 222.4,
+  "decode_tps": 120.1
+ },
+ "accept_tokens_per_cycle": 4.49
+}

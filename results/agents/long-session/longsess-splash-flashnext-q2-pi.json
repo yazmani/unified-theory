@@ -1,0 +1,72 @@
+{
+ "label": "splash-flashnext-q2-longsess-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 262144,
+ "when": "2026-11-25 17:17:48",
+ "turns": 6,
+ "total_wall_s": 1366.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 238.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 24,
+   "answer_chars": 16403,
+   "prompt_tokens": 1058850,
+   "cached_tokens": 965024
+  },
+  {
+   "turn": 2,
+   "wall_s": 211.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 19,
+   "answer_chars": 2139,
+   "prompt_tokens": 1877184,
+   "cached_tokens": 1853024
+  },
+  {
+   "turn": 3,
+   "wall_s": 242.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 19,
+   "answer_chars": 2987,
+   "prompt_tokens": 2499720,
+   "cached_tokens": 2474752
+  },
+  {
+   "turn": 4,
+   "wall_s": 353.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 23,
+   "answer_chars": 3899,
+   "prompt_tokens": 3692899,
+   "cached_tokens": 3657632
+  },
+  {
+   "turn": 5,
+   "wall_s": 275.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 21,
+   "answer_chars": 3409,
+   "prompt_tokens": 4260812,
+   "cached_tokens": 4229472
+  },
+  {
+   "turn": 6,
+   "wall_s": 44.4,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 7,
+   "answer_chars": 1126,
+   "prompt_tokens": 1683658,
+   "cached_tokens": 1678240
+  }
+ ]
+}
