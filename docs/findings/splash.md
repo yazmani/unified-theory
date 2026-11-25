@@ -81,6 +81,15 @@ Swap stayed flat (0.85 GB) for every Splash run.
     The Ornith-trained DFlash2 drafter `jzinno/Ornith-1.5-35B-A3B-DFlash2` doesn't load in Splash 1.7.2 (sliding
     window 4096, Splash expects 2048).
 
+12. **Inkling quants: UD-Q4_K_M and UD-IQ4_XS decode at the same speed** (109 tok/s wall-clock each; 1.7.2's notes
+    recommend UD-Q4_K_M). UD-Q4_K_M ran Cline in 72 s (9/9, 4 issues) and pi in 70 s (9/9, 6). At 100K both recall
+    8/8 at ~1,215 tok/s prefill (82 s) and ~97 tok/s decode, below the Qwen3.6-35B models (1,760 / 160–223).
+13. **`--persistent-cache` works, but only for the same working directory.** After a restart Splash took back its
+    restore points (1.1–1.3 GB) and Cline's first request hit 3,200 of 3,229 cached tokens: time to first token 0.1 s
+    instead of 0.9 s. From a different folder it reused nothing, because Cline and pi put the working directory near
+    the top of the system prompt. The saving is the first turn's system-prompt prefill: under a second for Cline and
+    pi here, a few seconds for harnesses with larger system prompts. Cheap to turn on for daily use.
+
 ## Setup
 
 ```sh

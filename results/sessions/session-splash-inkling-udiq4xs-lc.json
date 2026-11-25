@@ -1,0 +1,22 @@
+{
+ "label": "splash-inkling-udiq4xs-lc",
+ "requests": 3,
+ "generated_tokens": 3812,
+ "decode_peak_tps": 109.5,
+ "decode_median_tps": 99.7,
+ "decode_weighted_tps": 103.3,
+ "decode_share_over_100": 0.33,
+ "prefill_peak_tps": 1213,
+ "prefill_mean_tps": 1211,
+ "prefill_mean_tps_2k_plus": 1213,
+ "prefix_cache_hit": 0.0,
+ "ttft_p50_s": 0.1,
+ "ttft_p95_s": 82.3,
+ "largest_prompt": {
+  "input": 99815,
+  "cached": 0,
+  "ttft_s": 82.3,
+  "decode_tps": 98.7
+ },
+ "accept_tokens_per_cycle": 5.0
+}

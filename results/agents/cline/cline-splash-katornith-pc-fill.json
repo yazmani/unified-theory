@@ -1,0 +1,32 @@
+{
+ "label": "splash-katornith-pc-fill",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-25 00:57:58",
+ "turns": 3,
+ "total_wall_s": 76.6,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 9.8,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 1884
+  },
+  {
+   "turn": 2,
+   "wall_s": 10.6,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 763
+  },
+  {
+   "turn": 3,
+   "wall_s": 56.2,
+   "stop": "end_turn",
+   "tool_calls": 7,
+   "answer_chars": 5289
+  }
+ ]
+}

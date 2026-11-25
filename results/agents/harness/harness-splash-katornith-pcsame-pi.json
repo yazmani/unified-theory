@@ -1,0 +1,42 @@
+{
+ "label": "splash-katornith-pcsame-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-25 01:04:14",
+ "turns": 3,
+ "total_wall_s": 24.0,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 4.9,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 3,
+   "answer_chars": 895,
+   "prompt_tokens": 11820,
+   "cached_tokens": 7968
+  },
+  {
+   "turn": 2,
+   "wall_s": 3.3,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 416,
+   "prompt_tokens": 12817,
+   "cached_tokens": 7552
+  },
+  {
+   "turn": 3,
+   "wall_s": 15.8,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 9,
+   "answer_chars": 3022,
+   "prompt_tokens": 86469,
+   "cached_tokens": 73536
+  }
+ ]
+}

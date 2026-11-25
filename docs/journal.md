@@ -61,6 +61,9 @@ matching page under [findings/](findings/).
 - Correction: oMLX Inkling is 55 tok/s wall-clock, not 261 (bursty streaming fooled the streamed benchmark; new
   `bench/raw_decode.py`). Harness comparison on Inkling: pi fastest on Splash (49 s) and oMLX (86 s); Splash faster
   in every harness. Deleted the models that lost (KAT-Coder, AgentWorld, Qwopus, Distill, RavenX, oMLX Tiel).
+- oMLX removed (no gain on this Mac). Splash 1.7.2 follow-ups: Inkling UD-Q4_K_M = UD-IQ4_XS in speed (109 tok/s);
+  `--persistent-cache` restores the system prompt after a restart (TTFT 0.9 → 0.1 s) when the working directory is
+  the same. → [splash](findings/splash.md)
 
 ## Open threads
 

@@ -1,0 +1,70 @@
+{
+ "label": "splash-inkling-udiq4xs-lc",
+ "when": "2026-11-25 00:54:02",
+ "target_tokens": 100000,
+ "prompt_tokens_local": 99802,
+ "usage": {
+  "prompt_tokens": 99815,
+  "completion_tokens": 812,
+  "total_tokens": 100627,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "prefix_tokens": 0,
+   "state_source": null,
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 628
+  }
+ },
+ "timings": {
+  "prompt_n": 99815,
+  "prompt_ms": 82256.157,
+  "prompt_per_second": 1213.465394450655,
+  "predicted_n": 812,
+  "predicted_ms": 8217.789,
+  "predicted_per_second": 98.68834549049627,
+  "cache_n": 0,
+  "draft_n": 1354,
+  "draft_n_accepted": 673
+ },
+ "wall_s": 90.54623129195534,
+ "first_visible_s": 89.09649891708978,
+ "needles_found": 8,
+ "needles_total": 8,
+ "answer": "KINTSUGI_PROBE_00 = \"17e9a352-08f2\"\nKINTSUGI_PROBE_01 = \"b0f29e0d-b356\"\nKINTSUGI_PROBE_02 = \"9f31f2fd-81f4\"\nKINTSUGI_PROBE_03 = \"a1f6ee2c-e039\"\nKINTSUGI_PROBE_04 = \"a6f86945-d288\"\nKINTSUGI_PROBE_05 = \"c3652b5e-82eb\"\nKINTSUGI_PROBE_06 = \"3695bf28-1a1b\"\nKINTSUGI_PROBE_07 = \"9e9494f4-7bcb\"",
+ "needles": [
+  [
+   "KINTSUGI_PROBE_00",
+   "17e9a352-08f2"
+  ],
+  [
+   "KINTSUGI_PROBE_01",
+   "b0f29e0d-b356"
+  ],
+  [
+   "KINTSUGI_PROBE_02",
+   "9f31f2fd-81f4"
+  ],
+  [
+   "KINTSUGI_PROBE_03",
+   "a1f6ee2c-e039"
+  ],
+  [
+   "KINTSUGI_PROBE_04",
+   "a6f86945-d288"
+  ],
+  [
+   "KINTSUGI_PROBE_05",
+   "c3652b5e-82eb"
+  ],
+  [
+   "KINTSUGI_PROBE_06",
+   "3695bf28-1a1b"
+  ],
+  [
+   "KINTSUGI_PROBE_07",
+   "9e9494f4-7bcb"
+  ]
+ ]
+}
