@@ -1,14 +1,14 @@
 # Guide: Splash on Apple Silicon
 
-[Splash](https://github.com/incoai/splash) is the fastest runtime measured here ([runtimes](../findings/runtimes.md)).
-It is a Metal-only engine with hand-written kernels per model family and a trained
-[DFlash 2](https://inco.ai/blog/dflash2/) drafter for each, serving ordinary GGUF or MLX files. Version 1.7.2.
+[Splash](https://github.com/incoai/splash) 1.7.2 is the fastest runtime measured here ([runtimes](../findings/runtimes.md)).
+It is a Metal-only engine with kernels written per model family and a trained [DFlash 2](https://inco.ai/blog/dflash2/)
+drafter for each family. It serves standard GGUF and MLX files.
 
 ```sh
 brew install incoai/tap/splash
 ```
 
-## The winning setups
+## Setups
 
 | Use | Script | Model | Drafter |
 |---|---|---|---|
@@ -22,7 +22,10 @@ MODEL=~/models/KAT-Ornith-HERO-35B-A3B-Fusion.i1-Q4_K_M.gguf DRAFT=~/models/draf
   ./configs/splash/kat-ornith-agent.sh
 ```
 
-The server listens on `http://127.0.0.1:8000/v1` (OpenAI) and serves the model as `local`. Connect an agent:
+The Flash-Next Coder (`ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF`, 58 GB) runs with the same review script:
+set `MODEL` to its first `IQ1_M` shard and `EXPERT_MEMORY=auto MAX_MEMORY=38G` (all its experts fit in memory).
+
+The server listens on `http://127.0.0.1:8000/v1` (OpenAI API) and serves the model as `local`. Connect an agent:
 [guides/agents](agents.md). Without `--model-dir`, `splash serve --model OWNER/REPO:VARIANT` downloads a model and
 its drafter; `splash pi`, `splash opencode` and `splash claude` start a harness wired to the server.
 

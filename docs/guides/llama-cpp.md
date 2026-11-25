@@ -23,7 +23,7 @@ What matters, from the [agent-models runs](../archive/2026-11-23-agent-models.md
 - `--reasoning-budget 8192`: without it one agent turn thought for 668 s.
 - Agentic sampling from the model card: `--temp 0.6 --top-p 0.95 --top-k 20 --min-p 0`.
 - `-ctk q8_0 -ctv q8_0` keeps a 128K KV cache affordable on 48 GB.
-- llama.cpp's prompt cache works out of the box for multi-turn and agents.
+- llama.cpp's prompt cache works by default for multi-turn chats and agents.
 
 ## Inkling-2-Mini on llama.cpp
 

@@ -1,12 +1,11 @@
-# Strata + Inkling-2-Mini: the prompt-cache saga (0.2.19 → 0.2.20)
+# Strata + Inkling-2-Mini: prompt reuse in 0.2.19 and 0.2.20
 
-Multi-turn chats and agents are only fast if each follow-up reuses the already-read conversation. On Strata, for
-Inkling-2-Mini, that was broken in 0.2.19 and is broken in a different way in 0.2.20. This page is the whole story,
-with the numbers. Upstream threads: [#6627](https://github.com/Niko1221/Strata/issues/6627),
+Multi-turn chats and agents are fast only if each follow-up reuses the conversation already read. On Strata with
+Inkling-2-Mini, reuse was broken in 0.2.19 and is broken differently in 0.2.20. Upstream threads: [#6627](https://github.com/Niko1221/Strata/issues/6627),
 [PR #6665](https://github.com/Niko1221/Strata/pull/6665), [#6675](https://github.com/Niko1221/Strata/issues/6675),
 [#6904](https://github.com/Niko1221/Strata/issues/6904) (0.2.20: no Metal checkpoint, no reuse with tools).
 
-**TL;DR (2026-11-23)**
+**Summary (2026-11-23).** Splash has since replaced Strata for Inkling here ([runtimes](runtimes.md)).
 
 | Use | Best setup | Why |
 |---|---|---|
@@ -19,10 +18,9 @@ How to run each: [guides/strata.md](../guides/strata.md).
 
 From source (`engine/src/inkling2/ink_serve.h`, engine 0.1.65): Strata's documented prompt caching
 (`docs/PROMPT_CACHE_TAIL.md`, `--prompt-cache` checkpoints) belongs to the main `strata-engine`. Inkling runs in the
-separate `strata-inkling` engine, whose only reuse is a per-slot append-only check: it resumes only if the new
-prompt starts with **every** token the slot holds, including the hidden thinking it generated. Strata strips that
-thinking from the reply, so a client can never send it back, and the engine never resumes. Measured: 0 resumes in
-every run; a 120K follow-up took 204 s.
+separate `strata-inkling` engine, which resumes a slot only if the new prompt starts with **every** token the slot
+holds, including the hidden thinking it generated. Strata strips that thinking from the reply, so no client can send
+it back and the engine never resumes. Measured: 0 resumes in every run; a 120K follow-up took 204 s.
 
 ## 2. Two fixes, measured on the same 8-turn coding session
 
@@ -35,13 +33,13 @@ every run; a 120K follow-up took 204 s.
 | Prompt re-reading in follow-ups | 152 s | 160 s | **4 s** | 26 s |
 | Follow-ups resumed | 1/7 | 1/7 | **7/7** | 6/7 |
 
-- **Server-side splice** (our first attempt, local branch, now retired): the server kept the engine's own tokens
-  for the last reply (thinking included) and swapped them back into the next prompt so the slot matched. On a
-  120K 3-turn chat it cut turn 2 from 294 s to 12 s. It can't splice after a reply that was cut off.
-- **Engine checkpoint** (diff posted on #6627 by its author, Metal + `ink_serve.h`): when a prompt has been read, the
+- **Server-side splice** (first attempt, local branch, retired): the server kept the engine's own tokens for the last
+  reply (thinking included) and swapped them into the next prompt so the slot matched. On a 120K 3-turn chat it cut
+  turn 2 from 294 s to 12 s. It cannot splice after a reply that was cut off.
+- **Engine checkpoint** (diff posted on #6627 by its author, Metal + `ink_serve.h`): after reading a prompt, the
   engine saves the slot's SWA ring KV, ShortConv state and DSpark state. A follow-up that contains the previous
-  prompt resumes from there. The model input is unchanged and it also resumes after cut-off replies. **It beat our
-  splice, so we switched to it.**
+  prompt resumes from there. The model input is unchanged, and it resumes after cut-off replies too. **It was faster
+  than the splice and replaced it.**
 - **PR #6665's reporting commit** makes the engine report reused tokens, so `cached_tokens` is real
   (23,891 → 26,753 on follow-ups) and DSpark counters show up in `timings`.
 - Outputs at temperature 0 differ from a cold read after a few dozen characters (chunk-boundary numerics), as the
@@ -51,11 +49,11 @@ every run; a 120K follow-up took 204 s.
 
 ## 3. Separate bug: answers that quote Inkling's own tags leak the thinking (#6675)
 
-The model writes `<|message_model|>` and `<|end_message|>` as **ordinary text tokens** when it talks about them.
-A token probe on the unmodified server showed the real special ids only at the structural positions, but
-`InklingDialect` matches tag *strings* in decoded text: a plain-text `<|message_model|>` inside the thinking closes
-the channel early and the rest of the thinking is emitted as content. Fix direction: tell a sampled special id from
-the same characters written as text. Still open in 0.2.20.
+When the model writes about `<|message_model|>` or `<|end_message|>`, it emits them as **ordinary text tokens**. A
+token probe on the unmodified server showed the real special ids only at structural positions, but `InklingDialect`
+matches tag *strings* in decoded text. A plain-text `<|message_model|>` inside the thinking therefore closes the
+channel early, and the rest of the thinking is emitted as content. Fix: distinguish a sampled special id from the
+same characters written as text. Still open in 0.2.20.
 
 ## 4. Strata 0.2.20
 
@@ -89,11 +87,10 @@ re-reads everything (~1,000 tok/s, 10–20 s per request at 10–20K tokens).
 | 0.2.20 engine under the 0.2.19 server | 344 s | 5 of 17 (no Metal checkpoint; only exact-prefix hits) |
 | **checkpoint engine + 0.2.19 server** | **105 / 113 / 119 s** | 85–88% of prompt tokens |
 
-**Why plain chat still reuses on 0.2.20 (Mac):** with thinking off, the slot holds exactly the prompt plus the
-visible reply, so the next prompt extends it and the old exact-prefix path matches. No checkpoint is involved.
-With tools, the forced empty thinking block breaks that exact match too, and there is no checkpoint to fall back
-on. Two separate upstream gaps, both needed for agents on a Mac: Metal checkpoint support, and a prompt suffix
-that the next turn's history reproduces.
+**Why plain chat still reuses on 0.2.20 (Mac):** with thinking off, the slot holds exactly the prompt plus the visible
+reply, so the next prompt extends it and the exact-prefix path matches without a checkpoint. With tools, the forced
+empty thinking block breaks the exact match, and there is no checkpoint to fall back on. Agents on a Mac need both
+upstream fixes: Metal checkpoint support, and a prompt suffix that the next turn's history reproduces.
 
 The same happens with Claude Code, pi and OpenCode: 0 cached tokens on 0.2.20, 2.5–5.7× slower
 ([harnesses](harnesses.md)). Upstream fix needed: render the empty thinking block back for

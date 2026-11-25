@@ -1,7 +1,7 @@
 # Guide: running Inkling-2-Mini on Strata
 
-[Strata](https://github.com/Niko1221/Strata) was the fastest way to run Inkling-2-Mini on a Mac before
-[Splash](splash.md), which is now ~1.7× faster ([runtimes](../findings/runtimes.md)). Which setup to use depends on the client:
+[Strata](https://github.com/Niko1221/Strata) was the fastest Inkling-2-Mini runtime here until [Splash](splash.md),
+which is ~1.7× faster ([runtimes](../findings/runtimes.md)). If you use Strata, pick the setup by client:
 
 | Client | Use | Why |
 |---|---|---|
@@ -17,7 +17,7 @@ strata launch --family inkling-2-mini --model sq-15 --context 32k --vision off -
 strata launch --stop
 ```
 
-SQ-15 is the sweet spot: faster than SQ-20, no quality loss seen. SQ-10 is not faster in practice.
+SQ-15: faster than SQ-20 with no quality loss seen. SQ-10 was no faster.
 
 ### Gotchas
 

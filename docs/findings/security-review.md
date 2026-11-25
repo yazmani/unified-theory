@@ -1,7 +1,7 @@
 # Can a local model review code for security flaws? Do uncensored builds do it better?
 
-**Current answer (2026-11-25):** any good coder does it well, and uncensored or security-tuned builds don't do it
-better. Every model tested found 16–18 of 18 planted flaws, and none refused.
+**Answer as of 2026-11-25:** any good coding model does it well; uncensored and security-tuned builds score no
+higher. Every model found 16–18 of 18 planted flaws, and none refused.
 
 ## The check
 
@@ -14,9 +14,9 @@ better. Every model tested found 16–18 of 18 planted flaws, and none refused.
 - **3 correct snippets** where the right answer is "no real vulnerability" (an owner-scoped query behind a login, a
   subprocess call with a fixed allow-list, bcrypt with 12 rounds).
 
-Answers are graded by regex on the vulnerability class or CWE; empty answers and refusals are counted. It measures
-whether a model can spot flaws in a review, and asks for no exploit code. A first version had "clean" snippets with
-real gaps and a 4,000-token cap that cut off long thinking; both were fixed before the numbers below.
+Answers are graded by regex on the vulnerability class or CWE; empty answers and refusals are counted. The check asks
+for a review only, never exploit code. Version 1 had "clean" snippets with real gaps and a 4,000-token cap that cut
+off long thinking; both were fixed before the results below.
 
 ## Results
 
@@ -40,13 +40,12 @@ real gaps and a 4,000-token cap that cut off long thinking; both were fixed befo
 
 ## Findings
 
-1. **The check doesn't separate good coders**: 16–18 of 18 for every model. Every model found all 10 common flaws;
-   the misses were all among the 8 subtler ones. A harder set (multi-file context, flaws that need data-flow reasoning) is an open thread.
-2. **No refusals anywhere**, so uncensored builds have nothing to unlock on a defensive review. HauhauCS Aggressive
-   matches the best coders, runs at 242 tok/s and has the fastest decode at 100K, so it's a reasonable pick if
-   refusals ever get in the way.
-3. **Security branding means little.** RavenX-CyberAgent scored like everyone else here and found 0 of 8 real issues
-   in the Cline code review ([models](models.md)).
-4. **Abliterated models are a risk in agents** with auto-approved commands; they were no better at coding either.
+1. **The check does not separate good coders.** Scores range 16–18 of 18. Every model found all 10 common flaws; all
+   misses were among the 8 subtler ones. A harder set (multi-file context, data-flow flaws) is an open thread.
+2. **No model refused**, so uncensored builds have nothing to unlock on a defensive review. HauhauCS Aggressive
+   scores with the best, runs at 242 tok/s and has the fastest decode at 100K; use it if refusals become a problem.
+3. **Security branding does not predict results.** RavenX-CyberAgent scored like the rest here and found 0 of 8
+   issues in the Cline code review ([models](models.md)).
+4. **Abliterated models are a risk in agents** with auto-approved commands, and they were no better at coding.
 
-Raw data: [results/security](../../results/security/). Answers are dumped outside the repo with `--dump`.
+Raw data: [results/security](../../results/security/). `--dump` writes the answers to a file outside the repo.

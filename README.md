@@ -1,25 +1,29 @@
 # unified-theory
 
-**Benchmarks for coding with local LLMs on Apple Silicon: models, runtimes and agent harnesses, measured end to end.**
+**Benchmarks for coding with local LLMs on Apple Silicon: models, runtimes and agent harnesses.**
 
-Most local-LLM numbers stop at "tokens per second". On a Mac doing real coding work, that number turned out to be
-the least important one: hidden thinking, prompt caching and the agent harness each changed session times by
-2–6×. This repo measures what you actually wait for, on one 48 GB M5 Pro, and documents the setups that won.
+Decode speed is the least useful number for real coding work. Hidden thinking, prompt caching and the agent harness
+each changed session times by 2–6× in these runs. This repo measures time to a finished task on one M5 Pro (48 GB)
+and publishes the setups that won.
 
-> Named after unified memory: on a Mac the GPU and CPU share one pool, which decides what fits and how fast it runs.
+The name refers to unified memory: on a Mac the CPU and GPU share one memory pool, which decides what fits and how
+fast it runs.
 
-## Findings at a glance
+## Findings
 
 | Question | Answer (2026-11-25) | Details |
 |---|---|---|
-| Best model for a coding agent? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, 52–79 s per Cline session, 6 of 8 issues found in both runs. Nine other 35B-A3B coders, uncensored and security builds: none beat it | [models](docs/findings/models.md) |
-| Most thorough? | **Qwen3.8-Flash-Next** on Splash: Q2_0 (66 GB, experts streamed from the SSD) found all 8 issues in both Cline runs; the expert-pruned Coder (58 GB) found 7 and scored 18/18 on security. 170–350 s per session | [models](docs/findings/models.md) |
-| Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, 154 s Cline, 75 tok/s at 100K | [models](docs/findings/models.md) |
-| Fastest runtime on a Mac? | **Splash**: ~2× llama.cpp and Strata on the same model, if the model matches its drafter. oMLX and DSpine are slower here | [runtimes](docs/findings/runtimes.md) |
-| Does the agent harness matter? | Yes, 2–5× with the same model. On Splash **pi** is fastest (49 s); OpenCode sends the largest prompts. On Strata OpenCode was fastest | [harnesses](docs/findings/harnesses.md) |
-| What matters most for agents? | **Prompt reuse across turns.** Without it every harness got 2.5–5.7× slower | [strata-prompt-cache](docs/findings/strata-prompt-cache.md) |
-| Long context on 48 GB? | 8/8 recall at 99–240K for every model tested. Qwen3.6-35B on Splash: ~56 s to read 100K, 160–223 tok/s decode at that depth | [long-context](docs/findings/long-context.md) |
-| Best model for security review? | Any good coder: 16–18 of 18 planted flaws, no refusals. Uncensored builds aren't better | [security-review](docs/findings/security-review.md) |
+| Best model for a coding agent? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
+| Most thorough? | **Qwen3.8-Flash-Next on Splash**, 170–350 s per session. Q2_0 (66 GB): 8 of 8 issues in both Cline runs. Coder (58 GB): 7 of 8, 18/18 on security | [models](docs/findings/models.md) |
+| Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K | [models](docs/findings/models.md) |
+| Fastest runtime? | **Splash**: ~2× llama.cpp and Strata on the same model, when a matching drafter exists. oMLX and DSpine were slower | [runtimes](docs/findings/runtimes.md) |
+| Does the harness matter? | Yes, 2–5× on the same model. Fastest on Splash: **pi** (49 s). Fastest on Strata: OpenCode (66 s) | [harnesses](docs/findings/harnesses.md) |
+| What matters most for agents? | **Prompt reuse across turns.** Without it, every harness ran 2.5–5.7× slower | [strata-prompt-cache](docs/findings/strata-prompt-cache.md) |
+| Long context on 48 GB? | 8 of 8 facts recalled at 99–240K by every model tested. Qwen3.6-35B on Splash: 100K read in ~56 s, 160–223 tok/s decode at that depth | [long-context](docs/findings/long-context.md) |
+| Best model for security review? | Any good coder: 16–18 of 18 planted flaws, no refusals. Uncensored builds scored no higher | [security-review](docs/findings/security-review.md) |
+
+"Issues" are the real problems a model found in the review turn of the agent task, out of 8 verified by hand
+([methodology](docs/methodology.md#agent-benchmarks)).
 
 <details>
 <summary>Speed leaderboard (decode tok/s, M5 Pro 48 GB)</summary>
@@ -42,58 +46,56 @@ the least important one: hidden thinking, prompt caching and the agent harness e
 | Tiel-Coder-35B-A3B UD-IQ4_XS, no speculative decoding | Unsloth llama.cpp | 70 | 42 s | — |
 | Inkling-2-Mini SQ-15 (thinking off) | Strata 0.2.20 | 66 | — | 9/10 |
 | Inkling-2-Mini SQ-15 + DSpark | Strata 0.2.19 | 58 | 54 s | 10/10 |
-| Inkling-2-Mini oQ4e-mtp (wall-clock; streamed numbers are bursty) | oMLX 0.8.3 | 55 | 54 s | 10/10 |
+| Inkling-2-Mini oQ4e-mtp (wall-clock) | oMLX 0.8.3 | 55 | 54 s | 10/10 |
 | Inkling-2-Mini SQ-20 + DSpark | Strata 0.2.19 | 48 | 72 s | 10/10 |
 | Inkling-2-Mini UD-IQ4_XS + DSpark | Unsloth llama.cpp | 36 | 57 s | 10/10 |
 | Inkling-2-Mini UD-IQ4_XS | Unsloth llama.cpp | 30 | 148 s | — |
 
-Regenerate from raw data: `make summary`.
+Long answer: wall time to a complete answer for one fixed coding prompt (8,000-token cap). Regenerate from raw data with `make summary`.
 </details>
 
-## Use the winning setups
+## Run the winning setups
 
-| I want to... | Do this |
+| Goal | Script |
 |---|---|
-| Run the everyday coding-agent model | [`configs/splash/kat-ornith-agent.sh`](configs/splash/kat-ornith-agent.sh) · [guide](docs/guides/splash.md) |
-| Run the most thorough reviewer on 48 GB | [`configs/splash/flashnext-review.sh`](configs/splash/flashnext-review.sh) · [guide](docs/guides/splash.md) |
-| Run Inkling-2-Mini | [`configs/splash/inkling.sh`](configs/splash/inkling.sh) |
-| Run a model Splash has no drafter for | [`configs/llama.cpp/`](configs/llama.cpp/) · [guide](docs/guides/llama-cpp.md) |
-| Connect Cline / Claude Code / pi / OpenCode | [`configs/agents/`](configs/agents/) · [guide](docs/guides/agents.md) |
+| Everyday coding agent | [`configs/splash/kat-ornith-agent.sh`](configs/splash/kat-ornith-agent.sh) · [guide](docs/guides/splash.md) |
+| Thorough reviews on 48 GB | [`configs/splash/flashnext-review.sh`](configs/splash/flashnext-review.sh) · [guide](docs/guides/splash.md) |
+| Inkling-2-Mini | [`configs/splash/inkling.sh`](configs/splash/inkling.sh) |
+| A model Splash has no drafter for | [`configs/llama.cpp/`](configs/llama.cpp/) · [guide](docs/guides/llama-cpp.md) |
+| Connect Cline, Claude Code, pi or OpenCode | [`configs/agents/`](configs/agents/) · [guide](docs/guides/agents.md) |
 
 ## Benchmark your own Mac
 
-Needs Python 3.11+ and an OpenAI-compatible server (Splash, llama-server, Strata, LM Studio, ...). No dependencies for the
-core scripts.
+Requires Python 3.11+ and an OpenAI-compatible server (Splash, llama-server, Strata, LM Studio). The core scripts
+have no dependencies.
 
 ```sh
 make bench-speed URL=http://127.0.0.1:8000 MODEL=local LABEL=my-model   # decode, long answer, mini-eval, wall-clock decode
-make summary                                               # tables from results/
+make summary                                                           # tables from results/
 ```
 
-Agent benchmarks on your own project (privately graded), long context and multi-turn reuse:
-[bench/README.md](bench/README.md). How numbers are measured and what they don't say:
+Agent, long-context and security benchmarks: [bench/README.md](bench/README.md). Measurement details and limits:
 [docs/methodology.md](docs/methodology.md).
 
-## Repository map
+## Repository layout
 
 ```
-bench/        benchmark scripts (one JSON per run into results/)
+bench/        benchmark scripts; each writes one JSON per run to results/
 configs/      launch scripts (splash/, llama.cpp/, strata/) and agent configs (agents/)
 docs/
   findings/   one page per question, current answer first
-  guides/     how to run Splash, llama.cpp, Strata and the agents
+  guides/     setup for Splash, llama.cpp, Strata and the agents
   archive/    findings pages as written on the day (superseded)
-  methodology.md, journal.md (chronological log + open threads)
-results/      raw JSON, by benchmark (see results/README.md)
-tools/        summarize.py (tables from results), check_private.py (leak guard)
-.local/       your private files (gitignored): grader, sandbox project, transcripts
+  methodology.md, journal.md
+results/      raw JSON by benchmark (see results/README.md)
+tools/        summarize.py (tables from results/), check_private.py (leak check)
+.local/       private files, gitignored: grader, sandbox project, transcripts
 ```
 
 ## Contributing
 
-Results from other Macs are very welcome, and so are new models, runtimes and harnesses:
-[CONTRIBUTING.md](CONTRIBUTING.md).
+Results from other Macs, and new models, runtimes and harnesses: [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE). Model names and upstream projects belong to their authors; this repo only measures them.
+[MIT](LICENSE). Model names and upstream projects belong to their authors.

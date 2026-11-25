@@ -1,14 +1,13 @@
 # Journal
 
-What was tried, in order, and where the write-up lives. New work gets a line here and its findings go into the
-matching page under [findings/](findings/).
+What was done, in order, with links to the write-ups. New work gets a line here; its results go into the matching
+page under [findings/](findings/).
 
 ## 2026-11-22
 
 - Benched Inkling-2-Mini on Strata 0.2.19 (SQ-10/15/20) against Unsloth's llama.cpp fork, plus Tiel-Coder-35B-A3B
   with MTP. → [decode-speed](archive/2026-11-22-decode-speed.md)
-- Learned the hard way to run one model at a time: an auto-serving `strata install` next to `llama-bench` swapped
-  the Mac to 28 GB. → [methodology](methodology.md), [guides/strata](guides/strata.md)
+- One model at a time from now on: an auto-serving `strata install` next to `llama-bench` pushed swap to 28 GB. → [methodology](methodology.md), [guides/strata](guides/strata.md)
 - Long context at 30K / 120K / 240K: recall 8/8, but Strata re-read the whole prompt every turn.
   → [long-context](findings/long-context.md)
 - Built TensorSharp from source: no Inkling on Mac, no gain for Tiel. → [tensorsharp](archive/2026-11-22-tensorsharp.md)
@@ -80,7 +79,7 @@ matching page under [findings/](findings/).
 
 ## Open threads
 
-- [ ] Harder quality set (multi-file edits, SWE-style tasks) to pick a quality winner, not just a speed winner.
+- [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
 - [ ] Harder security set: every model scores 16–18/18 on the current one.
 - [ ] LM Studio (MLX engine) and mlx-lm on the same models (oMLX done: [runtimes](findings/runtimes.md)).
 - [ ] Session stats parser for oMLX and DSpine server logs (Splash only so far).

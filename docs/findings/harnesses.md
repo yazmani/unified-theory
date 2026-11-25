@@ -1,27 +1,28 @@
 # Does the agent harness matter? Cline vs Claude Code vs pi vs OpenCode
 
-**Current answer (2026-11-25): yes, 2–5× with the same model and task, and the engine adds to that.** On Splash,
-**pi** is the fastest harness; OpenCode and Cline found the most issues. Whatever you pick, make sure prompt reuse
-works on your server: without it every harness got 2.5–5.7× slower ([strata-prompt-cache](strata-prompt-cache.md)).
+**Answer as of 2026-11-25: yes, 2–5× on the same model and task.** On Splash, **pi** is fastest; OpenCode and Cline
+found the most issues. Prompt reuse on the server matters more than the harness: without it, every harness ran
+2.5–5.7× slower ([strata-prompt-cache](strata-prompt-cache.md)).
 
 ## On Splash and oMLX (2026-11-24)
 
-Same 3-turn session, same model (Inkling-2-Mini, thinking off), each harness against each engine. Time · commit checks
-of 9 · real issues found of 8.
+Inkling-2-Mini, thinking off, same 3-turn session. Each cell: total time · commit checks passed of 9 · issues found
+of 8.
 
 | Engine (wall-clock decode) | Cline | OpenCode | Claude Code | pi |
 |---|---|---|---|---|
 | **Splash** (116 tok/s) | 75–94 s · 9/9 · 6 | 139 s · 9/9 · **6** | 139 s · 9/9 · 4 | **49 s** · 9/9 · 4 |
 | oMLX, MTP (55 tok/s) | 370 s · 9/9 · 6 | 268 s · 8/9 · 5 | 168 s · 9/9 · 4 | 86 s · 9/9 · 4 |
 
-- **pi is the fastest on both engines**: the smallest system prompt and the smallest prompts over a session (53K
-  prompt tokens, against 223–323K for OpenCode). Splash is faster than oMLX in every harness (1.2–4×).
-- **OpenCode was the fastest on Strata (66 s, below) but not here.** It sends the largest prompts, so once decode is
-  fast and prompt reuse works, pi wins.
+- **pi is fastest on both engines.** It has the smallest system prompt and sends the least over a session (53K prompt
+  tokens; OpenCode: 223–323K).
+- **Splash is faster than oMLX in every harness** (1.2–4×).
+- **OpenCode was fastest on Strata (66 s, below) but not here.** It sends the largest prompts; with fast decode and
+  working prompt reuse, pi's smaller prompts win.
 
 ## On Strata (2026-11-23)
 
-Model Inkling-2-Mini SQ-15 at 128K. Driver: `bench/harness_bench.py`. Raw metrics:
+Inkling-2-Mini SQ-15, 128K context. Driver: `bench/harness_bench.py`. Raw metrics:
 [results/agents/harness](../../results/agents/harness/).
 
 | Harness | Version | API it uses | How the driver runs it |
@@ -31,7 +32,7 @@ Model Inkling-2-Mini SQ-15 at 128K. Driver: `bench/harness_bench.py`. Raw metric
 | OpenCode | 1.19.6 | OpenAI chat completions | `opencode run --format json --auto --dir WS`, then `--session ID` |
 | Cline | 3.0.75 | OpenAI chat completions | ACP (`cline --acp`), one session (`bench/cline_bench.py`) |
 
-Each turn is one headless call that continues the session, with tools auto-approved and an isolated HOME/config.
+Each turn is one headless call that continues the session, with tools auto-approved and an isolated HOME and config.
 
 ### With prompt reuse working (Strata 0.2.19 server + #6627 checkpoint engine)
 
@@ -55,27 +56,24 @@ Quality was the same on both servers; only time changed.
 
 ### Findings on Strata
 
-- **The 0.2.20 cache bug hits every harness**, including Claude Code over `/v1/messages`. All of them send tools,
-  and the server's forced empty thinking block breaks the prefix. It is a server bug, not a harness one
+- **The 0.2.20 cache bug affects every harness**, including Claude Code over `/v1/messages`. All of them send tools,
+  and the server's forced empty thinking block breaks the cached prefix. It is a server bug
   ([details](strata-prompt-cache.md#4-strata-0220)).
-- **OpenCode is fastest because it does the least:** fewest tool calls, shortest answers (its review is ~⅓ the
-  length of the others), no wasted turns, and the most consistent time (66 s twice). It still found as many real
-  issues as pi. It missed one turn-1 detail (the permission-only changes) both times.
-- **pi is the best balance:** the smallest system prompt (~1.7K tokens vs ~8K for OpenCode and ~13.5K for Claude
-  Code), 9/9 in both runs, a fuller review than OpenCode, 88–108 s.
-- **Claude Code is the most thorough and the least predictable.** Its large system prompt is paid once thanks to the
-  cache. In run 2 it read 43 files for the review (265 s for that turn) and found the most issues (6/8). Against a
-  local server it logs an unrecognized model and assumes a 1M context window.
-- **Cline sits between pi and Claude Code** on time and thoroughness.
+- **OpenCode was fastest because it does the least:** fewest tool calls, shortest review (~⅓ the length of the
+  others), the most consistent time (66 s twice), and as many issues as pi. It missed the permission-only changes in
+  turn 1 both times.
+- **pi balanced speed and coverage:** smallest system prompt (~1.7K tokens; OpenCode ~8K, Claude Code ~13.5K), 9/9 in
+  both runs, 88–108 s.
+- **Claude Code was the most thorough and the least predictable.** Prompt caching pays for its large system prompt
+  once. In run 2 it read 43 files for the review (265 s for that turn) and found 6 of 8 issues. Against a local
+  server it logs an unrecognized model and assumes a 1M context window.
+- **Cline fell between pi and Claude Code** on time and coverage.
 - Every harness committed without asking under auto-approve.
-
-**Pick (on Strata):** quick iterative work → OpenCode or pi; deep reviews → Claude Code.
 
 ## Gotcha: OpenCode trusts `$PWD`
 
 OpenCode takes its project folder from the `PWD` environment variable, not the process working directory. Started
-by a script from inside another repo, it worked (and committed) in that repo instead of the sandbox. The driver now
-passes `--dir` and sets `PWD` for every harness, and runs from a neutral folder. If you script any agent CLI, do
-the same.
+by a script inside another repo, it edited and committed in that repo instead of the sandbox. The driver passes
+`--dir`, sets `PWD` for every harness and runs from a neutral folder. Do the same when scripting any agent CLI.
 
 Configs for each harness: [guides/agents.md](../guides/agents.md).

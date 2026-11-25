@@ -7,7 +7,7 @@ with model id `inkling-2-mini-sq-15`, llama-server on `:8092` accepts any id.
 
 **Before you start:** make sure your server reuses the prompt across turns (check `cached_tokens` on a follow-up).
 Without it every agent turn re-reads the whole conversation, which costs more than any harness choice. Splash and
-llama.cpp do it out of the box; on Strata it needs the [agent setup](strata.md#agents-checkpoint-engine--0219-server).
+llama.cpp do it by default; on Strata it needs the [agent setup](strata.md#agents-checkpoint-engine--0219-server).
 
 ## pi (fastest on Splash)
 
