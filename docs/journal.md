@@ -80,10 +80,19 @@ page under [findings/](findings/).
   wall-clock, Cline 268 s · 5 issues, 100K at 400 / 99 tok/s; on llama.cpp with its MTP head: 31 tok/s, 650 s.
   Splash rejects the `Q2_0` file. Kolibri on llama.cpp PR #32891: 69 tok/s, 10/10 mini-eval, but 1–4 of 8 issues in
   agents. Neither beats KAT-Ornith or the 27B GSQ. → [models](findings/models.md)
+- LiveCodeBench v6 (February 2025, EvalScope) on KAT-Ornith, stopped at 44 of 51: 22 passed, 22 of 26 when the answer
+  finished; all 18 answers cut at the 32K limit failed. → [models](findings/models.md)
+- 250K context on Splash (`--max-context 256K`): all four models 8/8 with swap flat. Flash-Next 104 tok/s and 3.7 min
+  to read the prompt; KAT-Ornith 145 tok/s, 4.4 min; the 27B models 13–15 min. GGUF metadata explains it:
+  Flash-Next's full-attention layers attend to 2,048 indexer-picked tokens. Flash-Next becomes the pick for long agent
+  sessions; the KAT-Ornith and Flash-Next scripts and agent configs now default to 256K.
+  → [long-context](findings/long-context.md)
 
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
+- [ ] A long agent session (150K+ tokens of context) on Flash-Next: the 3-turn task stays under 77K.
+- [ ] LiveCodeBench with a 64–96K answer limit for Flash-Next, KAT-Ornith, the 27B GSQ and Bonsai.
 - [ ] Harder security set: every model scores 16–18/18 on the current one.
 - [ ] LM Studio (MLX engine) and mlx-lm on the same models (oMLX done: [runtimes](findings/runtimes.md)).
 - [ ] Session stats parser for oMLX and DSpine server logs (Splash only so far).

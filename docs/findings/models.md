@@ -5,9 +5,9 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 
 | Use | Pick | Why |
 |---|---|---|
-| Everyday coding agent | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s) |
-| Thorough review | **Qwen3.8-Flash-Next GSQ-RCO**, Q2_0 (66 GB) or Coder (58 GB) | Q2_0: 8 of 8 issues in both Cline runs. Coder: 7 of 8 in Cline and pi, 18/18 on security. Both 130 tok/s, 170–350 s per session |
-| Dense model | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
+| Long agent sessions and thorough review | **Qwen3.8-Flash-Next GSQ-RCO**, Q2_0 (66 GB) or Coder (58 GB) | Q2_0: 8 of 8 issues in both Cline runs. Coder: 7 of 8 in Cline and pi, 18/18 on security. Both 130 tok/s, 170–350 s per session. Q2_0 at a 250K prompt: 104 tok/s, 3.7 min to read it |
+| Fast agent for short tasks | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s). 145 tok/s at a 250K prompt |
+| Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
 | Fewer refusals | **HauhauCS Qwen3.6-35B-A3B Aggressive** | 242 tok/s, security score equal to the best coders |
 | Inkling-2-Mini | **UD-Q4_K_M** | Same speed as UD-IQ4_XS (109 tok/s wall-clock), higher precision |
@@ -123,6 +123,15 @@ Engine stats per run (`bench/session_stats.py`; decode peak / token-weighted mea
    command auto-approval on real projects, especially with abliterated models.
 12. **The mini-eval does not rank models.** Nearly all score 9–10/10. It only shows that a fast setting doesn't
     break code; the agent session separates models.
+13. **For real agent work, Flash-Next is the pick at 256K.** The 3-turn agent task already sent 40–77K tokens per
+    request, so longer sessions need 128K or more. At a 250K prompt Flash-Next keeps 81% of its decode speed (104
+    tok/s) and KAT-Ornith 62% (145 tok/s); the 27B models take 13–15 min to read the prompt. Flash-Next's
+    full-attention layers attend to ~2,048 indexer-picked tokens instead of all of them
+    ([long-context](long-context.md#why-flash-next-holds-up-model-structure)).
+14. **LiveCodeBench (partial): the 32K answer limit is binding.** KAT-Ornith on the 51 problems of February 2025
+    (release_v6, EvalScope 1.15.0, thinking on, temperature 0.6), stopped at 44: 22 passed. All 18 answers that hit
+    the 32K limit failed, 13 of them hard problems; of the 26 that finished, 22 passed. A fair run needs a 64–96K
+    answer limit. Raw data: [results/livecodebench](../../results/livecodebench/).
 
 Before Splash (2026-11-23), the best agent setups were Inkling-2-Mini on a patched Strata (105–119 s per Cline
 session) and Tiel-Coder on llama.cpp with MTP (142–168 s, 7 of 8 issues once). Those runs and the llama.cpp settings

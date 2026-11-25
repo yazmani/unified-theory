@@ -16,6 +16,7 @@ Raw output of the scripts in [bench/](../bench/), one JSON per run. Findings tha
 | `agents/cline/` | `cline_bench.py` | `cline-<label>.json` (timing and counts only) |
 | `agents/harness/` | `harness_bench.py` | `harness-<harness>-<label>.json` or `harness-<label>-<harness>.json` (timing, counts, cached tokens) |
 | `agents/cline-session-summary.json` | private grader | generic quality scores for the early Cline runs |
+| `livecodebench/` | EvalScope `live_code_bench`, graded with its `codegen_metrics` | `lcb-<label>-<window>.json`: settings, totals, and difficulty / pass / output tokens per problem (no code) |
 | `llama-bench/` | `llama-bench` | Markdown tables |
 | `invalid/` | — | smoke and debug runs kept for the record; not used in any finding |
 
@@ -23,6 +24,6 @@ Raw output of the scripts in [bench/](../bench/), one JSON per run. Findings tha
 8K), `strata-sq15-dspark`, `unsloth-llamacpp-iq4xs-dspark3`, `tiel-q4kxl-mtp1-rb8k` (llama.cpp, MTP n-max 1,
 reasoning budget 8K). Suffixes: `-r2` second run, `-lc` long-context run, `-sec3` security run (third version of the
 check), `-effortnone` / `-nothink` thinking off, `-expNN` an NN GB expert store, `-pc-*` persistent-cache runs,
-`-ckpt` / `-0220` Strata with the #6627 checkpoint engine / stock 0.2.20.
+`-ctx256k` run with `--max-context 256K`, `-ckpt` / `-0220` Strata with the #6627 checkpoint engine / stock 0.2.20.
 
 All runs: Apple M5 Pro, 48 GB, macOS 27.2 ([methodology](../docs/methodology.md)).

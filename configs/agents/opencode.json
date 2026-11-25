@@ -7,7 +7,7 @@
       "name": "Local (Splash / Strata / llama.cpp)",
       "options": { "baseURL": "http://127.0.0.1:8000/v1", "apiKey": "local" },
       "models": {
-        "local": { "name": "Local model", "limit": { "context": 131072, "output": 16384 } }
+        "local": { "name": "Local model", "limit": { "context": 262144, "output": 16384 } }
       }
     }
   }

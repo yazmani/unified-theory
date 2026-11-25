@@ -1,0 +1,299 @@
+{
+ "label": "splash-katornith",
+ "benchmark": "LiveCodeBench release_v6, contest dates 2025-02-01..2025-02-28 (51 problems)",
+ "harness": "EvalScope 1.15.0 live_code_bench, official prompt, 6 s per test case, local execution",
+ "generation": {
+  "max_tokens": 32768,
+  "temperature": 0.6,
+  "top_p": 0.95,
+  "thinking": "on, no budget"
+ },
+ "status": "stopped early: 44 of 51 answered; graded the 44 with EvalScope codegen_metrics",
+ "answered": 44,
+ "passed": 22,
+ "cut_at_limit": 18,
+ "passed_when_not_cut": "22/26",
+ "by_difficulty": {
+  "medium": {
+   "n": 12,
+   "pass": 6,
+   "cut_at_limit": 5
+  },
+  "hard": {
+   "n": 21,
+   "pass": 6,
+   "cut_at_limit": 13
+  },
+  "easy": {
+   "n": 11,
+   "pass": 10,
+   "cut_at_limit": 0
+  }
+ },
+ "rows": [
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 131
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 18924
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 15672
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 321
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 287
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 5644
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 134
+  },
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 2244
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 7054
+  },
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 352
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 361
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 4362
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 939
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 415
+  },
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 57
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 52
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": true,
+   "output_tokens": 2649
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "medium",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "atcoder",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 182
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 4508
+  },
+  {
+   "difficulty": "hard",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 16400
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 1583
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 1395
+  },
+  {
+   "difficulty": "hard",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 25760
+  },
+  {
+   "difficulty": "hard",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 933
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "hard",
+   "platform": "leetcode",
+   "pass": false,
+   "output_tokens": 32768
+  },
+  {
+   "difficulty": "easy",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 416
+  },
+  {
+   "difficulty": "medium",
+   "platform": "leetcode",
+   "pass": true,
+   "output_tokens": 1051
+  }
+ ]
+}

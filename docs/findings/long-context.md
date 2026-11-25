@@ -1,11 +1,65 @@
 # Long context on 48 GB: how deep can local models go, and how fast?
 
-**Answer as of 2026-11-25:** every model tested recalled 8 of 8 hidden facts at 99–240K tokens. On Splash, the
-Qwen3.6-35B-A3B models read 100K tokens in ~56 s and decode at 160–223 tok/s at that depth. Inkling-2-Mini ran to
-240K on Strata. At depth, agent speed depends on whether follow-up turns reuse the prompt.
+**Answer as of 2026-11-25:** every model tested recalled 8 of 8 hidden facts at 99–250K tokens, and 256K of context fits
+on 48 GB for every model below. What changes with depth is speed. At a 250K prompt on Splash, Qwen3.8-Flash-Next keeps
+80% of its decode speed (104 tok/s) and reads the prompt in 3.7 min. KAT-Ornith (Qwen3.6-35B-A3B) decodes faster (145
+tok/s) but has lost 38% of its short-prompt speed. The dense 27B models need 13–15 min to read 250K. The cause is the
+attention design ([below](#why-flash-next-holds-up-model-structure)). After the first read, agent speed depends on
+whether follow-up turns reuse the prompt.
 
 Script: `bench/long_context.py`: a haystack of real source code sized with the model's tokenizer, with 8 constants
 hidden at 5–95% depth. Raw data: [results/long-context](../../results/long-context/).
+
+## 250K on Splash (2026-11-25)
+
+`--max-context 256K`, a 248K-token prompt, one model at a time. Swap stayed at 4.2 GB before and after every run.
+Flash-Next ran with its 20 GB expert store and `--max-memory 36G`, as in the agent runs.
+
+| Model | Prompt read: tok/s (time) | Decode at 250K | at 100K | short prompt | Recall |
+|---|---|---:|---:|---:|---|
+| **Qwen3.8-Flash-Next GSQ-RCO Q2_0** | **1,118 (3.7 min)** | 104 | 127 | 129 | 8/8 |
+| KAT-Ornith-HERO fusion | 951 (4.4 min) | **145** | 160 | 235 | 8/8 |
+| Qwen3.8-27B GSQ-RCO IQ3_S | 320 (12.9 min) | 61 | 75 | 96 | 8/8 |
+| Ternary Bonsai 2.5 27B PQ2_0 | 267 (15.5 min) | 69 | 99 | 145 | 8/8 |
+
+- **Flash-Next slows least.** From 100K to 250K its prompt read drops 7% and its decode 18%. KAT-Ornith's prompt
+  read drops 46%; the 27B models' drop 33–37%, from a much lower start.
+- **The 27B models are not usable at full depth.** 13–15 min to read 250K, and 61–69 tok/s after that.
+- **Thinking models need room to answer.** The answer limit was 6,000 tokens for KAT-Ornith and the 27B GSQ, and
+  12,000 for Flash-Next and Bonsai (thinking budget 8K).
+
+## Why Flash-Next holds up: model structure
+
+From the GGUF metadata of the files tested (parameter counts summed from the tensor shapes):
+
+| | Qwen3.8-Flash-Next | KAT-Ornith (Qwen3.6-35B-A3B) | Qwen3.8-27B, Bonsai 2.5 |
+|---|---|---|---|
+| Type | MoE: 512 experts, 10 + 1 shared per token | MoE: 256 experts, 8 + 1 shared per token | dense |
+| Parameters in the file | 177B: 126B model + a 51B n-gram lookup table | 35.5B | 26.9B |
+| Parameters computed per token | ~6.6B | ~3B | ~26B |
+| Linear-attention / full-attention layers | 36 / 12 | 30 / 10 | 48 / 16 |
+| Tokens each full-attention layer reads | **~2,048 picked by an indexer** (top-k), compression ratio 4 | all | all |
+
+- **File size is not work per token.** Each token runs through 10 of 512 experts per layer, so Flash-Next computes about
+  a quarter of what the dense 27B does, although its file is more than 5× larger. Splash keeps the most-used experts in
+  memory (`--expert-memory`) and reads the rest from the SSD. The 51B table is a lookup: a few rows per token.
+- **All three families use mostly linear attention** (Gated DeltaNet: a fixed-size state, cost flat with depth), with
+  full attention in every 4th layer. Those full-attention layers are what slows down with depth.
+- **Flash-Next's full-attention layers are sparse.** A small indexer (4 heads, 128-dim keys) scans the context and each
+  query attends to the top 2,048 tokens. In KAT-Ornith and the 27B models, every query attends to every token.
+
+A rough count of the work per prompt token (2 FLOPs per computed parameter, plus attention at the average position
+of 125K for a 250K prompt) matches the measured slowdown:
+
+| Model | Weights | Attention at 250K | Predicted prompt read 250K vs 100K | Measured |
+|---|---:|---:|---:|---:|
+| Flash-Next | ~13 GFLOP | ~2 GFLOP (2,048 tokens + the indexer scan) | 0.94× | 0.93× |
+| KAT-Ornith | ~6 GFLOP | ~20 GFLOP (10 layers × 16 heads × 256 dims, all tokens) | 0.54× | 0.54× |
+| Qwen3.8-27B | ~52 GFLOP | ~49 GFLOP (16 layers × 24 heads × 256 dims, all tokens) | 0.71× | 0.63× |
+
+Decode follows the same pattern. Each new token reads the keys and values of the full-attention layers: about
+64 KiB per context token for the 27B models at 16-bit (16 GB at 250K, more than the 11.8 GB of weights) and 20 KiB
+for KAT-Ornith (5 GB). Flash-Next reads 2,048 tokens' worth plus the indexer's 128-dim keys.
 
 ## 100K on Splash, oMLX, DSpine and llama.cpp (2026-11-24/25)
 

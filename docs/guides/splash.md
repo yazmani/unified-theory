@@ -12,8 +12,8 @@ brew install incoai/tap/splash
 
 | Use | Script | Model | Drafter |
 |---|---|---|---|
-| Everyday coding agent | [`configs/splash/kat-ornith-agent.sh`](../../configs/splash/kat-ornith-agent.sh) | `mradermacher/KAT-Ornith-HERO-35B-A3B-Fusion-i1-GGUF` (i1-Q4_K_M, 21.7 GB) | `incoai/Qwen3.6-35B-A3B-DFlash2` (1 GB) |
-| Thorough reviews | [`configs/splash/flashnext-review.sh`](../../configs/splash/flashnext-review.sh) | `ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder `Q2_0` (66 GB) | `incoai/Qwen3.8-Flash-Next-DFlash2` (1.2 GB) |
+| Fast agent, short tasks | [`configs/splash/kat-ornith-agent.sh`](../../configs/splash/kat-ornith-agent.sh) | `mradermacher/KAT-Ornith-HERO-35B-A3B-Fusion-i1-GGUF` (i1-Q4_K_M, 21.7 GB) | `incoai/Qwen3.6-35B-A3B-DFlash2` (1 GB) |
+| Long agent sessions and reviews | [`configs/splash/flashnext-review.sh`](../../configs/splash/flashnext-review.sh) | `ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder `Q2_0` (66 GB) | `incoai/Qwen3.8-Flash-Next-DFlash2` (1.2 GB) |
 | Inkling-2-Mini | [`configs/splash/inkling.sh`](../../configs/splash/inkling.sh) | Unsloth's Inkling-2-Mini GGUF (UD-Q4_K_M) | `incoai/Inkling-2-Mini-DFlash2` (0.9 GB) |
 
 ```sh
@@ -41,7 +41,7 @@ its drafter; `splash pi`, `splash opencode` and `splash claude` start a harness 
 | `--persistent-cache` | keeps the prompt cache across restarts; it only helps from the same working directory, because harnesses put it in the system prompt |
 | `--idle-release off` | keeps the model loaded between agent turns |
 | `--max-cache-disk 4G` | caps the SSD prompt cache |
-| `--max-context 128K` | the context the agents were tested at |
+| `--max-context 256K` | default in the KAT-Ornith and Flash-Next scripts. Both read a 250K prompt in ~4 min and decode at 145 / 104 tok/s there, with swap flat ([long-context](../findings/long-context.md)). Agent sessions already reached 40–77K tokens per request on a 3-turn task |
 
 ## Gotchas
 

@@ -4,7 +4,7 @@
       "baseUrl": "http://127.0.0.1:8000/v1",
       "api": "openai-completions",
       "apiKey": "local",
-      "models": [{ "id": "local", "contextWindow": 131072, "maxTokens": 16384 }]
+      "models": [{ "id": "local", "contextWindow": 262144, "maxTokens": 16384 }]
     }
   }
 }

@@ -5,6 +5,10 @@ configs in [`configs/agents/`](../../configs/agents/) point at a [Splash](splash
 model as `local`. For another server, change the base URL and model id: Strata's agent setup listens on `:8091`
 with model id `inkling-2-mini-sq-15`, llama-server on `:8092` accepts any id.
 
+The configs set a 256K context window, matching the Splash scripts. If your server runs a smaller context (Strata
+and llama.cpp scripts: 128K, `configs/splash/inkling.sh`: 128K), lower the window to match, or long sessions fail
+instead of compacting.
+
 **Before you start:** make sure your server reuses the prompt across turns (check `cached_tokens` on a follow-up).
 Without it every agent turn re-reads the whole conversation, which costs more than any harness choice. Splash and
 llama.cpp do it by default; on Strata it needs the [agent setup](strata.md#agents-checkpoint-engine--0219-server).
@@ -32,7 +36,7 @@ assume a 1M context window; keep sessions within your server's context.
 ## Cline (VS Code extension or CLI)
 
 Provider **OpenAI Compatible**, base URL `http://127.0.0.1:8000/v1`, API key `local`, model id `local`, context
-window 131072, max output 16384. CLI: `cline auth -p openai-compatible -k local -m local -b http://127.0.0.1:8000/v1`.
+window 262144, max output 16384. CLI: `cline auth -p openai-compatible -k local -m local -b http://127.0.0.1:8000/v1`.
 The CLI over ACP requests the model `gpt-4o` whatever you configure, so for it start Splash with `NAME=gpt-4o`.
 
 ## Safety

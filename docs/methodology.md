@@ -22,7 +22,8 @@ How the numbers in this repo were produced, and their limits.
 | Mini-eval | 10 Python tasks with hidden asserts, pass@1, greedy | catches broken code; does not rank models |
 | Security review | `bench/security_review_eval.py`: 18 planted flaws (10 common, 8 subtle) and 3 clean snippets, regex-graded | review only; refusals and empty answers counted |
 | Engine stats | `bench/session_stats.py` over the Splash server log (`results/engine-stats/`): decode peak / median / token-weighted mean, prefill tok/s, prefix-cache hit, TTFT p50/p95, draft acceptance | covers every request of a run, harness turns included |
-| 100K context | `bench/long_context.py --tokens 100000`: prefill time and speed, decode at depth, recall of 8 hidden facts | timed by the client when the server sends no timings (oMLX, DSpine) |
+| 100K / 250K context | `bench/long_context.py --tokens 100000` (or `250000`): prefill time and speed, decode at depth, recall of 8 hidden facts | timed by the client when the server sends no timings (oMLX, DSpine) |
+| LiveCodeBench | EvalScope 1.15.0 `live_code_bench`, `release_v6`, one month of contest problems, official prompt, code run locally with 6 s per test | `--limit` applies before the date filter, so a window is selected by dates only |
 
 Sampling: greedy (temperature 0) for speed, mini-eval and long-context runs. Agent runs use whatever the harness sends
 on top of the server's defaults, except Tiel-Coder on llama.cpp and DSpine, whose servers were started with Qwen's recommended sampling (temperature 0.6, top-p 0.95,
@@ -55,4 +56,5 @@ claim" proved correct and moved to the issues list.
   relying on them.
 - 1–3 agent runs per setup. Differences of 1–2 issues between setups are within run-to-run noise; the timing
   differences reported as findings (2× or more) are not.
-- The mini-eval and the security check are too easy to rank strong models.
+- The mini-eval and the security check are too easy to rank strong models. LiveCodeBench ranks them, but needs a
+  64K+ answer limit for thinking models and hours per model.

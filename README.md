@@ -13,13 +13,13 @@ fast it runs.
 
 | Question | Answer (2026-11-25) | Details |
 |---|---|---|
-| Best model for a coding agent? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
-| Most thorough? | **Qwen3.8-Flash-Next on Splash**, 170–350 s per session. Q2_0 (66 GB): 8 of 8 issues in both Cline runs. Coder (58 GB): 7 of 8, 18/18 on security | [models](docs/findings/models.md) |
-| Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K | [models](docs/findings/models.md) |
+| Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context. Q2_0 (66 GB): 8 of 8 issues in both Cline runs, 104 tok/s at a 250K prompt. Coder (58 GB): 7 of 8, 18/18 on security. Sessions take 170–350 s | [models](docs/findings/models.md) |
+| Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
+| Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K. Slow past ~64K: 13 min to read 250K | [models](docs/findings/models.md) |
 | Fastest runtime? | **Splash**: ~2× llama.cpp and Strata on the same model, when a matching drafter exists. oMLX and DSpine were slower | [runtimes](docs/findings/runtimes.md) |
 | Does the harness matter? | Yes, 2–5× on the same model. Fastest on Splash: **pi** (49 s). Fastest on Strata: OpenCode (66 s) | [harnesses](docs/findings/harnesses.md) |
 | What matters most for agents? | **Prompt reuse across turns.** Without it, every harness ran 2.5–5.7× slower | [strata-prompt-cache](docs/findings/strata-prompt-cache.md) |
-| Long context on 48 GB? | 8 of 8 facts recalled at 99–240K by every model tested. Qwen3.6-35B on Splash: 100K read in ~56 s, 160–223 tok/s decode at that depth | [long-context](docs/findings/long-context.md) |
+| Long context on 48 GB? | 256K fits, and every model recalled 8 of 8 facts at 99–250K. Speed at depth depends on the attention design: Flash-Next (sparse attention) keeps 81% of its decode speed at 250K, KAT-Ornith 62%; dense 27B models take 13–15 min to read 250K | [long-context](docs/findings/long-context.md) |
 | Best model for security review? | Any good coder: 16–18 of 18 planted flaws, no refusals. Uncensored builds scored no higher | [security-review](docs/findings/security-review.md) |
 
 "Issues" are the real problems a model found in the review turn of the agent task, out of 8 verified by hand
@@ -62,8 +62,8 @@ Long answer: wall time to a complete answer for one fixed coding prompt (8,000-t
 
 | Goal | Script |
 |---|---|
-| Everyday coding agent | [`configs/splash/kat-ornith-agent.sh`](configs/splash/kat-ornith-agent.sh) · [guide](docs/guides/splash.md) |
-| Thorough reviews on 48 GB | [`configs/splash/flashnext-review.sh`](configs/splash/flashnext-review.sh) · [guide](docs/guides/splash.md) |
+| Fast agent, short tasks | [`configs/splash/kat-ornith-agent.sh`](configs/splash/kat-ornith-agent.sh) · [guide](docs/guides/splash.md) |
+| Long agent sessions and reviews (256K) | [`configs/splash/flashnext-review.sh`](configs/splash/flashnext-review.sh) · [guide](docs/guides/splash.md) |
 | Inkling-2-Mini | [`configs/splash/inkling.sh`](configs/splash/inkling.sh) |
 | A model Splash has no drafter for | [`configs/llama.cpp/`](configs/llama.cpp/) · [guide](docs/guides/llama-cpp.md) |
 | Connect Cline, Claude Code, pi or OpenCode | [`configs/agents/`](configs/agents/) · [guide](docs/guides/agents.md) |
