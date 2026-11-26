@@ -141,7 +141,9 @@ page under [findings/](findings/).
 - [ ] LM Studio (MLX engine) and mlx-lm on the same models (oMLX done: [runtimes](findings/runtimes.md)).
 - [ ] Session stats parser for oMLX and DSpine server logs (Splash only so far).
 - [ ] DSpine on the Qwen3.8-27B coding fine-tunes (pi-adapted) and with `--copy` for edits.
-- [ ] More models: Qwen3-Coder-30B-A3B.
+- [ ] More models: Qwen3-Coder-30B-A3B; SenseNova-Loop-9B (looped, needs OpenSenseNova's llama.cpp fork); NariQ
+  3-bit Qwen3.8-27B once a stock runtime loads it.
+- [ ] Inkling-2-Mini-Fast Q8 on the long session.
 - [x] Qwen3.8-Flash-Next on Splash with SSD expert streaming ([models](findings/models.md)).
 - [ ] Flash-Next: thinking off, to trade some quality for session time; a second Cline run of the Coder to settle Coder vs Q2_0.
 - [ ] Splash: Inkling tool call returned as text once; report upstream with a repro.

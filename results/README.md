@@ -24,7 +24,7 @@ Raw output of the scripts in [bench/](../bench/), one JSON per run. Findings tha
 **Labels** encode the setup: `<engine>-<model/quant>-<options>`, e.g. `splash-katornith-q4km-tb8k` (thinking budget
 8K), `strata-sq15-dspark`, `unsloth-llamacpp-iq4xs-dspark3`, `tiel-q4kxl-mtp1-rb8k` (llama.cpp, MTP n-max 1,
 reasoning budget 8K). Suffixes: `-r2` second run, `-lc` long-context run, `-sec3` security run (third version of the
-check), `-effortnone` / `-nothink` thinking off, `-expNN` an NN GB expert store, `-pc-*` persistent-cache runs,
+check), `-effortnone` / `-nothink` thinking off, `-think` the model's default thinking, `-clean` a rerun with the Mac idle, `-expNN` an NN GB expert store, `-pc-*` persistent-cache runs,
 `-ctx256k` run with `--max-context 256K`, `-ckpt` / `-0220` Strata with the #6627 checkpoint engine / stock 0.2.20.
 
 All runs: Apple M5 Pro, 48 GB, macOS 27.2 ([methodology](../docs/methodology.md)).

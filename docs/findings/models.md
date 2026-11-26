@@ -1,6 +1,6 @@
 # Which local model for coding on a 48 GB Mac?
 
-**Answer as of 2026-11-25.** All models ran on [Splash](runtimes.md) 1.7.2 on an M5 Pro (20-core GPU, 48 GB), with
+**Answer as of 2026-11-26.** All models ran on [Splash](runtimes.md) 1.7.2 (1.7.3 where marked) on an M5 Pro (20-core GPU, 48 GB), with
 the same prompts, graders and agent task ([methodology](../methodology.md)). Setup: [guides/splash](../guides/splash.md).
 
 | Use | Pick | Why |

@@ -11,7 +11,7 @@ fast it runs.
 
 ## Findings
 
-| Question | Answer (2026-11-25) | Details |
+| Question | Answer (2026-11-26) | Details |
 |---|---|---|
 | Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context for thorough work: in a 6-turn session that grew to 213K tokens it fixed all 4 real bugs (graded with upstream's tests), and it finds 7–8 of 8 issues in review. Swift-1.5 Q2_0: 20 min. **Fastest in pi: Qwen3.8-27B-pi-adapted**, the same 4 bugs in 8.6 min with half the base 27B's steps (base: 14.5 min), but 4–5 of 8 issues in review | [models](docs/findings/models.md) |
 | Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
@@ -70,7 +70,7 @@ Long answer: wall time to a complete answer for one fixed coding prompt (8,000-t
 |---|---|
 | Fast agent, short tasks | [`configs/splash/kat-ornith-agent.sh`](configs/splash/kat-ornith-agent.sh) · [guide](docs/guides/splash.md) |
 | Long agent sessions and reviews (256K) | [`configs/splash/flashnext-review.sh`](configs/splash/flashnext-review.sh) · [guide](docs/guides/splash.md) |
-| Inkling-2-Mini | [`configs/splash/inkling.sh`](configs/splash/inkling.sh) |
+| Inkling-2-Mini (the Fast fine-tune, thinking on) | [`configs/splash/inkling.sh`](configs/splash/inkling.sh) |
 | A model Splash has no drafter for | [`configs/llama.cpp/`](configs/llama.cpp/) · [guide](docs/guides/llama-cpp.md) |
 | Connect Cline, Claude Code, pi or OpenCode | [`configs/agents/`](configs/agents/) · [guide](docs/guides/agents.md) |
 

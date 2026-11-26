@@ -1,6 +1,6 @@
 # Guide: Splash on Apple Silicon
 
-[Splash](https://github.com/incoai/splash) 1.7.2 is the fastest runtime measured here ([runtimes](../findings/runtimes.md)).
+[Splash](https://github.com/incoai/splash) (1.7.2, 1.7.3 since 2026-11-26) is the fastest runtime measured here ([runtimes](../findings/runtimes.md)).
 It is a Metal-only engine with kernels written per model family and a trained [DFlash 2](https://inco.ai/blog/dflash2/)
 drafter for each family. It serves standard GGUF and MLX files.
 
@@ -14,7 +14,7 @@ brew install incoai/tap/splash
 |---|---|---|---|
 | Fast agent, short tasks | [`configs/splash/kat-ornith-agent.sh`](../../configs/splash/kat-ornith-agent.sh) | `mradermacher/KAT-Ornith-HERO-35B-A3B-Fusion-i1-GGUF` (i1-Q4_K_M, 21.7 GB) | `incoai/Qwen3.6-35B-A3B-DFlash2` (1 GB) |
 | Long agent sessions and reviews | [`configs/splash/flashnext-review.sh`](../../configs/splash/flashnext-review.sh) | `ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-GGUF`, folder `Q2_0` (66 GB) | `incoai/Qwen3.8-Flash-Next-DFlash2` (1.2 GB) |
-| Inkling-2-Mini | [`configs/splash/inkling.sh`](../../configs/splash/inkling.sh) | Unsloth's Inkling-2-Mini GGUF (UD-Q4_K_M) | `incoai/Inkling-2-Mini-DFlash2` (0.9 GB) |
+| Inkling-2-Mini | [`configs/splash/inkling.sh`](../../configs/splash/inkling.sh) | `Lucebox/Inkling-2-Mini-Fast-GGUF` (UD-Q8_K_XL, 22.9 GB), thinking on | `incoai/Inkling-2-Mini-DFlash2` (0.9 GB) |
 
 ```sh
 hf download incoai/Qwen3.6-35B-A3B-DFlash2 --local-dir ~/models/drafts/Qwen3.6-35B-A3B-DFlash2
@@ -38,7 +38,7 @@ its drafter; `splash pi`, `splash opencode` and `splash claude` start a harness 
 | `--draft-model` | the speed comes from the drafter: use the one for the model's family. A fine-tune far from its base (DavidAU's TURBO-Fable) drops to 1.7 accepted tokens per cycle and runs slower than llama.cpp |
 | `--served-model-name NAME` | Splash rejects model names it doesn't serve. Cline's CLI over ACP always requests `gpt-4o`; serve under that name for it |
 | `--thinking-token-budget 8192` | caps thinking per request for the Qwen3.6 and Flash-Next models; agent turns stay bounded |
-| `--default-reasoning-effort none` | thinking off unless a request asks for it (Inkling, the Qwen3.8-27B fine-tunes) |
+| `--default-reasoning-effort none` | thinking off unless a request asks for it (base Inkling, the Qwen3.8-27B fine-tunes). Inkling-2-Mini-Fast thinks briefly, so keep it on there |
 | `--expert-memory` / `--max-memory` | for MoE files larger than memory (Flash-Next): without them Splash tries to load every expert, swaps, then refuses to start. 20G / 36G worked on 48 GB |
 | `--persistent-cache` | keeps the prompt cache across restarts; it only helps from the same working directory, because harnesses put it in the system prompt |
 | `--idle-release off` | keeps the model loaded between agent turns |
