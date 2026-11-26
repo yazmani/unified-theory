@@ -1,0 +1,24 @@
+{
+ "label": "splash-inkling-fast-iq4nl16-clean",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-26 14:51:59",
+ "wall_tps_best": 141.6,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1174,
+   "wall_s": 8.29,
+   "wall_tps": 141.6,
+   "visible_chars": 2868,
+   "reasoning_chars": 559
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1239,
+   "wall_s": 8.93,
+   "wall_tps": 138.8,
+   "visible_chars": 3084,
+   "reasoning_chars": 572
+  }
+ ]
+}

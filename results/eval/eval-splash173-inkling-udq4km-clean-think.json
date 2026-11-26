@@ -1,0 +1,93 @@
+{
+ "label": "splash173-inkling-udq4km-clean-think",
+ "extra": {
+  "model": "gpt-4o"
+ },
+ "when": "2026-11-26 14:34:57",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 180.24013845669106,
+ "tokens_total": 27281,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 3.7567810830660164,
+   "completion_tokens": 425,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 6.272234707837924,
+   "completion_tokens": 775,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 3.764088375028223,
+   "completion_tokens": 420,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 12.29117591585964,
+   "completion_tokens": 1335,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": false,
+   "wall_s": 81.70941495802253,
+   "completion_tokens": 16384,
+   "finish": "length",
+   "err": "Traceback (most recent call last):\n  File \"parse_duration.py\", line 3, in <module>\n    assert parse_duration('1h30m')==5400\n           ^^^^^^^^^^^^^^\nNameError: name 'parse_duration' is not defined\n"
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 18.097341541899368,
+   "completion_tokens": 1928,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 9.326898332918063,
+   "completion_tokens": 994,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 7.653896208154038,
+   "completion_tokens": 941,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 20.177198791876435,
+   "completion_tokens": 2271,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 17.191108542028815,
+   "completion_tokens": 1808,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

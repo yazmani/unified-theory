@@ -1,0 +1,94 @@
+{
+ "label": "splash173-inkling-udq4km-clean-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-26 14:30:24",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 82.96367595577613,
+ "tokens_total": 9196,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 2.6968734997790307,
+   "completion_tokens": 296,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 4.0909273331053555,
+   "completion_tokens": 557,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 2.2943862080574036,
+   "completion_tokens": 305,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 4.260420250007883,
+   "completion_tokens": 534,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 24.663552416022867,
+   "completion_tokens": 2556,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 12.56386658293195,
+   "completion_tokens": 1268,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 4.31777137494646,
+   "completion_tokens": 530,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 4.690509041072801,
+   "completion_tokens": 596,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 18.01417350000702,
+   "completion_tokens": 1955,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 5.371195749845356,
+   "completion_tokens": 599,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

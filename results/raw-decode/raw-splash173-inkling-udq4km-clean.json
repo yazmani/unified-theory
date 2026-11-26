@@ -1,0 +1,24 @@
+{
+ "label": "splash173-inkling-udq4km-clean",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-26 14:30:55",
+ "wall_tps_best": 97.1,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1500,
+   "wall_s": 15.83,
+   "wall_tps": 94.8,
+   "visible_chars": 733,
+   "reasoning_chars": 4215
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1500,
+   "wall_s": 15.45,
+   "wall_tps": 97.1,
+   "visible_chars": 0,
+   "reasoning_chars": 4706
+  }
+ ]
+}

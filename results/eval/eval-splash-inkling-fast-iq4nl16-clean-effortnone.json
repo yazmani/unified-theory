@@ -1,0 +1,94 @@
+{
+ "label": "splash-inkling-fast-iq4nl16-clean-effortnone",
+ "extra": {
+  "model": "gpt-4o",
+  "reasoning_effort": "none"
+ },
+ "when": "2026-11-26 14:51:42",
+ "passed": 9,
+ "total": 10,
+ "wall_s_total": 27.145980414701626,
+ "tokens_total": 3684,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 1.0755451251752675,
+   "completion_tokens": 141,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 1.771373082883656,
+   "completion_tokens": 286,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 1.3772133328020573,
+   "completion_tokens": 201,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 1.852941457880661,
+   "completion_tokens": 261,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 3.39164474979043,
+   "completion_tokens": 395,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 5.020061624934897,
+   "completion_tokens": 678,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": false,
+   "wall_s": 1.875963500002399,
+   "completion_tokens": 231,
+   "finish": "stop",
+   "err": "^^^^^^\n  File \"flatten.py\", line 13, in flatten\n    _flatten(obj, '')\n    ~~~~~~~~^^^^^^^^^\n  File \"flatten.py\", line 8, in _flatten\n    sub = _flatten(value, new_key)\n  File \"flatten.py\", line 9, in _flatten\n    result.update(sub)\n    ~~~~~~~~~~~~~^^^^^\nTypeError: 'NoneType' object is not iterable\n"
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 2.352925416082144,
+   "completion_tokens": 372,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 4.67834125016816,
+   "completion_tokens": 619,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 3.7499708749819547,
+   "completion_tokens": 500,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

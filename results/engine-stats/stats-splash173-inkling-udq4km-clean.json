@@ -1,0 +1,22 @@
+{
+ "label": "splash173-inkling-udq4km-clean",
+ "requests": 95,
+ "generated_tokens": 90701,
+ "decode_peak_tps": 200.9,
+ "decode_median_tps": 80.8,
+ "decode_weighted_tps": 112.3,
+ "decode_share_over_100": 0.32,
+ "prefill_peak_tps": 1848,
+ "prefill_mean_tps": 1285,
+ "prefill_mean_tps_2k_plus": 1355,
+ "prefix_cache_hit": 0.949,
+ "ttft_p50_s": 0.4,
+ "ttft_p95_s": 3.0,
+ "largest_prompt": {
+  "input": 72440,
+  "cached": 72224,
+  "ttft_s": 0.3,
+  "decode_tps": 55.1
+ },
+ "accept_tokens_per_cycle": 4.31
+}

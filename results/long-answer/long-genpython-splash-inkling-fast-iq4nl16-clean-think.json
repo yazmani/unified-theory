@@ -1,0 +1,23 @@
+{
+ "label": "splash-inkling-fast-iq4nl16-clean-think",
+ "wall_s": 12.568679874995723,
+ "usage": {
+  "prompt_tokens": 51,
+  "completion_tokens": 1534,
+  "total_tokens": 1585,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "prefix_tokens": 0,
+   "state_source": null,
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 260
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 123.03083451261291,
+ "content_chars": 3958,
+ "reasoning_chars": 856,
+ "content": "```python\n\"\"\"Thread-safe LRU cache with TTL expiry and decorator interface.\"\"\"\n\nfrom __future__ import annotations\n\nimport functools\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Hashable, Optional, TypeVar, overload\n\nT = TypeVar(\"T\")\nK = TypeVar(\"K\", bound=Hashable)\nV = TypeVar(\"V\")\n\n\nclass LRUCache:\n    \"\"\"A thread-safe least-recently-used cache with per-entry TTL expiry.\n\n    Args:\n        maxsize: Maximum number of entries to retain. Must be positive.\n        ttl: Time-to-live in seconds for each entry. Must be positive.\n\n    Raises:\n        ValueError: If maxsize or ttl are not positive.\n    \"\"\"\n\n    def __init__(self, maxsize: int = 128, ttl: float = 60.0) -> None:\n        if maxsize <= 0:\n            raise ValueError(\"maxsize must be a positive integer\")\n        if ttl <= 0:\n            raise ValueError(\"ttl must be a positive number of seconds\")\n        self.maxsize = maxsize\n        self.ttl = float(ttl)\n        self._data: \"OrderedDict[Hashable, tuple[Any, float]]\" = OrderedDict()\n        self._lock = threading.RLock()\n\n    def _is_expired(self, expires_at: float) -> bool:\n        return time.monotonic() >= expires_at\n\n    def get(self, key: Hashable, default: Optional[V] = None) -> Optional[V]:\n        \"\"\"Return the cached value for key, or default if missing/expired.\n\n        Accessing a valid entry marks it as most recently used.\n        \"\"\"\n        with self._lock:\n            entry = self._data.get(key)\n            if entry is None:\n                return default\n            value, expires_at = entry\n            if self._is_expired(expires_at):\n                del self._data[key]\n                return default\n            self._data.move_to_end(key)\n            return value\n\n    def set(self, key: Hashable, value: V) -> V:\n        \"\"\"Store value under key, refreshing its recency and TTL.\"\"\"\n        with self._lock:\n            self._data[key] = (value, time.monotonic() + self.ttl)\n            self._data.move_to_end(key)\n            while len(self._data) > self.maxsize:\n                self._data.popitem(last=False)\n            return value\n\n    def delete(self, key: Hashable) -> bool:\n        \"\"\"Remove key if present. Returns True if it existed.\"\"\"\n        with self._lock:\n            return self._data.pop(key, None) is not None\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._data.clear()\n\n    def __contains__(self, key: Hashable) -> bool:\n        return self.get(key, _MISSING) is not _MISSING\n\n    def __len__(self) -> int:\n        with self._lock:\n            self._purge_expired()\n            return len(self._data)\n\n    def _purge_expired(self) -> None:\n        expired = [k for k, (_, exp) in self._data.items() if self._is_expired(exp)]\n        for k in expired:\n            del self._data[k]\n\n\n_MISSING = object()\n\n\ndef lru_cache(\n    maxsize: int = 128,\n    ttl: float = 60.0,\n) -> Callable[[Callable[..., V]], Callable[..., V]]:\n    \"\"\"Decorator caching a function's return value by arguments.\n\n    Args:\n        maxsize: Maximum number of distinct argument tuples to retain.\n        ttl: Time-to-live in seconds for each cached result.\n\n    Returns:\n        A decorator that wraps the function with LRU + TTL caching.\n    \"\"\"\n\n    def decorator(func: Callable[..., V]) -> Callable[..., V]:\n        cache = LRUCache(maxsize=maxsize, ttl=ttl)\n\n        @functools.wraps(func)\n        def wrapper(*args: Any, **kwargs: Any) -> V:\n            key = (args, tuple(sorted(kwargs.items())))\n            cached = cache.get(key, _MISSING)\n            if cached is not _MISSING:\n                return cached  # type: ignore[return-value]\n            result = func(*args, **kwargs)\n            cache.set(key, result)\n            return result\n\n        wrapper.cache = cache  # type: ignore[attr-defined]\n        return wrapper\n\n    return decorator\n\n\n__all__ = [\"LRUCache\", \"lru_cache\"]\n```"
+}

@@ -1,0 +1,42 @@
+{
+ "label": "splash-inkling-fast-iq4nl-clean-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-26 14:50:05",
+ "turns": 3,
+ "total_wall_s": 42.9,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 17.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 5,
+   "answer_chars": 1946,
+   "prompt_tokens": 36085,
+   "cached_tokens": 27392
+  },
+  {
+   "turn": 2,
+   "wall_s": 13.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 1,
+   "answer_chars": 1139,
+   "prompt_tokens": 20059,
+   "cached_tokens": 19328
+  },
+  {
+   "turn": 3,
+   "wall_s": 12.2,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 0,
+   "answer_chars": 2310,
+   "prompt_tokens": 11025,
+   "cached_tokens": 11008
+  }
+ ]
+}

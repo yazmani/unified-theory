@@ -1,0 +1,23 @@
+{
+ "label": "splash-inkling-fast-iq4nl16-clean-effortnone",
+ "wall_s": 8.972801000112668,
+ "usage": {
+  "prompt_tokens": 49,
+  "completion_tokens": 1182,
+  "total_tokens": 1231,
+  "prompt_tokens_details": {
+   "cached_tokens": 32,
+   "prefix_tokens": 32,
+   "state_source": "memory",
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 133
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 132.63560193371703,
+ "content_chars": 3095,
+ "reasoning_chars": 540,
+ "content": "import threading\nimport time\nfrom collections import OrderedDict\nfrom functools import wraps\nfrom typing import Any, Callable, Dict, Hashable, Optional, TypeVar\n\nT = TypeVar(\"T\")\nK = TypeVar(\"K\", bound=Hashable)\n\nclass LRUCache:\n    \"\"\"Thread-safe LRU cache with per-entry TTL expiry.\"\"\"\n\n    def __init__(self, maxsize: int = 128, ttl: float = 60.0) -> None:\n        if maxsize < 1:\n            raise ValueError(\"maxsize must be >= 1\")\n        if ttl <= 0:\n            raise ValueError(\"ttl must be > 0\")\n        self.maxsize = maxsize\n        self.ttl = ttl\n        self._data: \"OrderedDict[K, tuple[Any, float]]\" = OrderedDict()\n        self._lock = threading.RLock()\n\n    def _expired(self, expires_at: float) -> bool:\n        return time.monotonic() >= expires_at\n\n    def get(self, key: K) -> Optional[Any]:\n        \"\"\"Return a cached value if present and not expired.\"\"\"\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return None\n            value, expires_at = item\n            if self._expired(expires_at):\n                del self._data[key]\n                return None\n            self._data.move_to_end(key)\n            return value\n\n    def set(self, key: K, value: Any, ttl: Optional[float] = None) -> None:\n        \"\"\"Store a value, evicting the least recently used entry if needed.\"\"\"\n        ttl_value = self.ttl if ttl is None else ttl\n        if ttl_value <= 0:\n            raise ValueError(\"ttl must be > 0\")\n        with self._lock:\n            self._data[key] = (value, time.monotonic() + ttl_value)\n            self._data.move_to_end(key)\n            while len(self._data) > self.maxsize:\n                self._data.popitem(last=False)\n\n    def get_or_set(self, key: K, factory: Callable[[], Any], ttl: Optional[float] = None) -> Any:\n        \"\"\"Return cached value or compute, store, and return it.\"\"\"\n        cached = self.get(key)\n        if cached is not None:\n            return cached\n        value = factory()\n        self.set(key, value, ttl=ttl)\n        return value\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._data.clear()\n\n    def __len__(self) -> int:\n        with self._lock:\n            self._purge_expired()\n            return len(self._data)\n\n    def _purge_expired(self) -> None:\n        expired = [k for k, (_, exp) in self._data.items() if self._expired(exp)]\n        for k in expired:\n            del self._data[k]\n\ndef lru_cache(maxsize: int = 128, ttl: float = 60.0) -> Callable[[Callable[..., T]], Callable[..., T]]:\n    \"\"\"Decorator caching function results by arguments with LRU eviction and TTL.\"\"\"\n    def decorator(func: Callable[..., T]) -> Callable[..., T]:\n        cache = LRUCache(maxsize=maxsize, ttl=ttl)\n\n        @wraps(func)\n        def wrapper(*args: Any, **kwargs: Any) -> T:\n            key = (args, tuple(sorted(kwargs.items())))\n            return cache.get_or_set(key, lambda: func(*args, **kwargs))\n\n        wrapper.cache = cache  # type: ignore[attr-defined]\n        return wrapper\n\n    return decorator"
+}

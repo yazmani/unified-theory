@@ -1,0 +1,42 @@
+{
+ "label": "splash173-inkling-udq4km-clean-pi",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000",
+ "context": 131072,
+ "when": "2026-11-26 14:44:47",
+ "turns": 3,
+ "total_wall_s": 211.2,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 53.0,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 9,
+   "answer_chars": 2955,
+   "prompt_tokens": 91996,
+   "cached_tokens": 78272
+  },
+  {
+   "turn": 2,
+   "wall_s": 15.5,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 4,
+   "answer_chars": 625,
+   "prompt_tokens": 89669,
+   "cached_tokens": 87712
+  },
+  {
+   "turn": 3,
+   "wall_s": 142.7,
+   "rc": 0,
+   "stop": "stop",
+   "tool_calls": 16,
+   "answer_chars": 5379,
+   "prompt_tokens": 524117,
+   "cached_tokens": 503264
+  }
+ ]
+}

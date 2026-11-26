@@ -11,7 +11,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 | Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
 | Fewer refusals | **HauhauCS Qwen3.6-35B-A3B Aggressive** | 242 tok/s, security score equal to the best coders |
-| Inkling-2-Mini | **UD-Q4_K_M** | Same speed as UD-IQ4_XS (109 tok/s wall-clock), higher precision |
+| Inkling-2-Mini | **Lucebox Inkling-2-Mini-Fast** IQ4_NL-16GB (15 GB) | A fine-tune that thinks about a quarter as long: with thinking on, Cline in 71 s instead of 361 s, mini-eval 10/10 in 26 s instead of 9/10 in 180 s. 142 tok/s wall-clock (base UD-Q4_K_M: 97). Reviews no better (3–7 of 8 issues), and it skipped the commit in 3 of 8 sessions ([finding 16](#findings)) |
 
 ## Results
 
@@ -51,6 +51,11 @@ Two values in a cell are two runs. — means not run.
 | Flint UD-Q4_K_XL (40B MoE, ~2.5B active), thinking budget 8K | 139 | 10/10 | **63 s** · 8/9 · 4 | 88 s · 9/9 · 1 | — | — |
 | Inkling-2-Mini UD-IQ4_XS, thinking off | 101 (109–116) | 10/10 | 94 / 75 s · 9/9, 3/9† · 6, 6 | 60 s · 3/9‡ · 4 | — | 1,213 / 99 · 8/8 |
 | Inkling-2-Mini UD-Q4_K_M, thinking off | 92 (109) | 10/10 | 72 s · 9/9 · 4 | 70 s · 9/9 · 6 | — | 1,218 / 96 · 8/8 |
+| Inkling-2-Mini UD-Q4_K_M, thinking on (Splash 1.7.3) | 92 (97) | 10/10 | 361 s · 9/9 · 5 | 211 s · 9/9 · 5 | — | — |
+| **Inkling-2-Mini-Fast IQ4_NL** (Lucebox, 17.6 GB), thinking on (Splash 1.7.3) | 101 (122) | 10/10 | 102 s · 9/9 · **7** | 43 s · 3/9§ · 2 | — | — |
+| same, thinking off | | | 58 s · 3/9§ · 5 | 35 s · 8/9 · 4 | — | — |
+| **Inkling-2-Mini-Fast IQ4_NL-16GB** (all IQ4_NL, 15 GB), thinking on (Splash 1.7.3) | 122 (142) | 9/10 | 71 s · 9/9 · 3 | 34 s · 3/9§ · 4 | — | — |
+| same, thinking off | | | 37 s · 8/9 · 4 | 53 s · 8/9 · 3 | — | — |
 | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB), thinking off | 96 (107) | 9/10 | 154 s · 9/9 · 5 | 54 s · 8/9 · 5 | 16/18 · 3/3 | 512 / 75 · 8/8 |
 | Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB), thinking budget 8K | 145 (160) | 9/10 | 268 s · 9/9 · 5 | 176 s · 9/9 · 4 | 16/18 · 3/3 | 400 / 99 · 8/8 |
 | Qwen3.8-27B (base, no adapter) Q4_K_M, thinking off | 85 | 10/10 | — | 64 s · 8/9 · 3 | — | — |
@@ -61,6 +66,7 @@ Two values in a cell are two runs. — means not run.
 
 † Splash returned one tool call as text, so the commit turn ended without running it.
 ‡ The model stopped to ask for a git identity instead of setting one.
+§ Answered the commit turn without committing.
 
 Outside Splash, Qwen3.8-27B 4-bit with Tencent's DSpine drafter found the most issues at short context (Cline 166 s ·
 9/9 · 7, pi 115 s · 8) but decoded at 18 tok/s at 100K ([runtimes](runtimes.md)).
@@ -167,6 +173,23 @@ Engine stats per run (`tools/session_stats.py`; decode peak / token-weighted mea
     (release_v6, EvalScope 1.15.0, thinking on, temperature 0.6), stopped at 44: 22 passed. All 18 answers that hit
     the 32K limit failed, 13 of them hard problems; of the 26 that finished, 22 passed. A fair run needs a 64–96K
     answer limit. Raw data: [results/livecodebench](../../results/livecodebench/).
+16. **Inkling-2-Mini-Fast keeps the answers and cuts the thinking.** Lucebox fine-tuned Inkling-2-Mini to reason
+    concisely (card: half the tokens, 2× faster, same or better accuracy). On Splash 1.7.3 with thinking on, back to
+    back on an idle Mac:
+
+    | Thinking on | Base UD-Q4_K_M | Fast IQ4_NL | Fast IQ4_NL-16GB |
+    |---|---|---|---|
+    | Mini-eval | 9/10 · 180 s · 27.3K tokens | 10/10 · 31 s · 3.8K | 10/10 · 26 s · 3.5K |
+    | Long answer (reasoning tokens) | 61 s (5,180) | 17 s (824) | 13 s (260) |
+    | Cline | 361 s | 102 s | 71 s |
+    | pi | 211 s | 43 s | 34 s |
+    | Tokens written, whole run | 90.7K | 25.1K | 23.4K |
+
+    With thinking on, Fast runs agent sessions 3–6× faster than base and about as fast as base with thinking off
+    (72 / 70 s). Base still reasons with `reasoning_effort: none` (1,557 tokens on the long answer; Fast: 134).
+    Quality didn't rise: 3–7 of 8 issues against base's 4–6. Fast also skipped the commit in 3 of its 8 sessions
+    (both builds in pi with thinking on, IQ4_NL in Cline with thinking off); base committed in all of them. The all-IQ4_NL 16GB build
+    decodes faster (142 vs 122 tok/s wall-clock) at the same results. One run each.
 
 Before Splash (2026-11-23), the best agent setups were Inkling-2-Mini on a patched Strata (105–119 s per Cline
 session) and Tiel-Coder on llama.cpp with MTP (142–168 s, 7 of 8 issues once). Those runs and the llama.cpp settings
@@ -189,6 +212,7 @@ that mattered (MTP n-max 1, a reasoning budget) are on the [archived agent-model
 | Qwen3.8-Flash-Next Coder | `ISTA-DASLab/Qwen3.8-Flash-Next-GSQ-RCO-Coder-GGUF`, folder `IQ1_M` (29.6 + 28.8 GB) |
 | Qwen3.8-27B GSQ-RCO | `ISTA-DASLab/Qwen3.8-27B-GSQ-RCO-GGUF` (IQ3_S, 11.8 GB), drafter `incoai/Qwen3.8-27B-DFlash2` |
 | Inkling-2-Mini | Unsloth's Inkling-2-Mini GGUF (UD-Q4_K_M, UD-IQ4_XS) |
+| Inkling-2-Mini-Fast | `Lucebox/Inkling-2-Mini-Fast-GGUF` (IQ4_NL, IQ4_NL-16GB), drafter `incoai/Inkling-2-Mini-DFlash2` |
 | Ternary Bonsai 2.5 27B | `prism-ml/Ternary-Bonsai-2.5-27B-GGUF` (`PQ2_0-mtp` for Splash, `Q2_0-mtp` for llama.cpp), drafter `incoai/Qwen3.8-27B-DFlash2` |
 | Kolibri 1.1 | `Aleph-Alpha/Kolibri-1.1-GGUF` (Q3_K_M, IQ2_XS-GSQ-RCO-2.25bpw); needs llama.cpp PR #32891 |
 | Qwen3.8-27B-pi-adapted | requantized here from its published Q8_0 merge to Q4_K_M (no imatrix) |

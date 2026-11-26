@@ -1,0 +1,23 @@
+{
+ "label": "splash-inkling-fast-iq4nl-clean-think",
+ "wall_s": 16.751089124940336,
+ "usage": {
+  "prompt_tokens": 51,
+  "completion_tokens": 1821,
+  "total_tokens": 1872,
+  "prompt_tokens_details": {
+   "cached_tokens": 0,
+   "prefix_tokens": 0,
+   "state_source": null,
+   "lost_state": false
+  },
+  "completion_tokens_details": {
+   "reasoning_tokens": 824
+  }
+ },
+ "finish": "stop",
+ "engine_tps": 109.36295298721001,
+ "content_chars": 3062,
+ "reasoning_chars": 2636,
+ "content": "from __future__ import annotations\n\nimport functools\nimport threading\nimport time\nfrom collections import OrderedDict\nfrom typing import Any, Callable, Hashable, ParamSpec, TypeVar\n\nP = ParamSpec(\"P\")\nR = TypeVar(\"R\")\n\n_MISS = object()\n\n\nclass LRUCache:\n    \"\"\"Thread-safe least-recently-used cache with per-entry TTL expiry.\"\"\"\n\n    def __init__(self, maxsize: int = 128, ttl: float = 60.0) -> None:\n        if maxsize < 1:\n            raise ValueError(\"maxsize must be >= 1\")\n        if ttl < 0:\n            raise ValueError(\"ttl must be >= 0\")\n        self.maxsize = maxsize\n        self.ttl = ttl\n        self._data: OrderedDict[Hashable, tuple[Any, float]] = OrderedDict()\n        self._lock = threading.RLock()\n\n    def get(self, key: Hashable) -> Any:\n        \"\"\"Return the cached value for key, or None if missing/expired.\"\"\"\n        with self._lock:\n            item = self._data.get(key)\n            if item is None:\n                return None\n            value, expires_at = item\n            if expires_at <= time.monotonic():\n                del self._data[key]\n                return None\n            self._data.move_to_end(key)\n            return value\n\n    def set(self, key: Hashable, value: Any) -> None:\n        \"\"\"Store value under key, refreshing its LRU position and expiry.\"\"\"\n        with self._lock:\n            expires_at = time.monotonic() + self.ttl if self.ttl > 0 else float(\"inf\")\n            self._data[key] = (value, expires_at)\n            self._data.move_to_end(key)\n            while len(self._data) > self.maxsize:\n                self._data.popitem(last=False)\n\n    def clear(self) -> None:\n        \"\"\"Remove all entries.\"\"\"\n        with self._lock:\n            self._data.clear()\n\n    def __len__(self) -> int:\n        with self._lock:\n            return len(self._data)\n\n\ndef cache(\n    maxsize: int = 128,\n    ttl: float = 60.0,\n) -> Callable[[Callable[P, R]], Callable[P, R]]:\n    \"\"\"\n    Decorator that caches a function's return value.\n\n    Args:\n        maxsize: Maximum number of cached entries.\n        ttl: Seconds a cached entry remains valid. Use 0 for no expiry.\n\n    Returns:\n        A wrapped callable with the same signature as the original function.\n    \"\"\"\n\n    def decorator(func: Callable[P, R]) -> Callable[P, R]:\n        _cache = LRUCache(maxsize=maxsize, ttl=ttl)\n\n        @functools.wraps(func)\n        def wrapper(*args: P.args, **kwargs: P.kwargs) -> R:\n            key = (args, tuple(sorted(kwargs.items())))\n            with _cache._lock:\n                item = _cache._data.get(key)\n                if item is not None:\n                    value, expires_at = item\n                    if expires_at > time.monotonic():\n                        _cache._data.move_to_end(key)\n                        return value\n                    del _cache._data[key]\n\n            value = func(*args, **kwargs)\n            _cache.set(key, value)\n            return value\n\n        wrapper.cache = _cache  # type: ignore[attr-defined]\n        return wrapper\n\n    return decorator\n\n\n__all__ = [\"LRUCache\", \"cache\"]"
+}

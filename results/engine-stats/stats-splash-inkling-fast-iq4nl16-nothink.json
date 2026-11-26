@@ -1,0 +1,22 @@
+{
+ "label": "splash-inkling-fast-iq4nl16-nothink",
+ "requests": 28,
+ "generated_tokens": 5466,
+ "decode_peak_tps": 168.7,
+ "decode_median_tps": 91.5,
+ "decode_weighted_tps": 84.5,
+ "decode_share_over_100": 0.39,
+ "prefill_peak_tps": 1848,
+ "prefill_mean_tps": 1509,
+ "prefill_mean_tps_2k_plus": 1673,
+ "prefix_cache_hit": 0.899,
+ "ttft_p50_s": 0.5,
+ "ttft_p95_s": 2.0,
+ "largest_prompt": {
+  "input": 19740,
+  "cached": 18464,
+  "ttft_s": 0.9,
+  "decode_tps": 68.6
+ },
+ "accept_tokens_per_cycle": 3.86
+}

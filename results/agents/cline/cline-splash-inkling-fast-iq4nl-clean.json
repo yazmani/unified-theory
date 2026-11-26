@@ -1,0 +1,32 @@
+{
+ "label": "splash-inkling-fast-iq4nl-clean",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-26 14:49:22",
+ "turns": 3,
+ "total_wall_s": 101.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 20.7,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 2169
+  },
+  {
+   "turn": 2,
+   "wall_s": 26.6,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 1067
+  },
+  {
+   "turn": 3,
+   "wall_s": 54.2,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 5746
+  }
+ ]
+}

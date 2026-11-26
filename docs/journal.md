@@ -116,6 +116,16 @@ page under [findings/](findings/).
 - `bench/` reorganized into speed/, agents/, long_session/, context/ and security/; `session_stats.py` moved to
   tools/.
 
+## 2026-11-26
+
+- Splash upgraded to 1.7.3: same speed on KAT-Ornith (217 tok/s wall-clock).
+- Lucebox Inkling-2-Mini-Fast (concise-reasoning fine-tune, IQ4_NL and IQ4_NL-16GB) against base UD-Q4_K_M, with
+  thinking on: same answers in a quarter of the time, agent sessions 3–6× faster, reviews no better
+  → [models](findings/models.md), finding 16
+- A first pass ran while other jobs (compiles, containers) used the Mac: swap reached 13.6 GB and base Inkling's
+  agent sessions took 2–6× longer. Discarded and rerun with the Mac idle; swap stayed flat through the rerun.
+- NariQ 3-bit (Qwen3.8-27B) needs nari-labs' llama.cpp fork; stock llama.cpp, Ollama and LM Studio don't load it yet.
+
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
