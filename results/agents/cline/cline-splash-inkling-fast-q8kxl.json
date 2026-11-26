@@ -1,0 +1,32 @@
+{
+ "label": "splash-inkling-fast-q8kxl",
+ "model": "gpt-4o",
+ "base_url": "http://127.0.0.1:8000/v1",
+ "context": 131072,
+ "when": "2026-11-26 16:47:27",
+ "turns": 3,
+ "total_wall_s": 82.5,
+ "rows": [
+  {
+   "turn": 1,
+   "wall_s": 21.6,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 1956
+  },
+  {
+   "turn": 2,
+   "wall_s": 18.9,
+   "stop": "end_turn",
+   "tool_calls": 5,
+   "answer_chars": 1000
+  },
+  {
+   "turn": 3,
+   "wall_s": 42.0,
+   "stop": "end_turn",
+   "tool_calls": 3,
+   "answer_chars": 5640
+  }
+ ]
+}

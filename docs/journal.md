@@ -122,6 +122,8 @@ page under [findings/](findings/).
 - Lucebox Inkling-2-Mini-Fast (concise-reasoning fine-tune, IQ4_NL and IQ4_NL-16GB) against base UD-Q4_K_M, with
   thinking on: same answers in a quarter of the time, agent sessions 3–6× faster, reviews no better
   → [models](findings/models.md), finding 16
+- Inkling-2-Mini-Fast UD-Q8_K_XL: the 4-bit builds skipped the commit in 4 of 10 agent sessions, Q8 in none of 4;
+  reviews the same (4–5 of 8). Q8 is the agent pick, IQ4_NL-16GB the fastest for chat.
 - A first pass ran while other jobs (compiles, containers) used the Mac: swap reached 13.6 GB and base Inkling's
   agent sessions took 2–6× longer. Discarded and rerun with the Mac idle; swap stayed flat through the rerun.
 - NariQ 3-bit (Qwen3.8-27B) needs nari-labs' llama.cpp fork; stock llama.cpp, Ollama and LM Studio don't load it yet.

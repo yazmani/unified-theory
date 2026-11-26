@@ -1,0 +1,24 @@
+{
+ "label": "splash-inkling-fast-q8kxl",
+ "extra": "{\"reasoning_effort\":\"none\"}",
+ "when": "2026-11-26 16:44:49",
+ "wall_tps_best": 106.7,
+ "rows": [
+  {
+   "run": 0,
+   "completion_tokens": 1320,
+   "wall_s": 12.37,
+   "wall_tps": 106.7,
+   "visible_chars": 3266,
+   "reasoning_chars": 509
+  },
+  {
+   "run": 1,
+   "completion_tokens": 1241,
+   "wall_s": 12.31,
+   "wall_tps": 100.8,
+   "visible_chars": 3027,
+   "reasoning_chars": 509
+  }
+ ]
+}

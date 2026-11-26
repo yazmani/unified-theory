@@ -1,0 +1,22 @@
+{
+ "label": "splash-inkling-fast-q8kxl",
+ "requests": 63,
+ "generated_tokens": 22714,
+ "decode_peak_tps": 132.5,
+ "decode_median_tps": 90.5,
+ "decode_weighted_tps": 88.5,
+ "decode_share_over_100": 0.4,
+ "prefill_peak_tps": 1788,
+ "prefill_mean_tps": 1389,
+ "prefill_mean_tps_2k_plus": 1578,
+ "prefix_cache_hit": 0.888,
+ "ttft_p50_s": 0.2,
+ "ttft_p95_s": 2.0,
+ "largest_prompt": {
+  "input": 23444,
+  "cached": 20544,
+  "ttft_s": 2.1,
+  "decode_tps": 50.6
+ },
+ "accept_tokens_per_cycle": 4.84
+}

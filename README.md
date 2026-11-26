@@ -41,6 +41,7 @@ fast it runs.
 | Qwen3.8-Flash-Next GSQ-RCO Coder (58 GB, all in memory) | Splash 1.7.2 | 124 | 9 s | 9/10 |
 | Inkling-2-Mini-Fast IQ4_NL-16GB (Lucebox) | Splash 1.7.3 | 122 | 9 s | 9/10 |
 | Inkling-2-Mini-Fast IQ4_NL (Lucebox) | Splash 1.7.3 | 101 | 9 s | 10/10 |
+| Inkling-2-Mini-Fast UD-Q8_K_XL (Lucebox) | Splash 1.7.3 | 84 | 10 s | 10/10 |
 | Inkling-2-Mini UD-IQ4_XS | Splash 1.7.2 | 101 | 24 s | 10/10 |
 | Ternary Bonsai 2.5 27B PQ2_0 (7.5 GB) | Splash 1.7.2 | 145 | 10 s | 9/10 |
 | Qwen3.8-27B GSQ-RCO IQ3_S (11.8 GB) | Splash 1.7.2 | 96 | 14 s | 9/10 |
