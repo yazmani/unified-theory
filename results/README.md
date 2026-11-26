@@ -17,6 +17,7 @@ Raw output of the scripts in [bench/](../bench/), one JSON per run. Findings tha
 | `agents/harness/` | `harness_bench.py` | `harness-<harness>-<label>.json` or `harness-<label>-<harness>.json` (timing, counts, cached tokens) |
 | `agents/long-session/` | `harness_bench.py` + `long_session/grade.py` | `longsess-<label>-<harness>.json` (timing, tokens per turn), `grade-<label>-<harness>.json` (bugs fixed, test failures, commit) |
 | `agents/cline-session-summary.json` | private grader | generic quality scores for the early Cline runs |
+| `bugfix/` | `bench/bugfix/run.py` | `bugfix-<label>.json`: pass rate with 95% interval, and per task and run: resolved, tests passed, time, tool calls, tokens (no code) |
 | `livecodebench/` | EvalScope `live_code_bench`, graded with its `codegen_metrics` | `lcb-<label>-<window>.json`: settings, totals, and difficulty / pass / output tokens per problem (no code) |
 | `llama-bench/` | `llama-bench` | Markdown tables |
 | `invalid/` | — | smoke and debug runs kept for the record; not used in any finding |

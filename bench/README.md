@@ -12,6 +12,7 @@ one JSON file under `results/`. Pure standard library except where noted. Run fr
 | `agents/` | `cline_bench.py` + `acp_client.py` | Cline CLI over ACP on a real multi-turn task, in a sandbox copy | `results/agents/cline/` |
 | | `harness_bench.py` | the same task through Claude Code, pi or OpenCode | `results/agents/harness/` |
 | | `grade_template.py` | template for your private agent-task grader | — |
+| `bugfix/` | `build.py`, `run.py`, `grade.py` | 21 real bugs fixed upstream in Oct–Nov 2026, one agent session each, graded with the hidden upstream regression tests; pass rate over 3 runs ([README](bugfix/README.md)) | `results/bugfix/` |
 | `long_session/` | | a public 6-turn agent session on Rich 14.3.4 that grows past 100K tokens: four real bugs, graded with upstream's regression tests ([README](long_session/README.md)) | `results/agents/long-session/` |
 | `context/` | `long_context.py` | prefill/decode at depth and needle recall on a code haystack (needs `tokenizers`) | `results/long-context/` |
 | | `longctx_multiturn.py` | 3-turn chat over a ~120K dump: is the prompt reused? (needs `tokenizers`) | `results/long-context/` |

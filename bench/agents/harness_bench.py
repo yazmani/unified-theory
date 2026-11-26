@@ -149,7 +149,10 @@ def relocate_venv(ws: Path, template: Path) -> None:
     for venv in (ws / ".venv", ws / "venv"):
         if not (venv / "pyvenv.cfg").exists():
             continue
-        for f in [venv / "pyvenv.cfg", *(venv / "bin").iterdir()]:
+        # editable installs point at the source tree from site-packages (.pth files, __editable__ finders, direct_url)
+        site = [f for sp in venv.glob("lib/python*/site-packages") for f in (*sp.iterdir(), *sp.glob("*/direct_url.json"))
+                if f.suffix in (".pth", ".egg-link") or f.name.startswith("__editable__") or f.name == "direct_url.json"]
+        for f in [venv / "pyvenv.cfg", *(venv / "bin").iterdir(), *site]:
             if f.is_file() and not f.is_symlink():
                 try:
                     text = f.read_text()

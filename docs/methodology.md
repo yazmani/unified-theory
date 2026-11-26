@@ -50,6 +50,14 @@ claim" proved correct and moved to the issues list.
 [`bench/agents/grade_template.py`](../bench/agents/grade_template.py), and keep both outside git (for example in
 `.local/`). See [bench/README.md](../bench/README.md).
 
+## Bug-fix suite
+
+21 bugs fixed upstream in October–November 2026 in pure-Python libraries ([bench/bugfix](../bench/bugfix/README.md)).
+Each attempt is one agent turn in a fresh copy of the code before the fix, with a bug report written for this suite
+(symptom, reproduction, expected behaviour). Graded as in SWE-bench with upstream's own regression tests, which the
+agent never sees: resolved when every fail-to-pass test passes and no pass-to-pass test breaks. Three runs per
+setup; the pass rate is reported with a 95% interval.
+
 ## Limits
 
 - One machine. Results on other Apple Silicon chips should scale roughly with memory bandwidth; verify before
