@@ -14,7 +14,7 @@ fast it runs.
 | Question | Answer (2026-11-26) | Details |
 |---|---|---|
 | Best model for real agent work? | **Qwen3.8-Flash-Next on Splash** at 256K context for thorough work: in a 6-turn session that grew to 213K tokens it fixed all 4 real bugs (graded with upstream's tests), and it finds 7–8 of 8 issues in review. Swift-1.5 Q2_0: 20 min. **Fastest in pi: Qwen3.8-27B-pi-adapted**, the same 4 bugs in 8.6 min with half the base 27B's steps (base: 14.5 min), but 4–5 of 8 issues in review | [models](docs/findings/models.md) |
-| Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs. Nine other 35B-A3B models scored lower | [models](docs/findings/models.md) |
+| Fastest good agent for short tasks? | **KAT-Ornith-HERO-35B-A3B on Splash**: 235 tok/s, Cline session 52–79 s, 6 of 8 issues in both runs; the other nine 35B-A3B models found 0–6, mostly in one run | [models](docs/findings/models.md) |
 | Best dense model? | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) on Splash: 96 tok/s, Cline 154 s, 75 tok/s at 100K. Slow past ~64K: 13 min to read 250K | [models](docs/findings/models.md) |
 | Fastest runtime? | **Splash**: ~2× llama.cpp and Strata on the same model, when a matching drafter exists. oMLX with Splash as its engine runs at the same speed; oMLX's own MLX engine and DSpine were slower | [runtimes](docs/findings/runtimes.md) |
 | Does the harness matter? | Yes, 2–5× on the same model. Fastest on Splash: **pi** (49 s). Fastest on Strata: OpenCode (66 s) | [harnesses](docs/findings/harnesses.md) |
@@ -23,7 +23,9 @@ fast it runs.
 | Best model for security review? | Any good coder: 16–18 of 18 planted flaws, no refusals. Uncensored builds scored no higher | [security-review](docs/findings/security-review.md) |
 
 "Issues" are the real problems a model found in the review turn of the agent task, out of 8 verified by hand
-([methodology](docs/methodology.md#agent-benchmarks)).
+([methodology](docs/methodology.md#agent-benchmarks)). The speed findings are solid; the quality ones are not yet.
+Issue counts come from one private project with 1–2 runs per setup, and differences of 1–2 issues are noise. A public,
+repeated bug-fix suite is in progress ([models](docs/findings/models.md)).
 
 <details>
 <summary>Speed leaderboard (decode tok/s, M5 Pro 48 GB)</summary>

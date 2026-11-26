@@ -3,6 +3,12 @@
 **Answer as of 2026-11-26.** All models ran on [Splash](runtimes.md) 1.7.2 (1.7.3 where marked) on an M5 Pro (20-core GPU, 48 GB), with
 the same prompts, graders and agent task ([methodology](../methodology.md)). Setup: [guides/splash](../guides/splash.md).
 
+**How far to trust the quality numbers.** Speed differences of 2× or more repeat across runs. Quality numbers don't
+yet: the issue counts come from one private project, graded by keywords, with 1–2 runs per setup, and the same build
+has scored 3 then 5 issues, or 9/9 then 3/9 commit checks, in back-to-back runs. Treat differences of 1–2 issues,
+or a single missed commit, as noise. The mini-eval, security check and long session are saturated (nearly every
+model aces them). A public bug-fix suite with hidden upstream tests and repeated runs is being built to rank quality.
+
 | Use | Pick | Why |
 |---|---|---|
 | Long agent sessions and thorough review | **Qwen3.8-Flash-Next**: Swift-1.5 Q2_0 (66.5 GB), ISTA Q2_0 (66 GB) or Coder (58 GB) | All 4 bugs fixed in the 213K-token long session (Swift-1.5 and ISTA Q2_0). Swift-1.5: 20 min for it, 120 tok/s at a 250K prompt. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs. Coder: 7 of 8, 18/18 on security |
@@ -11,7 +17,7 @@ the same prompts, graders and agent task ([methodology](../methodology.md)). Set
 | Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
 | Fewer refusals | **HauhauCS Qwen3.6-35B-A3B Aggressive** | 242 tok/s, security score equal to the best coders |
-| Inkling-2-Mini | **Lucebox Inkling-2-Mini-Fast UD-Q8_K_XL** (22.9 GB), thinking on | A fine-tune that thinks about a quarter as long: Cline in 75–83 s instead of base's 361 s, mini-eval 10/10 in 38 s instead of 9/10 in 180 s. Q8 passed 9/9 commit checks in all 4 sessions, where the 4-bit builds skipped the commit in 4 of 10; reviews 4–5 of 8, no better than base. For chat, IQ4_NL-16GB is faster (142 vs 107 tok/s wall-clock) ([finding 16](#findings)) |
+| Inkling-2-Mini | **Lucebox Inkling-2-Mini-Fast UD-Q8_K_XL** (22.9 GB), thinking on | A fine-tune that thinks about a quarter as long: Cline in 75–83 s instead of base's 361 s, mini-eval 10/10 in 38 s instead of 9/10 in 180 s. Q8 passed 9/9 commit checks in all 4 sessions, where the 4-bit builds skipped the commit in 4 of 10 (few runs: could be chance); reviews 4–5 of 8, no better than base. For chat, IQ4_NL-16GB is faster (142 vs 107 tok/s wall-clock) ([finding 16](#findings)) |
 
 ## Results
 
@@ -190,10 +196,11 @@ Engine stats per run (`tools/session_stats.py`; decode peak / token-weighted mea
     With thinking on, Fast runs agent sessions 3–6× faster than base and about as fast as base with thinking off
     (72 / 70 s). Base still reasons with `reasoning_effort: none` (1,557 tokens on the long answer; Fast: 134).
     Reviews didn't improve: 2–7 of 8 issues against base's 4–6. The 4-bit builds skipped the commit in 4 of 10
-    sessions (thinking on or off, Cline and pi); base UD-Q4_K_M committed in all of its 4. **UD-Q8_K_XL fixed that**:
-    9/9 checks in all 4 sessions (two Cline, two pi), 4–5 issues each time, at 107 tok/s wall-clock and 66–83 s per
-    session. The all-IQ4_NL 16GB build is the fastest (142 tok/s) for chat and single answers. Base and IQ4_NL: one
-    run each; 16GB and Q8: two agent runs.
+    sessions (thinking on or off, Cline and pi); base UD-Q4_K_M committed in all of its 4. UD-Q8_K_XL passed
+    9/9 checks in all 4 of its sessions (two Cline, two pi), 4–5 issues each time, at 107 tok/s wall-clock and 66–83 s per
+    session. That is a hint, not a result: 0 misses in 4 against 4 in 10 happens by chance about 1 time in 5
+    (Fisher's exact test, p = 0.21). The all-IQ4_NL 16GB build is the fastest (142 tok/s) for chat and single
+    answers. Base and IQ4_NL: one run each; 16GB and Q8: two agent runs.
 
 Before Splash (2026-11-23), the best agent setups were Inkling-2-Mini on a patched Strata (105–119 s per Cline
 session) and Tiel-Coder on llama.cpp with MTP (142–168 s, 7 of 8 issues once). Those runs and the llama.cpp settings

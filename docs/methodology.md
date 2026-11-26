@@ -55,6 +55,9 @@ claim" proved correct and moved to the issues list.
 - One machine. Results on other Apple Silicon chips should scale roughly with memory bandwidth; verify before
   relying on them.
 - 1–3 agent runs per setup. Differences of 1–2 issues between setups are within run-to-run noise; the timing
-  differences reported as findings (2× or more) are not.
+  differences reported as findings (2× or more) are not. Pass/fail rates over a handful of sessions (commits made,
+  say 0 of 4 against 4 of 10) are not significant either (p ≈ 0.2).
+- The 3-turn task measures explaining, committing and reviewing on one private project. It never asks for code to be
+  written, and its review score is keyword-graded.
 - The mini-eval and the security check are too easy to rank strong models. LiveCodeBench ranks them, but needs a
   64K+ answer limit for thinking models and hours per model.
