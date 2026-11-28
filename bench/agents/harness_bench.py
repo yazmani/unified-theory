@@ -14,7 +14,7 @@ Raw transcripts may contain private project content: they go to --private-out (o
   python3 -I bench/agents/harness_bench.py --harness pi --label NAME --base-url http://127.0.0.1:8091 --model MODEL_ID \
       --template DIR --private-out DIR --metrics-out results/agents/harness/harness-NAME.json [--context 131072] [--bin PATH]
 """
-import argparse, json, os, shutil, subprocess, time, uuid
+import argparse, json, os, shutil, subprocess, time, uuid, signal
 from pathlib import Path
 
 DEFAULT_TURNS = ["what are the changes about?", "allright lets commit this", "how can we improve this project?"]
@@ -142,6 +142,20 @@ HARNESSES = {"claude": (setup_claude, cmd_claude, parse_claude), "pi": (setup_pi
              "opencode": (setup_opencode, cmd_opencode, parse_opencode)}
 
 
+def kill_in_dir(root: Path) -> None:
+    """Kill every process of ours whose working directory is inside root (one lsof call for all processes)."""
+    out = subprocess.run(["lsof", "-a", "-d", "cwd", "-u", str(os.getuid()), "-Fpn"], capture_output=True, text=True).stdout
+    prefix, pid = str(root.resolve()), None
+    for line in out.splitlines():
+        if line.startswith("p"):
+            pid = int(line[1:])
+        elif line.startswith("n") and pid and pid != os.getpid() and (line[1:] + "/").startswith(prefix + "/"):
+            try:
+                os.kill(pid, signal.SIGKILL)
+            except (ProcessLookupError, PermissionError):
+                pass
+
+
 def relocate_venv(ws: Path, template: Path) -> None:
     """Point a copied virtualenv at its new place. Its scripts' #! lines and pyvenv.cfg name the template's absolute
     path, which would tell the agent where the template lives (and what sits next to it)."""
@@ -196,12 +210,22 @@ def main():
     for i, prompt in enumerate(turns, 1):
         out = run / f"turn{i}.jsonl"
         t0 = time.perf_counter()
-        try:
-            with open(out, "w") as fo, open(run / f"turn{i}.stderr", "w") as fe:
-                rc = subprocess.run(cmd(a, st, i, prompt), cwd=ws, env=env, stdin=subprocess.DEVNULL, stdout=fo,
-                                    stderr=fe, timeout=a.timeout).returncode
-        except subprocess.TimeoutExpired:
-            rc = "timeout"
+        with open(out, "w") as fo, open(run / f"turn{i}.stderr", "w") as fe:
+            # Own process group: on timeout (and after the turn) kill everything the agent started too. Killing only
+            # the harness left a model's runaway test scripts running for hours (one grew to 66 GB).
+            proc = subprocess.Popen(cmd(a, st, i, prompt), cwd=ws, env=env, stdin=subprocess.DEVNULL, stdout=fo,
+                                    stderr=fe, start_new_session=True)
+            try:
+                rc = proc.wait(timeout=a.timeout)
+            except subprocess.TimeoutExpired:
+                rc = "timeout"
+            finally:
+                try:
+                    os.killpg(proc.pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    pass
+                proc.wait()
+                kill_in_dir(run)   # tool commands a harness started in their own session escape killpg
         wall = time.perf_counter() - t0
         chunks, tools, answer, usage = parse(out, st)
         full = "".join(chunks)
