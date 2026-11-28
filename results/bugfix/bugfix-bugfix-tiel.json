@@ -1,0 +1,385 @@
+{
+ "label": "bugfix-tiel",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "context": 131072,
+ "timeout_s": 900,
+ "notes": "Splash 1.7.3; --model-dir ~/models/tiel/Tiel-Coder-35B-A3B-MTP-UD-Q4_K_XL.gguf --draft-model ~/models/drafts/Qwen3.6-35B-A3B-DFlash2 --max-context 256K --thinking-token-budget 8192",
+ "started": "2026-11-28 02:31:37",
+ "tasks": {
+  "sqlglot-9363": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 28 insertions(+), 2 deletions(-)",
+    "commits": 0,
+    "wall_s": 490.8,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 53,
+    "prompt_tokens": 1403509,
+    "cached_tokens": 1381888,
+    "stop": "stop"
+   }
+  ],
+  "sqlglot-9330": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/3",
+    "pass_to_pass_broken": 0,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 39,
+    "prompt_tokens": 967325,
+    "cached_tokens": 932256,
+    "stop": "toolUse"
+   }
+  ],
+  "sqlglot-9340": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "3 files changed, 20 insertions(+)",
+    "commits": 0,
+    "wall_s": 287.6,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 53,
+    "prompt_tokens": 1077875,
+    "cached_tokens": 1057472,
+    "stop": "stop"
+   }
+  ],
+  "more-itertools-1345": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 35 insertions(+), 3 deletions(-)",
+    "commits": 0,
+    "wall_s": 117.6,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 24,
+    "prompt_tokens": 211467,
+    "cached_tokens": 202592,
+    "stop": "stop"
+   }
+  ],
+  "more-itertools-1309": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 16 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 67.7,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 20,
+    "prompt_tokens": 123274,
+    "cached_tokens": 116128,
+    "stop": "stop"
+   }
+  ],
+  "isort-2794": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "3 files changed, 57 insertions(+), 2 deletions(-)",
+    "commits": 0,
+    "wall_s": 732.6,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 71,
+    "prompt_tokens": 2169488,
+    "cached_tokens": 2130176,
+    "stop": "stop"
+   }
+  ],
+  "isort-2750": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "3 files changed, 76 insertions(+), 30 deletions(-)",
+    "commits": 0,
+    "wall_s": 580.7,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 61,
+    "prompt_tokens": 1636773,
+    "cached_tokens": 1601440,
+    "stop": "stop"
+   }
+  ],
+  "isort-2724": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 30 insertions(+)",
+    "commits": 0,
+    "wall_s": 201.8,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 33,
+    "prompt_tokens": 402855,
+    "cached_tokens": 386016,
+    "stop": "stop"
+   }
+  ],
+  "tomlkit-716": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 91 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 621.5,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 53,
+    "prompt_tokens": 2039736,
+    "cached_tokens": 1985920,
+    "stop": "stop"
+   }
+  ],
+  "tomlkit-677": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "12/12",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 34 insertions(+), 4 deletions(-)",
+    "commits": 0,
+    "wall_s": 469.6,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 42,
+    "prompt_tokens": 975503,
+    "cached_tokens": 946752,
+    "stop": "stop"
+   }
+  ],
+  "black-5686": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 0,
+    "diff": "1 file changed, 8 insertions(+)",
+    "commits": 0,
+    "wall_s": 144.1,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 23,
+    "prompt_tokens": 210626,
+    "cached_tokens": 199008,
+    "stop": "stop"
+   }
+  ],
+  "black-5634": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "1/2",
+    "pass_to_pass_broken": 0,
+    "diff": "3 files changed, 108 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 81,
+    "prompt_tokens": 2674846,
+    "cached_tokens": 2622816,
+    "stop": "toolUse"
+   }
+  ],
+  "markdown-it-py-446": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 104 insertions(+), 33 deletions(-)",
+    "commits": 0,
+    "wall_s": 855.0,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 91,
+    "prompt_tokens": 3367229,
+    "cached_tokens": 3300608,
+    "stop": "stop"
+   }
+  ],
+  "networkx-8993": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "3/3",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 60 insertions(+), 9 deletions(-)",
+    "commits": 0,
+    "wall_s": 231.1,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 33,
+    "prompt_tokens": 498541,
+    "cached_tokens": 481568,
+    "stop": "stop"
+   }
+  ],
+  "networkx-8946": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "4/4",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 38 insertions(+), 2 deletions(-)",
+    "commits": 0,
+    "wall_s": 123.5,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 13,
+    "prompt_tokens": 119937,
+    "cached_tokens": 107488,
+    "stop": "stop"
+   }
+  ],
+  "networkx-8936": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 36 insertions(+), 2 deletions(-)",
+    "commits": 0,
+    "wall_s": 111.2,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 20,
+    "prompt_tokens": 220638,
+    "cached_tokens": 208608,
+    "stop": "stop"
+   }
+  ],
+  "loguru-1552": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "4/4",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 6 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 135.4,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 10,
+    "prompt_tokens": 70771,
+    "cached_tokens": 64128,
+    "stop": "stop"
+   }
+  ],
+  "loguru-1529": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "3/3",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 62 insertions(+)",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 33,
+    "prompt_tokens": 541338,
+    "cached_tokens": 521280,
+    "stop": "toolUse"
+   }
+  ],
+  "pyparsing-696": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "6/6",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 36 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 107.4,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 24,
+    "prompt_tokens": 203352,
+    "cached_tokens": 193504,
+    "stop": "stop"
+   }
+  ],
+  "sympy-31181": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 28 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 116.2,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 22,
+    "prompt_tokens": 223960,
+    "cached_tokens": 214304,
+    "stop": "stop"
+   }
+  ],
+  "sympy-31182": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 5 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 468.4,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 19,
+    "prompt_tokens": 162224,
+    "cached_tokens": 152352,
+    "stop": "stop"
+   }
+  ]
+ },
+ "summary": {
+  "attempts": 21,
+  "resolved": 18,
+  "rate": 0.857,
+  "rate_ci95": [
+   0.654,
+   0.95
+  ],
+  "per_run": {
+   "1": "18/21"
+  },
+  "tasks_solved_at_least_once": 18,
+  "tasks_solved_every_run": 18,
+  "median_wall_s": 287.6,
+  "total_wall_s": 8562.2
+ },
+ "updated": "2026-11-28 03:13:08"
+}

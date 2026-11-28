@@ -55,8 +55,9 @@ claim" proved correct and moved to the issues list.
 21 bugs fixed upstream in October–November 2026 in pure-Python libraries ([bench/bugfix](../bench/bugfix/README.md)).
 Each attempt is one agent turn in a fresh copy of the code before the fix, with a bug report written for this suite
 (symptom, reproduction, expected behaviour). Graded as in SWE-bench with upstream's own regression tests, which the
-agent never sees: resolved when every fail-to-pass test passes and no pass-to-pass test breaks. Three runs per
-setup; the pass rate is reported with a 95% interval.
+agent never sees: resolved when every fail-to-pass test passes and no pass-to-pass test breaks. Each model is
+screened with one run of 4 attempts at once (`--jobs 4`); close models get more runs. The pass rate is reported with
+a 95% interval. A model is dropped as too slow when 4 of its first 6+ attempts run out of time.
 
 ## Limits
 

@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-inkling-fast",
+ "requests": 534,
+ "generated_tokens": 174525,
+ "decode_peak_tps": 180.0,
+ "decode_median_tps": 41.0,
+ "decode_weighted_tps": 37.3,
+ "decode_share_over_100": 0.03,
+ "prefill_peak_tps": 1783,
+ "prefill_mean_tps": 508,
+ "prefill_mean_tps_2k_plus": 624,
+ "prefix_cache_hit": 0.97,
+ "ttft_p50_s": 0.6,
+ "ttft_p95_s": 4.8,
+ "largest_prompt": {
+  "input": 89322,
+  "cached": 87840,
+  "ttft_s": 2.1,
+  "decode_tps": 21.8
+ },
+ "accept_tokens_per_cycle": 5.8
+}

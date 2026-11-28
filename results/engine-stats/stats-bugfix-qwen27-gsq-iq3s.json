@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-qwen27-gsq-iq3s",
+ "requests": 870,
+ "generated_tokens": 114852,
+ "decode_peak_tps": 175.4,
+ "decode_median_tps": 38.6,
+ "decode_weighted_tps": 43.6,
+ "decode_share_over_100": 0.05,
+ "prefill_peak_tps": 765,
+ "prefill_mean_tps": 142,
+ "prefill_mean_tps_2k_plus": 164,
+ "prefix_cache_hit": 0.984,
+ "ttft_p50_s": 1.8,
+ "ttft_p95_s": 8.3,
+ "largest_prompt": {
+  "input": 62108,
+  "cached": 62016,
+  "ttft_s": 0.6,
+  "decode_tps": 58.9
+ },
+ "accept_tokens_per_cycle": 7.54
+}

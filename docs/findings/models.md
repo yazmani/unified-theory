@@ -1,20 +1,53 @@
 # Which local model for coding on a 48 GB Mac?
 
-**Answer as of 2026-11-26.** All models ran on [Splash](runtimes.md) 1.7.2 (1.7.3 where marked) on an M5 Pro (20-core GPU, 48 GB), with
+**Answer as of 2026-11-28.** All models ran on [Splash](runtimes.md) 1.7.2 (1.7.3 where marked) on an M5 Pro (20-core GPU, 48 GB), with
 the same prompts, graders and agent task ([methodology](../methodology.md)). Setup: [guides/splash](../guides/splash.md).
 
-**How far to trust the quality numbers.** Speed differences of 2× or more repeat across runs. Quality numbers don't
-yet: the issue counts come from one private project, graded by keywords, with 1–2 runs per setup, and the same build
-has scored 3 then 5 issues, or 9/9 then 3/9 commit checks, in back-to-back runs. Treat differences of 1–2 issues,
-or a single missed commit, as noise. The mini-eval, security check and long session are saturated (nearly every
-model aces them). A public bug-fix suite with hidden upstream tests and repeated runs is being built to rank quality.
+**How far to trust the quality numbers.** Speed differences of 2× or more repeat across runs. The best quality
+evidence is the bug-fix suite below: real upstream bugs, graded by upstream's own hidden tests, but one run per model
+so far, so gaps of 1–2 tasks are within noise. The older issue counts come from one private project, graded by
+keywords, with 1–2 runs per setup (the same build has scored 3 then 5 issues in back-to-back runs). The mini-eval,
+security check and long session are saturated (nearly every model aces them).
+
+## Real bugs: the bug-fix suite (2026-11-27/28)
+
+21 bugs fixed upstream in October–November 2026, one agent turn each in pi, graded with upstream's hidden regression
+tests ([bench/bugfix](../../bench/bugfix/README.md)). One run per model, 4 attempts at once (`--jobs 4`), 15 min per
+attempt, Splash 1.7.3. "Limit" counts attempts that ran the full 15 min (some still passed: the fix was in place when
+time ran out).
+
+| Model | Solved | 95% interval | Limit | Median time |
+|---|---|---|---|---|
+| **Inkling-2-Mini-Fast UD-Q8_K_XL**, thinking on | **19/21** | 71–97% | 3 | 5.2 min |
+| **Tiel-Coder-35B-A3B UD-Q4_K_XL**, thinking budget 8K | **18/21** | 65–95% | 3 | 4.8 min |
+| **KAT-Ornith-HERO-35B-A3B i1-Q4_K_M**, thinking budget 8K | **17/21** | 60–92% | 5 | 8.7 min |
+| Inkling-2-Mini-Fast IQ4_NL-16GB, thinking on | 16/21 | 55–89% | 5 | 4.8 min |
+| Qwen3.8-27B-pi-adapted Q4_K_M, thinking off | 14/21 | 45–83% | 6 | 4.6 min |
+| KAT-Coder-V2.5-Dev Q4_K_M, thinking budget 8K | 14/21 | 45–83% | 5 | 6.8 min |
+| Inkling-2-Mini GSQ-RCO IQ3_S (base Inkling), thinking budget 8K | stopped at 6/7 | — | 4 of 7 | 15 min |
+| Qwen3.8-27B GSQ-RCO IQ3_S, thinking off | stopped at 4/6 | — | 4 of 6 | 15 min |
+
+- **The top three are not separated yet**: 17–19 of 21 with overlapping intervals. Each solves something the others
+  don't: only KAT-Ornith fixed sqlglot-9330; Inkling and Tiel fixed both tomlkit bugs and sympy-31182, which KAT-Ornith
+  missed. Nobody fixed black-5634.
+- **KAT-Ornith beat its main parent.** It solved every task KAT-Coder solved, plus three more, although KAT-Coder has
+  the better published scores (SWE-bench Verified 69.4 on Kwaipilot's card; KAT-Ornith has none).
+- **The 14 GB Inkling file kept its speed but not all its score**: 16 against Q8's 19, with the same median time.
+  Three tasks is at the noise limit; Q8 stays the pick.
+- **Two GSQ-RCO files were dropped as too slow**: most attempts ran out of time. Not the engine: the 27B GSQ decoded as
+  fast as pi-adapted on the same server (37 vs 35 tok/s per attempt, ~3 s to first token), but took 5× more tool
+  steps with thinking off (149 vs 27 on one task). With thinking on it took 2.5–4× fewer steps but still timed out on
+  the same sqlglot tasks.
+- Flash-Next Coder is not in the table: at `--jobs 4` its requests queued behind each other (~16 s wait each, 8 of 9
+  attempts out of time), so its run was stopped; it needs a run at `--jobs 1`.
 
 | Use | Pick | Why |
 |---|---|---|
+| Fixing real bugs | **Inkling-2-Mini-Fast UD-Q8_K_XL** (22.9 GB), thinking on, or **Tiel-Coder-35B-A3B** (21 GB) | 19 and 18 of 21 real upstream bugs, median 5 min per bug; KAT-Ornith 17. One run each: the three are not separated yet |
 | Long agent sessions and thorough review | **Qwen3.8-Flash-Next**: Swift-1.5 Q2_0 (66.5 GB), ISTA Q2_0 (66 GB) or Coder (58 GB) | All 4 bugs fixed in the 213K-token long session (Swift-1.5 and ISTA Q2_0). Swift-1.5: 20 min for it, 120 tok/s at a 250K prompt. ISTA Q2_0: 23 min, 104 tok/s, 8 of 8 issues in both Cline runs. Coder: 7 of 8, 18/18 on security |
 | Long sessions in the pi harness, fastest | **Qwen3.8-27B-pi-adapted** (Q4_K_M, 15 GB), thinking off | All 4 long-session bugs in 8.6 min, less than half Flash-Next's 20–23 min: far fewer steps (57 requests, 15K tokens written; Swift-1.5: 169, 106K). Trained for pi: the base 27B took 14.5 min and twice the requests. Reviews weaker: 4–5 of 8 issues. One run |
 | Fast agent for short tasks | **KAT-Ornith-HERO-35B-A3B** (i1-Q4_K_M, 21.7 GB) | 235 tok/s. Only fast model with 6 of 8 issues in both Cline runs (52–79 s). 145 tok/s at a 250K prompt |
-| Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
+| Dense model, contexts under ~64K | **Qwen3.8-27B GSQ-RCO IQ3_S** (11.8 GB) | 96 tok/s, Cline 154 s with 5 issues, 75 tok/s at 100K; 13 min to read a 250K prompt. Too slow on real bugs: most bug-fix attempts ran out of time. Ternary Bonsai 2.5 (7.5 GB) decodes faster (145 tok/s) and finds as many issues, but thinks longer: Cline 268 s |
 | Quick edits and commits | **Flint** or **Qwopus3.6-Coder** | Cline sessions of 42–63 s, but 1–4 issues |
 | Fewer refusals | **HauhauCS Qwen3.6-35B-A3B Aggressive** | 242 tok/s, security score equal to the best coders |
 | Inkling-2-Mini | **Lucebox Inkling-2-Mini-Fast UD-Q8_K_XL** (22.9 GB), thinking on | A fine-tune that thinks about a quarter as long: Cline in 75–83 s instead of base's 361 s, mini-eval 10/10 in 38 s instead of 9/10 in 180 s. Q8 passed 9/9 commit checks in all 4 sessions, where the 4-bit builds skipped the commit in 4 of 10 (few runs: could be chance); reviews 4–5 of 8, no better than base. For chat, IQ4_NL-16GB is faster (142 vs 107 tok/s wall-clock) ([finding 16](#findings)) |

@@ -131,6 +131,27 @@ page under [findings/](findings/).
   agent sessions took 2–6× longer. Discarded and rerun with the Mac idle; swap stayed flat through the rerun.
 - NariQ 3-bit (Qwen3.8-27B) needs nari-labs' llama.cpp fork; stock llama.cpp, Ollama and LM Studio don't load it yet.
 
+## 2026-11-27
+
+- Bug-fix suite committed: 21 recent upstream bugs, graded with upstream's hidden tests. One-run calibration on
+  KAT-Ornith: 16/21. → [bench/bugfix](../bench/bugfix/README.md)
+- Checked the model cards before deciding what to keep: ISTA's Flash-Next Coder keeps the base model's coding
+  scores, ISTA's Q2_0 loses 6 points on LiveCodeBench, and KAT-Ornith-HERO has no published scores at all.
+- `run.py --jobs 4`: four attempts at once on one Splash server, 21 tasks in ~45 min instead of ~80. Flash-Next
+  Coder queued at 4 (~16 s wait per request) and was stopped; it needs `--jobs 1`.
+- Screens, one run each: Inkling-2-Mini-Fast Q8 19/21, KAT-Ornith 17, KAT-Coder 14, pi-adapted 14.
+  → [models](findings/models.md#real-bugs-the-bug-fix-suite-2026-112728)
+
+## 2026-11-28
+
+- Screens: Tiel-Coder 18/21, Inkling-Fast IQ4_NL-16GB 16/21 (same speed as Q8). The Inkling and Qwen3.8-27B
+  GSQ-RCO IQ3_S files were dropped as too slow (most attempts out of time); for the 27B it is the model's many small
+  tool steps, not the engine, and thinking on didn't fix it.
+- Strata 0.2.23: prompt reuse on tool turns now works on Metal (upstream added its own prompt-end checkpoint, so PR
+  #6914 is superseded). On the M5 Pro the DFlash 2 drafter and the Mac speed mode refuse to start (M5 Max only), and
+  Inkling SQ-15 decodes at 45 tok/s (0.2.20: 66). Custom GGUF files on Mac: only the stock Flash-Next sizes load.
+  → [runtimes](findings/runtimes.md)
+
 ## Open threads
 
 - [ ] Harder quality set (multi-file edits, SWE-style tasks) to rank models on quality, not only speed.
@@ -147,6 +168,8 @@ page under [findings/](findings/).
 - [ ] More models: Qwen3-Coder-30B-A3B; SenseNova-Loop-9B (looped, needs OpenSenseNova's llama.cpp fork); NariQ
   3-bit Qwen3.8-27B once a stock runtime loads it.
 - [ ] Inkling-2-Mini-Fast Q8 on the long session.
+- [ ] Bug-fix suite: second runs of the top three (Inkling-Fast Q8, Tiel, KAT-Ornith); Flash-Next Coder at `--jobs 1`;
+  harder tasks (the top model already solves 19 of 21).
 - [x] Qwen3.8-Flash-Next on Splash with SSD expert streaming ([models](findings/models.md)).
 - [ ] Flash-Next: thinking off, to trade some quality for session time; a second Cline run of the Coder to settle Coder vs Q2_0.
 - [ ] Splash: Inkling tool call returned as text once; report upstream with a repro.

@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-katcoder",
+ "requests": 561,
+ "generated_tokens": 397369,
+ "decode_peak_tps": 326.3,
+ "decode_median_tps": 163.3,
+ "decode_weighted_tps": 153.8,
+ "decode_share_over_100": 0.79,
+ "prefill_peak_tps": 3500,
+ "prefill_mean_tps": 142,
+ "prefill_mean_tps_2k_plus": 142,
+ "prefix_cache_hit": 0.949,
+ "ttft_p50_s": 6.0,
+ "ttft_p95_s": 40.4,
+ "largest_prompt": {
+  "input": 87386,
+  "cached": 84320,
+  "ttft_s": 2.8,
+  "decode_tps": 130.8
+ },
+ "accept_tokens_per_cycle": 5.99
+}

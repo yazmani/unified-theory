@@ -6,7 +6,12 @@ which is ~1.7× faster ([runtimes](../findings/runtimes.md)). If you use Strata,
 | Client | Use | Why |
 |---|---|---|
 | Chat, one-shot questions | **stock Strata 0.2.20** | thinking off: 66 tok/s, first token in under 0.5 s |
-| Coding agents (anything that sends `tools`) | **checkpoint engine + 0.2.19 server** | prompt reuse works: ~3× faster sessions ([why](../findings/strata-prompt-cache.md)) |
+| Coding agents (anything that sends `tools`) | **stock Strata 0.2.23**, or the checkpoint engine + 0.2.19 server below | 0.2.23 reuses the prompt on tool turns on Metal; the older setup is faster per token ([why](../findings/strata-prompt-cache.md)) |
+
+**Strata 0.2.23 on an M5 Pro (2026-11-28):** prompt reuse with tools works (1,916 of 1,962 prompt tokens reused on
+the second turn), but the DFlash 2 drafter and the `STRATA_INK_M5MAX` speed mode refuse to start on anything but an
+M5 Max with 64 GB or more, and DSpark is gone. Inkling SQ-15 decodes at 45 tok/s (0.2.20: 66), the new SQ-20 v2 file
+at 36. `--model-path` on a Mac takes only the stock Qwen3.8-Flash-Next sizes.
 
 ## Stock Strata (chat)
 

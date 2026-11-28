@@ -1,0 +1,93 @@
+{
+ "label": "strata0223-sq15",
+ "extra": {
+  "model": "inkling-2-mini-sq-15"
+ },
+ "when": "2026-11-28 02:14:38",
+ "passed": 10,
+ "total": 10,
+ "wall_s_total": 169.10591287212446,
+ "tokens_total": 7459,
+ "rows": [
+  {
+   "task": "two_sum",
+   "pass": true,
+   "wall_s": 7.305500582791865,
+   "completion_tokens": 319,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "roman",
+   "pass": true,
+   "wall_s": 10.691222040913999,
+   "completion_tokens": 473,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "merge_intervals",
+   "pass": true,
+   "wall_s": 9.266082124784589,
+   "completion_tokens": 408,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "lru",
+   "pass": true,
+   "wall_s": 8.397719707805663,
+   "completion_tokens": 372,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "parse_duration",
+   "pass": true,
+   "wall_s": 31.65185433300212,
+   "completion_tokens": 1394,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "topo",
+   "pass": true,
+   "wall_s": 17.574720125179738,
+   "completion_tokens": 777,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "flatten",
+   "pass": true,
+   "wall_s": 12.825932832900435,
+   "completion_tokens": 568,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "rle",
+   "pass": true,
+   "wall_s": 17.77252662507817,
+   "completion_tokens": 785,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "bank",
+   "pass": true,
+   "wall_s": 17.4549136669375,
+   "completion_tokens": 775,
+   "finish": "stop",
+   "err": ""
+  },
+  {
+   "task": "median_stream",
+   "pass": true,
+   "wall_s": 36.16544083273038,
+   "completion_tokens": 1588,
+   "finish": "stop",
+   "err": ""
+  }
+ ]
+}

@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-katornith-hero",
+ "requests": 903,
+ "generated_tokens": 477128,
+ "decode_peak_tps": 344.4,
+ "decode_median_tps": 98.4,
+ "decode_weighted_tps": 103.2,
+ "decode_share_over_100": 0.49,
+ "prefill_peak_tps": 3504,
+ "prefill_mean_tps": 195,
+ "prefill_mean_tps_2k_plus": 362,
+ "prefix_cache_hit": 0.972,
+ "ttft_p50_s": 1.4,
+ "ttft_p95_s": 21.8,
+ "largest_prompt": {
+  "input": 99861,
+  "cached": 99136,
+  "ttft_s": 5.9,
+  "decode_tps": 203.1
+ },
+ "accept_tokens_per_cycle": 5.12
+}

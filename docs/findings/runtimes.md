@@ -20,6 +20,7 @@ client: "streamed" from first to last token, "wall-clock" and "end-to-end" as co
 | **KAT-Ornith-HERO-35B-A3B** (2026-11-25, same session) | Splash 1.7.2, i1-Q4_K_M | 206 (214 wall-clock) | 95 s |
 | | oMLX 0.8.3 with Splash 1.7.2 as its external engine | 226 (229 wall-clock) | 55 s |
 | **Inkling-2-Mini** | **Splash 1.7.2**, UD-IQ4_XS / UD-Q4_K_M | **101 / 92** (109–116 wall-clock) | 72–94 s |
+| | Strata 0.2.23 (engine 0.1.70), SQ-15 / SQ-20 v2, no drafter (DFlash 2 refuses to start on the M5 Pro) | 45 / 36 | — (prompt reuse with tools works) |
 | | Strata 0.2.20, SQ-15, thinking forced off | 66 | 330–341 s (no prompt reuse with tools) |
 | | Strata 0.2.19 + DSpark, SQ-15 (+ #6627 checkpoint engine for agents) | 58 | 105–119 s |
 | | oMLX 0.8.3, oQ4e + MTP | 55 (wall-clock) | 370 s |
@@ -49,7 +50,7 @@ At 100K tokens of context ([long-context](long-context.md)):
 | Runtime | Inkling-2-Mini | Qwen3.6-35B-A3B family | Qwen3.8-27B / Flash-Next | Notes |
 |---|---|---|---|---|
 | **Splash** 1.7.2 (Metal) | ✅ fastest | ✅ fastest | ✅ (Flash-Next streams experts from the SSD) | needs a matching DFlash 2 drafter |
-| Strata (`strata-inkling`, Metal) | ✅ | ❌ its Qwen3.6 engine is CUDA/HIP only | — | agents need the checkpoint engine ([prompt cache](strata-prompt-cache.md)) |
+| Strata 0.2.23 (`strata-inkling`, Metal) | ✅ no drafter on the M5 Pro | ❌ not on Mac (custom 35B-A3B files refused) | stock Flash-Next sizes only (custom Coder refused; Swift-1.5 Q2_0 fails to load) | prompt reuse with tools works since 0.2.23; DFlash 2 and the speed mode are limited to the M5 Max (64 GB+) |
 | Unsloth llama.cpp fork | ✅ (`inkling2`, DSpark) | ✅ (MTP) | ✅ | best general runtime before Splash |
 | Homebrew llama.cpp 0.7.0 | ❌ unknown architecture | ✅ (not benched) | — | behind the fork at the time |
 | oMLX 0.8.3 | ✅ (MTP) | ✅ (MTP) | ✅ through Splash | its MLX engine is slower than Splash; with Splash as its external engine, the same speed as Splash |
@@ -92,6 +93,9 @@ At 100K tokens of context ([long-context](long-context.md)):
    on Inkling. Inkling is slow on every engine: it is a looped MoE (48 virtual layer visits) and runs 2.3× slower
    than a 35B-A3B Qwen on the same llama.cpp. On llama.cpp, MTP added 40% for Tiel and DSpark added 20% for Inkling
    (n-max 3); Strata's DSpark drafter added nothing on Mac.
+   Strata 0.2.23 (2026-11-27) fixed agent prompt reuse on Metal, but on this M5 Pro it runs Inkling with no drafter
+   at all: DFlash 2 and `STRATA_INK_M5MAX` start only on an M5 Max with 64 GB or more, so SQ-15 dropped to 45 tok/s
+   (0.2.20: 66) and the new SQ-20 v2 file runs at 36.
 9. **Measure wall time to a finished answer, not only tok/s.** Inkling thinks in "no thinking" mode unless
    `reasoning_effort` is `none` (template default: 0.9). Setting it cut one answer from 1,246 to 609 tokens.
 10. **Atomic Engine's README figure (77 tok/s) did not reproduce on real prompts** (45 here; the README measures a

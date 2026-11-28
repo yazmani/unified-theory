@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-tiel",
+ "requests": 835,
+ "generated_tokens": 349745,
+ "decode_peak_tps": 200.4,
+ "decode_median_tps": 64.5,
+ "decode_weighted_tps": 61.6,
+ "decode_share_over_100": 0.11,
+ "prefill_peak_tps": 3392,
+ "prefill_mean_tps": 727,
+ "prefill_mean_tps_2k_plus": 800,
+ "prefix_cache_hit": 0.974,
+ "ttft_p50_s": 0.3,
+ "ttft_p95_s": 3.0,
+ "largest_prompt": {
+  "input": 82949,
+  "cached": 81472,
+  "ttft_s": 1.5,
+  "decode_tps": 61.8
+ },
+ "accept_tokens_per_cycle": 4.57
+}

@@ -1,0 +1,96 @@
+{
+ "label": "bugfix-qwen27-gsq-iq3s-think",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "context": 131072,
+ "timeout_s": 900,
+ "notes": "Splash 1.7.3; --model-dir ~/models/qwen27-gsq/Qwen3.8-27B-GSQ-RCO-IQ3_S.gguf --draft-model ~/models/drafts/Qwen3.8-27B-DFlash2 --thinking-token-budget 8192 --max-context 128K",
+ "started": "2026-11-28 01:52:51",
+ "tasks": {
+  "sqlglot-9363": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 0,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 42,
+    "prompt_tokens": 983776,
+    "cached_tokens": 960896,
+    "stop": "toolUse"
+   }
+  ],
+  "sqlglot-9330": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/3",
+    "pass_to_pass_broken": 0,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 41,
+    "prompt_tokens": 855228,
+    "cached_tokens": 825920,
+    "stop": "toolUse"
+   }
+  ],
+  "sqlglot-9340": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 15 insertions(+)",
+    "commits": 0,
+    "wall_s": 900.0,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 58,
+    "prompt_tokens": 1745862,
+    "cached_tokens": 1716480,
+    "stop": "toolUse"
+   }
+  ],
+  "more-itertools-1309": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 23 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 132.4,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 10,
+    "prompt_tokens": 48744,
+    "cached_tokens": 43808,
+    "stop": "stop"
+   }
+  ]
+ },
+ "summary": {
+  "attempts": 4,
+  "resolved": 2,
+  "rate": 0.5,
+  "rate_ci95": [
+   0.15,
+   0.85
+  ],
+  "per_run": {
+   "1": "2/4"
+  },
+  "tasks_solved_at_least_once": 2,
+  "tasks_solved_every_run": 2,
+  "median_wall_s": 900.0,
+  "total_wall_s": 2832.4
+ },
+ "updated": "2026-11-28 02:08:05"
+}

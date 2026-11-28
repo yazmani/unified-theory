@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-inkling-fast-iq4nl16",
+ "requests": 872,
+ "generated_tokens": 272507,
+ "decode_peak_tps": 184.6,
+ "decode_median_tps": 46.5,
+ "decode_weighted_tps": 41.0,
+ "decode_share_over_100": 0.04,
+ "prefill_peak_tps": 1683,
+ "prefill_mean_tps": 489,
+ "prefill_mean_tps_2k_plus": 536,
+ "prefix_cache_hit": 0.974,
+ "ttft_p50_s": 0.6,
+ "ttft_p95_s": 6.0,
+ "largest_prompt": {
+  "input": 91463,
+  "cached": 91040,
+  "ttft_s": 3.9,
+  "decode_tps": 16.8
+ },
+ "accept_tokens_per_cycle": 5.59
+}

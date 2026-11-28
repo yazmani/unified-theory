@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-inkling-gsq-iq3s",
+ "requests": 501,
+ "generated_tokens": 206143,
+ "decode_peak_tps": 193.5,
+ "decode_median_tps": 51.5,
+ "decode_weighted_tps": 43.5,
+ "decode_share_over_100": 0.04,
+ "prefill_peak_tps": 1851,
+ "prefill_mean_tps": 380,
+ "prefill_mean_tps_2k_plus": 455,
+ "prefix_cache_hit": 0.977,
+ "ttft_p50_s": 0.5,
+ "ttft_p95_s": 13.4,
+ "largest_prompt": {
+  "input": 80498,
+  "cached": 80352,
+  "ttft_s": 6.7,
+  "decode_tps": 40.5
+ },
+ "accept_tokens_per_cycle": 5.67
+}
