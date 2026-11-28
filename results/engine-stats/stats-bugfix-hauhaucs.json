@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-hauhaucs",
+ "requests": 578,
+ "generated_tokens": 245541,
+ "decode_peak_tps": 226.5,
+ "decode_median_tps": 69.3,
+ "decode_weighted_tps": 72.7,
+ "decode_share_over_100": 0.19,
+ "prefill_peak_tps": 3502,
+ "prefill_mean_tps": 889,
+ "prefill_mean_tps_2k_plus": 1213,
+ "prefix_cache_hit": 0.983,
+ "ttft_p50_s": 0.3,
+ "ttft_p95_s": 2.7,
+ "largest_prompt": {
+  "input": 91063,
+  "cached": 90848,
+  "ttft_s": 0.3,
+  "decode_tps": 86.3
+ },
+ "accept_tokens_per_cycle": 5.42
+}

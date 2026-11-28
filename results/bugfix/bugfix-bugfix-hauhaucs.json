@@ -1,0 +1,161 @@
+{
+ "label": "bugfix-hauhaucs",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "context": 131072,
+ "timeout_s": 900,
+ "notes": "Splash 1.7.3; --model-dir ~/models/security/Qwen3.6-35B-A3B-Uncensored-HauhauCS-Aggressive-Q4_K_M.gguf --draft-model ~/models/drafts/Qwen3.6-35B-A3B-DFlash2 --max-context 256K --thinking-token-budget 8192",
+ "started": "2026-11-28 10:36:30",
+ "tasks": {
+  "sqlglot-9363": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 1,
+    "diff": "1 file changed, 67 insertions(+), 2 deletions(-)",
+    "commits": 0,
+    "wall_s": 900.2,
+    "timeout": true,
+    "jobs": 4,
+    "tool_calls": 54,
+    "prompt_tokens": 2952323,
+    "cached_tokens": 2906528,
+    "stop": "toolUse"
+   }
+  ],
+  "sqlglot-9330": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/3",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 91 insertions(+), 5 deletions(-)",
+    "commits": 0,
+    "wall_s": 808.1,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 116,
+    "prompt_tokens": 4872330,
+    "cached_tokens": 4832768,
+    "stop": "stop"
+   }
+  ],
+  "sqlglot-9340": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "1/2",
+    "pass_to_pass_broken": 0,
+    "diff": "4 files changed, 53 insertions(+), 7 deletions(-)",
+    "commits": 0,
+    "wall_s": 459.1,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 126,
+    "prompt_tokens": 4311534,
+    "cached_tokens": 4271872,
+    "stop": "stop"
+   }
+  ],
+  "more-itertools-1345": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "2/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 40 insertions(+), 3 deletions(-)",
+    "commits": 0,
+    "wall_s": 168.9,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 33,
+    "prompt_tokens": 879770,
+    "cached_tokens": 838592,
+    "stop": "stop"
+   }
+  ],
+  "more-itertools-1309": [
+   {
+    "run": 1,
+    "resolved": true,
+    "fail_to_pass": "1/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 15 insertions(+), 1 deletion(-)",
+    "commits": 0,
+    "wall_s": 44.6,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 19,
+    "prompt_tokens": 104384,
+    "cached_tokens": 96544,
+    "stop": "stop"
+   }
+  ],
+  "isort-2794": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 41 insertions(+), 12 deletions(-)",
+    "commits": 0,
+    "wall_s": 481.2,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 69,
+    "prompt_tokens": 3348381,
+    "cached_tokens": 3293120,
+    "stop": "stop"
+   }
+  ],
+  "isort-2750": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "1/2",
+    "pass_to_pass_broken": 0,
+    "diff": "2 files changed, 39 insertions(+)",
+    "commits": 0,
+    "wall_s": 648.5,
+    "timeout": false,
+    "jobs": 4,
+    "tool_calls": 85,
+    "prompt_tokens": 3635678,
+    "cached_tokens": 3577664,
+    "stop": "stop"
+   }
+  ],
+  "isort-2724": [],
+  "tomlkit-716": [],
+  "tomlkit-677": [],
+  "black-5686": [],
+  "black-5634": [],
+  "markdown-it-py-446": [],
+  "networkx-8993": [],
+  "networkx-8946": [],
+  "networkx-8936": [],
+  "loguru-1552": [],
+  "loguru-1529": [],
+  "pyparsing-696": [],
+  "sympy-31181": [],
+  "sympy-31182": []
+ },
+ "summary": {
+  "attempts": 7,
+  "resolved": 2,
+  "rate": 0.286,
+  "rate_ci95": [
+   0.082,
+   0.641
+  ],
+  "per_run": {
+   "1": "2/7"
+  },
+  "tasks_solved_at_least_once": 2,
+  "tasks_solved_every_run": 2,
+  "median_wall_s": 481.2,
+  "total_wall_s": 3510.6
+ },
+ "updated": "2026-11-28 10:55:09"
+}

@@ -151,6 +151,11 @@ page under [findings/](findings/).
   #6914 is superseded). On the M5 Pro the DFlash 2 drafter and the Mac speed mode refuse to start (M5 Max only), and
   Inkling SQ-15 decodes at 45 tok/s (0.2.20: 66). Custom GGUF files on Mac: only the stock Flash-Next sizes load.
   → [runtimes](findings/runtimes.md)
+- A model's runaway test scripts outlived the 15 min limit and grew to 66 GB (swap 33 GB): `harness_bench.py` now
+  kills the agent's process group and anything left in the run folder. The screen they disturbed was rerun.
+- Screens stopped early (too slow, or 5 failures): Bonsai 4/6, Coder390 3/6, HauhauCS 2/7, Gemma 4 12B v2 0/5. Every
+  dense 27B but pi-adapted runs out of time. Flash-Next Coder and Swift-1.5 left out: ~2 h each at one attempt at a
+  time. → [models](findings/models.md#real-bugs-the-bug-fix-suite-2026-112728)
 
 ## Open threads
 
@@ -168,7 +173,7 @@ page under [findings/](findings/).
 - [ ] More models: Qwen3-Coder-30B-A3B; SenseNova-Loop-9B (looped, needs OpenSenseNova's llama.cpp fork); NariQ
   3-bit Qwen3.8-27B once a stock runtime loads it.
 - [ ] Inkling-2-Mini-Fast Q8 on the long session.
-- [ ] Bug-fix suite: second runs of the top three (Inkling-Fast Q8, Tiel, KAT-Ornith); Flash-Next Coder at `--jobs 1`;
+- [ ] Bug-fix suite: second runs of the top three (Inkling-Fast Q8, Tiel, KAT-Ornith); Flash-Next at `--jobs 1` if time allows;
   harder tasks (the top model already solves 19 of 21).
 - [x] Qwen3.8-Flash-Next on Splash with SSD expert streaming ([models](findings/models.md)).
 - [ ] Flash-Next: thinking off, to trade some quality for session time; a second Cline run of the Coder to settle Coder vs Q2_0.

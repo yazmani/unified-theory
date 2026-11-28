@@ -1,0 +1,22 @@
+{
+ "label": "bugfix-bonsai25",
+ "requests": 299,
+ "generated_tokens": 189470,
+ "decode_peak_tps": 204.6,
+ "decode_median_tps": 40.8,
+ "decode_weighted_tps": 37.4,
+ "decode_share_over_100": 0.03,
+ "prefill_peak_tps": 559,
+ "prefill_mean_tps": 261,
+ "prefill_mean_tps_2k_plus": 221,
+ "prefix_cache_hit": 0.969,
+ "ttft_p50_s": 1.2,
+ "ttft_p95_s": 9.6,
+ "largest_prompt": {
+  "input": 57597,
+  "cached": 57504,
+  "ttft_s": 0.4,
+  "decode_tps": 35.1
+ },
+ "accept_tokens_per_cycle": 4.97
+}

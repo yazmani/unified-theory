@@ -1,0 +1,129 @@
+{
+ "label": "bugfix-gemma4v2-q8",
+ "harness": "pi",
+ "model": "gpt-4o",
+ "context": 131072,
+ "timeout_s": 900,
+ "notes": "version: 0.7.0 (build 11669, commit 620d2225c); -np 2 --temp 1.0 --top-p 0.95 --top-k 64",
+ "started": "2026-11-28 11:48:44",
+ "tasks": {
+  "sqlglot-9363": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 176,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 900.3,
+    "timeout": true,
+    "jobs": 2,
+    "tool_calls": 58,
+    "prompt_tokens": 2283551,
+    "cached_tokens": 2193594,
+    "stop": "toolUse"
+   }
+  ],
+  "sqlglot-9330": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/3",
+    "pass_to_pass_broken": 0,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 93.8,
+    "timeout": false,
+    "jobs": 2,
+    "tool_calls": 11,
+    "prompt_tokens": 93074,
+    "cached_tokens": 84680,
+    "stop": "stop"
+   }
+  ],
+  "sqlglot-9340": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/2",
+    "pass_to_pass_broken": 175,
+    "diff": "",
+    "commits": 0,
+    "wall_s": 900.2,
+    "timeout": true,
+    "jobs": 2,
+    "tool_calls": 38,
+    "prompt_tokens": 508393,
+    "cached_tokens": 487470,
+    "stop": "toolUse"
+   }
+  ],
+  "more-itertools-1345": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/2",
+    "pass_to_pass_broken": 0,
+    "diff": "1 file changed, 9 insertions(+), 7488 deletions(-)",
+    "commits": 0,
+    "wall_s": 900.2,
+    "timeout": true,
+    "jobs": 2,
+    "tool_calls": 33,
+    "prompt_tokens": 1540757,
+    "cached_tokens": 1469223,
+    "stop": "toolUse"
+   }
+  ],
+  "more-itertools-1309": [
+   {
+    "run": 1,
+    "resolved": false,
+    "fail_to_pass": "0/1",
+    "pass_to_pass_broken": 0,
+    "diff": "1 file changed, 85 insertions(+), 1738 deletions(-)",
+    "commits": 0,
+    "wall_s": 900.2,
+    "timeout": true,
+    "jobs": 2,
+    "tool_calls": 47,
+    "prompt_tokens": 1035834,
+    "cached_tokens": 1004958,
+    "stop": "toolUse"
+   }
+  ],
+  "isort-2794": [],
+  "isort-2750": [],
+  "isort-2724": [],
+  "tomlkit-716": [],
+  "tomlkit-677": [],
+  "black-5686": [],
+  "black-5634": [],
+  "markdown-it-py-446": [],
+  "networkx-8993": [],
+  "networkx-8946": [],
+  "networkx-8936": [],
+  "loguru-1552": [],
+  "loguru-1529": [],
+  "pyparsing-696": [],
+  "sympy-31181": [],
+  "sympy-31182": []
+ },
+ "summary": {
+  "attempts": 5,
+  "resolved": 0,
+  "rate": 0.0,
+  "rate_ci95": [
+   0.0,
+   0.434
+  ],
+  "per_run": {
+   "1": "0/5"
+  },
+  "tasks_solved_at_least_once": 0,
+  "tasks_solved_every_run": 0,
+  "median_wall_s": 900.2,
+  "total_wall_s": 3694.7
+ },
+ "updated": "2026-11-28 12:20:24"
+}

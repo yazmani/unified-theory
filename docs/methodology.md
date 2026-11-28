@@ -57,7 +57,8 @@ Each attempt is one agent turn in a fresh copy of the code before the fix, with 
 (symptom, reproduction, expected behaviour). Graded as in SWE-bench with upstream's own regression tests, which the
 agent never sees: resolved when every fail-to-pass test passes and no pass-to-pass test breaks. Each model is
 screened with one run of 4 attempts at once (`--jobs 4`); close models get more runs. The pass rate is reported with
-a 95% interval. A model is dropped as too slow when 4 of its first 6+ attempts run out of time.
+a 95% interval. A screen stops early when 4 of its first 6+ attempts run out of time (too slow), or at the 5th failed task (it can
+no longer reach the top three).
 
 ## Limits
 

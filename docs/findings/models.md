@@ -14,7 +14,8 @@ security check and long session are saturated (nearly every model aces them).
 21 bugs fixed upstream in October–November 2026, one agent turn each in pi, graded with upstream's hidden regression
 tests ([bench/bugfix](../../bench/bugfix/README.md)). One run per model, 4 attempts at once (`--jobs 4`), 15 min per
 attempt, Splash 1.7.3. "Limit" counts attempts that ran the full 15 min (some still passed: the fix was in place when
-time ran out).
+time ran out). A screen stops early when 4 of the first 6+ attempts run out of time (too slow), or at the 5th failed
+task (the model can no longer reach the top three).
 
 | Model | Solved | 95% interval | Limit | Median time |
 |---|---|---|---|---|
@@ -26,6 +27,10 @@ time ran out).
 | KAT-Coder-V2.5-Dev Q4_K_M, thinking budget 8K | 14/21 | 45–83% | 5 | 6.8 min |
 | Inkling-2-Mini GSQ-RCO IQ3_S (base Inkling), thinking budget 8K | stopped at 6/7 | — | 4 of 7 | 15 min |
 | Qwen3.8-27B GSQ-RCO IQ3_S, thinking off | stopped at 4/6 | — | 4 of 6 | 15 min |
+| Ternary Bonsai 2.5 27B PQ2_0, thinking budget 8K | stopped at 4/6 | — | 4 of 6 | 15 min |
+| Qwen3.8-27B-Coder390-EfficientThink, thinking budget 8K | stopped at 3/6 | — | 4 of 6 | 15 min |
+| HauhauCS Qwen3.6-35B-A3B Aggressive (uncensored), thinking budget 8K | stopped at 2/7 | — | 1 of 7 | 8 min |
+| Gemma 4 12B agentic v2 Q8_0 (llama.cpp, 2 at once) | stopped at 0/5 | — | 4 of 5 | 15 min |
 
 - **The top three are not separated yet**: 17–19 of 21 with overlapping intervals. Each solves something the others
   don't: only KAT-Ornith fixed sqlglot-9330; Inkling and Tiel fixed both tomlkit bugs and sympy-31182, which KAT-Ornith
@@ -38,8 +43,12 @@ time ran out).
   fast as pi-adapted on the same server (37 vs 35 tok/s per attempt, ~3 s to first token), but took 5× more tool
   steps with thinking off (149 vs 27 on one task). With thinking on it took 2.5–4× fewer steps but still timed out on
   the same sqlglot tasks.
-- Flash-Next Coder is not in the table: at `--jobs 4` its requests queued behind each other (~16 s wait each, 8 of 9
-  attempts out of time), so its run was stopped; it needs a run at `--jobs 1`.
+- **Every dense 27B except pi-adapted was too slow**: the 27B GSQ, Bonsai and Coder390 ran out of time on 4 of their
+  first 6 bugs. pi-adapted (thinking off, trained for pi) is the only 27B that kept up.
+- **The uncensored HauhauCS build is fast but fixes few bugs** (2 of 7), and Gemma 4 12B v2 fixed none of 5.
+- Flash-Next is not in the table. At `--jobs 4` the Coder's requests queued behind each other (~16 s wait each, 8 of 9
+  attempts out of time), and a run at `--jobs 1` takes ~2 h per model, so Flash-Next Coder and Swift-1.5 were left
+  out.
 
 | Use | Pick | Why |
 |---|---|---|
