@@ -29,17 +29,22 @@ a correct fix that formats differently isn't failed for it.
 ```sh
 python3 -I bench/bugfix/build.py --cache .local/bugfix           # clone, build templates, validate (needs uv, git)
 python3 -I bench/bugfix/run.py --label my-model --harness pi --bin PATH/TO/pi \
-  --base-url http://127.0.0.1:8000 --model local --runs 3
+  --base-url http://127.0.0.1:8000 --model local --runs 3 [--jobs 4]
 ```
 
 One attempt per task per run, single turn, 15 min limit, fresh workspace each time. `run.py` resumes if
-interrupted. Results: `results/bugfix/bugfix-LABEL.json` with the pass rate, its 95% confidence interval (Wilson), and
+interrupted. `--jobs N` runs N attempts at once against the same server (Splash serves 4 requests together by
+default), which cuts a 21-task run from ~80 to ~45 min on a 35B-A3B model. Each attempt then decodes more slowly, so
+compare models only at the same `--jobs`, and check the server isn't queueing: Flash-Next Coder (58 GB, part of its
+weights read from the SSD) waited ~16 s per request for the other three at `--jobs 4`, and needs `--jobs 1`.
+
+Results: `results/bugfix/bugfix-LABEL.json` with the pass rate, its 95% confidence interval (Wilson), and
 per-attempt time, tool calls and tokens. Transcripts stay in `--private-out`.
 
 ## Limits
 
 - Python only, one harness per run (pi by default).
-- Small fixes: a strong model may saturate it. In a one-run calibration KAT-Ornith (the strongest local model in
-  [models.md](../../docs/findings/models.md)) solved 16 of 21, so there is headroom, but not much. Harder tasks can
-  be added to `tasks.json`; `build.py` validates them.
+- Small fixes: close to saturated. The best local model solved 19 of 21 in one run, and one task (black-5634) has
+  defeated every model so far ([models.md](../../docs/findings/models.md)). Harder tasks can be added to
+  `tasks.json`; `build.py` validates them.
 - Three runs of 21 tasks give a margin of about ±12 points on the pass rate; differences smaller than that are noise.

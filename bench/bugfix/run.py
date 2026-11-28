@@ -6,11 +6,12 @@ with the hidden upstream tests (grade.py). Runs go round the whole suite before 
 covers every task. Re-running with the same --out resumes: finished attempts are kept.
 
   python3 -I bench/bugfix/run.py --label splash-katornith --harness pi --bin PATH/TO/pi \
-      --base-url http://127.0.0.1:8000 --model local --runs 3 [--only ID ...] [--cache .local/bugfix]
+      --base-url http://127.0.0.1:8000 --model local --runs 3 [--jobs 4] [--only ID ...] [--cache .local/bugfix]
 
 Writes results/bugfix/bugfix-LABEL.json (times, counts, pass/fail; no code). Transcripts stay in --private-out.
 """
-import argparse, json, math, os, subprocess, sys, time
+import argparse, json, math, os, subprocess, sys, threading, time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -63,6 +64,7 @@ def main():
     ap.add_argument("--private-out", default=os.path.join(os.environ.get("TMPDIR", "/tmp"), "agent-sandbox", "bugfix"))
     ap.add_argument("--context", type=int, default=131072)
     ap.add_argument("--timeout", type=int, default=900, help="seconds per attempt")
+    ap.add_argument("--jobs", type=int, default=1, help="attempts run at once (the server must serve that many requests together)")
     ap.add_argument("--notes", default="")
     ap.add_argument("--out", default=None, help="default results/bugfix/bugfix-LABEL.json")
     a = ap.parse_args()
@@ -74,31 +76,31 @@ def main():
         "notes": a.notes, "started": time.strftime("%Y-%m-%d %H:%M:%S"), "tasks": {}}
     out.parent.mkdir(parents=True, exist_ok=True)
     priv.mkdir(parents=True, exist_ok=True)
-    for r in range(1, a.runs + 1):
-        for t in tasks:
-            done = res["tasks"].setdefault(t["id"], [])
-            if any(x["run"] == r for x in done):
-                continue
-            tdir = cache / "tasks" / t["id"]
-            name = f"{a.label}-{t['id']}-r{r}"
-            turns = priv / f"{name}.turns.json"
-            turns.write_text(json.dumps([t["prompt"] + SUFFIX]))
-            metrics = priv / f"{name}.metrics.json"
-            cmd = [sys.executable, "-I", str(HERE.parent / "agents" / "harness_bench.py"), "--harness", a.harness,
-                   "--label", name, "--base-url", a.base_url, "--model", a.model, "--template", str(tdir / "template"),
-                   "--private-out", str(priv), "--metrics-out", str(metrics), "--context", str(a.context),
-                   "--turns", str(turns), "--timeout", str(a.timeout)]
-            if a.bin:
-                cmd += ["--bin", a.bin]
-            subprocess.run(cmd, stdout=subprocess.DEVNULL)
-            m = json.loads(metrics.read_text())
-            row = m["rows"][0] if m["rows"] else {}
-            g = grade(priv / name / "ws", tdir)
-            done.append({"run": r, "resolved": g["resolved"], "fail_to_pass": g["fail_to_pass"],
-                         "pass_to_pass_broken": g["pass_to_pass_broken"], "diff": g["diff"], "commits": g["commits"],
-                         "wall_s": m["total_wall_s"], "timeout": row.get("rc") == "timeout",
-                         "tool_calls": row.get("tool_calls"), "prompt_tokens": row.get("prompt_tokens"),
-                         "cached_tokens": row.get("cached_tokens"), "stop": row.get("stop")})
+    lock = threading.Lock()
+
+    def attempt(t, r):
+        tdir = cache / "tasks" / t["id"]
+        name = f"{a.label}-{t['id']}-r{r}"
+        turns = priv / f"{name}.turns.json"
+        turns.write_text(json.dumps([t["prompt"] + SUFFIX]))
+        metrics = priv / f"{name}.metrics.json"
+        cmd = [sys.executable, "-I", str(HERE.parent / "agents" / "harness_bench.py"), "--harness", a.harness,
+               "--label", name, "--base-url", a.base_url, "--model", a.model, "--template", str(tdir / "template"),
+               "--private-out", str(priv), "--metrics-out", str(metrics), "--context", str(a.context),
+               "--turns", str(turns), "--timeout", str(a.timeout)]
+        if a.bin:
+            cmd += ["--bin", a.bin]
+        subprocess.run(cmd, stdout=subprocess.DEVNULL)
+        m = json.loads(metrics.read_text())
+        row = m["rows"][0] if m["rows"] else {}
+        g = grade(priv / name / "ws", tdir)
+        with lock:
+            res["tasks"][t["id"]].append({
+                "run": r, "resolved": g["resolved"], "fail_to_pass": g["fail_to_pass"],
+                "pass_to_pass_broken": g["pass_to_pass_broken"], "diff": g["diff"], "commits": g["commits"],
+                "wall_s": m["total_wall_s"], "timeout": row.get("rc") == "timeout", "jobs": a.jobs,
+                "tool_calls": row.get("tool_calls"), "prompt_tokens": row.get("prompt_tokens"),
+                "cached_tokens": row.get("cached_tokens"), "stop": row.get("stop")})
             summarize(res)
             res["updated"] = time.strftime("%Y-%m-%d %H:%M:%S")
             out.write_text(json.dumps(res, indent=1))
@@ -106,6 +108,13 @@ def main():
             print(f"{name:48} {'PASS' if g['resolved'] else 'fail'} f2p {g['fail_to_pass']:>6} "
                   f"broke {g['pass_to_pass_broken']:3} {m['total_wall_s']:7.1f}s | total {s['resolved']}/{s['attempts']}",
                   flush=True)
+
+    # Runs go round the whole suite before repeating; with --jobs N, N attempts share the server at once.
+    pending = [(t, r) for r in range(1, a.runs + 1) for t in tasks
+               if not any(x["run"] == r for x in res["tasks"].setdefault(t["id"], []))]
+    with ThreadPoolExecutor(max_workers=a.jobs) as pool:
+        for f in [pool.submit(attempt, t, r) for t, r in pending]:
+            f.result()
     print(json.dumps(res.get("summary", {}), indent=1))
 
 
